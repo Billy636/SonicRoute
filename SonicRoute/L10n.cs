@@ -65,8 +65,7 @@ namespace SonicRoute
 
         /// <summary>外置语言目录：%LocalAppData%\SonicRoute\Lang（导入语言文件存放处，优先于内置）。</summary>
         public static string ExternalLangDir => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SonicRoute", "Lang");
+            SonicRoute.Core.AppDataRoot.DirectoryPath, "Lang");
 
         // 外置语言统一索引（v1.15 起）：一次扫描构建，BuildSupported / LoadLang / ListCustomLanguages /
         // RestoreBuiltinLanguages 共用，避免对同一目录重复 GetFiles + 反序列化。

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -26,8 +26,7 @@ namespace SonicRoute
         private static readonly List<string> _pendingRules = new();
 
         private static readonly string LogPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SonicRoute", "scheduler.log");
+            SonicRoute.Core.AppDataRoot.DirectoryPath, "scheduler.log");
 
         /// <summary>诊断日志（调试定时触发用，限长 256KB 自动截断；失败静默）。</summary>
         internal static void Log(string msg)

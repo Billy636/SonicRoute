@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -154,8 +154,7 @@ namespace SonicRoute.Core
     public static class ConfigService
     {
         public static string ConfigPath => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SonicRoute",
+            AppDataRoot.DirectoryPath,
             "config.json");
 
         // 内存缓存：单实例进程内唯一写者是本进程，Save 时同步更新缓存；

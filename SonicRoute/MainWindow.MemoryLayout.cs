@@ -79,6 +79,7 @@ namespace SonicRoute
 
         private void ReleaseAutomationEditor()
         {
+            if (AutomationPageHost.Child == null) return;
             EndAutoDrag(false);
             EndAutomationRuleDrag(false);
             _autoCapturingHotkey = false;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -86,6 +86,7 @@ namespace SonicRoute
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
 
             var commandMode = RuleCommandLine.Parse(e.Args, out var ruleSelector);
             if (commandMode == RuleCommandLine.Mode.Help || commandMode == RuleCommandLine.Mode.Invalid)
@@ -389,8 +390,7 @@ namespace SonicRoute
 #else
             try
             {
-                _ = global::Windows.ApplicationModel.Package.Current;
-                return true;
+                return SonicRoute.StoreInterop.NativePackageIdentity.IsPackaged();
             }
             catch
             {
@@ -413,11 +413,8 @@ namespace SonicRoute
                 if (key == null) return;
                 var exe = AppInfo.ExecutablePath;
                 if (string.IsNullOrWhiteSpace(exe)) return;
-                var cur = key.GetValue("SonicRoute") as string;
-                if (string.IsNullOrWhiteSpace(cur)) return; // 自启项已被删，不重新加回
-                var target = cur.Trim().Trim('"');
-                if (!string.Equals(target, exe, StringComparison.OrdinalIgnoreCase))
-                    key.SetValue("SonicRoute", $"\"{exe}\"");
+                PortableStartupRegistration.Repair(exe, name => key.GetValue(name) as string,
+                    (name, command) => key.SetValue(name, command!));
             }
             catch
             {

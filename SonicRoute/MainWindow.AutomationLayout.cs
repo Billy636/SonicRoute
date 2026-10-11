@@ -223,7 +223,7 @@ namespace SonicRoute
             UpdateAutomationSelection();
             _uiLifetime.Post(Dispatcher, new Action(() =>
             {
-                if (!_isClosed && AutomationPage.Visibility == Visibility.Visible && AutoEditCard.Visibility == Visibility.Visible)
+                if (!_isClosed && AutomationPageHost.Visibility == Visibility.Visible && AutoEditCard.Visibility == Visibility.Visible)
                     AutomationScroll.ScrollToTop();
             }));
         }

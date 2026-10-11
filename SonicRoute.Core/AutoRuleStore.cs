@@ -20,8 +20,7 @@ namespace SonicRoute.Core
     public static class AutoRuleStore
     {
         public static string RulesDir => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SonicRoute",
+            AppDataRoot.DirectoryPath,
             "Automation");
 
         private static readonly JsonSerializerOptions SaveOptions = new() { WriteIndented = true };

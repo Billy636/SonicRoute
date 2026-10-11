@@ -61,7 +61,7 @@ namespace SonicRoute
             _uiLifetime.Post(Dispatcher, new Action(() =>
             {
                 Interlocked.Exchange(ref _autoExecutionRefreshPending, 0);
-                if (!_isClosed && AutomationPage.Visibility == Visibility.Visible) _ = RefreshAutoRulesAsync();
+                if (!_isClosed && AutomationPageHost.Visibility == Visibility.Visible) _ = RefreshAutoRulesAsync();
             }));
         }
 

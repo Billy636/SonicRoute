@@ -2,14 +2,16 @@
 
 此目录保存公开的商店清单及打包脚本，不包含签名材料。应用标识、发布者标识、应用 ID 和开机启动任务 ID 沿用原商店包。
 
-先发布 Lite x64 框架依赖单文件，再在仓库根目录运行：
+当前精简主项目版本为 1.22，尚待正式发布。先按项目的 x64 发布配置生成框架依赖单文件（需 .NET 8 Desktop Runtime），默认输出 `dist/publish/win-x64/SonicRoute.exe`，再在仓库根目录运行：
 
 ```powershell
-dotnet publish SonicRoute/SonicRoute.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o dist/SonicRoute-v1.22-Lite-x64-event-only
-& ./packaging/Store/Build-Package.ps1
+dotnet publish SonicRoute/SonicRoute.csproj -c Release -r win-x64 -p:PublishProfile=win-x64
+& ./packaging/Store/Build-Package.ps1 -PublishDirectory ./dist/publish/win-x64
 ```
 
 需要 .NET SDK 和 Windows SDK 中的 `makepri.exe`、`makeappx.exe`。脚本默认选择已安装的最新 x64 打包工具。可用 `-PublishDirectory`、`-OutputDirectory`、`-PackageVersion`、`-SdkDirectory` 指定输入、输出、四段包版本和工具目录；包版本最后一段为 `0`。输出目录必须尚不存在，防止覆盖历史包。
+
+x64与ARM64发布命令按顺序执行。StoreInterop使用共享生成与输出目录，并发发布可能造成输出文件占用；本轮串行发布验证通过。
 
 脚本从 `SonicRoute/SonicRoute.png` 生成透明资产，包含 14 种目标尺寸，以及每种尺寸的普通、`unplated`、`lightunplated` 变体。清单使用透明背景，并通过 MakePri 重新生成 `resources.pri`，避免 Windows 为缺少主题变体的图标添加底板。修改图标后必须重新生成资产与资源索引。参考 [Microsoft 应用图标构造规范](https://learn.microsoft.com/en-us/windows/apps/design/iconography/app-icon-construction) 和 [桌面应用 MSIX 转换说明](https://learn.microsoft.com/en-us/windows/msix/desktop/desktop-to-uwp-manual-conversion)。
 

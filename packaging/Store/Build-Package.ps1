@@ -1,5 +1,5 @@
 param(
-    [string]$PublishDirectory=(Join-Path $PSScriptRoot '../../dist/SonicRoute-v1.22-Lite-x64-event-only'),
+    [string]$PublishDirectory=(Join-Path $PSScriptRoot '../../dist/publish/win-x64'),
     [string]$OutputDirectory=(Join-Path $PSScriptRoot '../../dist/msix/v1.22'),
     [string]$PackageVersion='1.22.0.0',
     [string]$SdkDirectory

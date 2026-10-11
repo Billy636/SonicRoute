@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CsWinRTEmbedded>true</CsWinRTEmbedded>
+    <CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+    <CsWinRTIncludes>Windows.ApplicationModel.StartupTask;Windows.ApplicationModel.IStartupTask;Windows.Foundation</CsWinRTIncludes>
+    <CsWinRTExcludes>Windows;Microsoft;Windows.Foundation.Diagnostics;Windows.Foundation.Numerics;Windows.Foundation.PropertyType</CsWinRTExcludes>
+    <AssemblyName>SonicRoute.StoreInterop</AssemblyName>
+    <Version>1.22</Version>
+    <InformationalVersion>1.22</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+  <ItemGroup><PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.3.1" PrivateAssets="all" /></ItemGroup>
+  <!-- cswinrt 2.x response files mishandle non-ASCII output paths. Relative output keeps
+       a fresh build reproducible after the experiment moves into a Chinese directory. -->
+  <Target Name="UseRelativeEmbeddedProjectionPath" BeforeTargets="CsWinRTGenerateProjection" DependsOnTargets="CsWinRTPrepareProjection">
+    <ItemGroup>
+      <StartupProjectionExclude Include="$(CsWinRTExcludes)" />
+      <StartupProjectionInclude Include="$(CsWinRTIncludes)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <CsWinRTParams>
+-target $(CsWinRTExeTFM)
+-input $(CsWinRTWindowsMetadata)
+-output "$([MSBuild]::MakeRelative('$(MSBuildProjectDirectory)', '$(CsWinRTGeneratedFilesDir.TrimEnd('\'))'))"
+@(StartupProjectionExclude->'-exclude %(Identity)', '&#x0d;&#x0a;')
+@(StartupProjectionInclude->'-include %(Identity)', '&#x0d;&#x0a;')
+-embedded
+      </CsWinRTParams>
+    </PropertyGroup>
+  </Target>
+</Project>

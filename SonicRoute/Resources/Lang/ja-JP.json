@@ -1,4 +1,4 @@
-﻿{
+{
   "Lang.Code": "ja-JP",
   "Theme.OsdAppearanceSettings": "OSD の表示設定",
   "Theme.OsdVolumeVisual": "OSD の音量バー",
@@ -102,6 +102,9 @@
   "St.PanelClassic": "アプリパネル",
   "St.PanelModern": "クイックパネル",
   "St.AutoStart": "スタートアップで起動",
+  "St.AutoStartFail": "スタートアップ設定の変更中にエラーが発生しました。画面には最後に確認できた状態が表示されています。",
+  "St.AutoStartDisabledByUser": "Windows でスタートアップを無効にしました。システム設定の「スタートアップ アプリ」で再度許可してください。",
+  "St.AutoStartDisabledByPolicy": "システムポリシーによりスタートアップが制限されているため、この要求では変更できません。",
   "St.FixedAppHint": "指定アプリを選択すると概要に既定表示",
   "St.DefaultAppHint": "既定アプリ：最近使用 / 最後 / 指定",
   "St.Opacity": "背景の透明度",
@@ -205,8 +208,8 @@
   "Hk.Hint": "コンボ（Ctrl+Alt+1）、単キー（F2/A）、マウスボタン/ホイール（修飾キー可）に対応；Esc で解除",
   "Hk.Change": "変更",
   "Act.SwitchOutput": "現在のアプリのデバイスを切替",
-  "Act.Mute": "現在のアプリをミュート",
-  "Act.MuteInput": "マイクをミュート",
+  "Act.Mute": "現在のアプリのミュートを切り替え",
+  "Act.MuteInput": "すべてのマイクのミュートを切り替え",
   "Act.VolUp": "現在のアプリの音量を上げる",
   "Act.VolDown": "現在のアプリの音量を下げる",
   "Act.Panel": "クイックパネルを開く",

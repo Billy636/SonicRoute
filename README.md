@@ -54,7 +54,22 @@ Windows 已提供音量合成器，但切换设备、调整单个应用音量等
 | 🧪 Lite ARM64（实验） | 单 EXE，需安装 ARM64 .NET 8 Desktop Runtime；尚未完成 ARM64 真机完整验证 |
 | 🪟 Legacy x64 | .NET Framework 4.8；解压完整目录后运行，无需安装 .NET 8 |
 
-### v1.21 · 2026-10-09
+### v1.22 · 2026-10-11
+
+[查看 v1.22 正式版](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22) · [更新说明](docs/release-v1.22.md)
+
+- 修复复制执行命令的界面卡顿与失败处理，统一自动化、音量预设和托盘菜单的排版。
+- Lite 与 Legacy 构建、九语言资源及帮助入口完成发布验证；ARM64 仅完成编译，仍属实验版。
+
+| v1.22 资产 | 下载 |
+|---|---|
+| Lite x64 | [SonicRoute-v1.22-Lite-x64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) |
+| Lite ARM64（实验） | [SonicRoute-v1.22-Lite-arm64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) |
+| Legacy x64 | [SonicRoute-v1.22-Legacy-x64.zip](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) |
+
+Lite 版本需要匹配架构的 .NET 8 Desktop Runtime；ARM64 仅完成编译，尚未完成真机验证。Legacy 需完整解压后运行。Microsoft Store 仍以实际在架版本为准，v1.22 尚未提交商店。
+
+### 历史版本：v1.21 · 2026-10-09
 
 [查看 v1.21 正式版](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.21) · [更新说明](docs/release-v1.21.md)
 
@@ -88,7 +103,7 @@ Lite 版本需要匹配架构的 .NET 8 Desktop Runtime；ARM64 尚未完成真�
 
 后续改进将分阶段持续推出，不再集中到单次大版本发布。
 
-- **v1.22 · 体验打磨（当前源码）**：修复复制命令卡顿与菜单留白，持续改善快速面板、OSD 与全屏操作体验。
+- **v1.22 · 体验打磨（已发布）**：修复复制命令卡顿与菜单留白，持续改善快速面板、OSD 与全屏操作体验。
 - **v1.23 · 性能与稳定性**：优化后台资源占用、响应速度及兼容性。
 - **后续阶段**：根据反馈持续完善现有功能。
 

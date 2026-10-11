@@ -51,6 +51,8 @@ namespace SonicRoute
         private System.Windows.Threading.DispatcherTimer? _nameSaveTimer;
         private bool _nameSavePending, _deviceNamesPending;
         private bool _suppressSettings;
+        private bool _autoStartChangeBusy;
+        private int _autoStartSyncVersion;
         private System.Windows.Threading.DispatcherTimer? _themeSaveTimer;
         private bool _themeSavePending;
         private System.Windows.Threading.DispatcherTimer? _osdPreviewTimer;
@@ -104,12 +106,12 @@ namespace SonicRoute
             VolumePresets.Attach(AppsVolumeSlider);
             AppsRenameBox.LostKeyboardFocus += NameEdit_LostKeyboardFocus;
             FixedAppCombo.DropDownOpened += AppCombo_DropDownOpened;
-            AutoTriggerAppCombo.DropDownOpened += AppCombo_DropDownOpened;
+
             Title = $"SonicRoute {App.DisplayVersion}";
             if (HeaderTitleText != null)
                 HeaderTitleText.Text = $"SonicRoute {App.DisplayVersion}";
             _config = ConfigService.Load();
-            InitializeAutoExtras();
+
             Loaded += async (_, _) =>
             {
                 await LoadDevicesAsync();
@@ -130,7 +132,7 @@ namespace SonicRoute
             // 快捷键内联录音：在窗口内直接捕获按键，免弹窗
             PreviewKeyDown += MainWindow_PreviewKeyDown;
             Deactivated += (_, _) => { EndAutoDrag(commit: false); EndAutomationRuleDrag(false); };
-            AutoStepsHost.SizeChanged += (_, _) => { if (_autoDragging) EndAutoDrag(commit: false); };
+
             // 快捷键内联录音（鼠标键）：录制态下支持绑定中键/侧键（XButton1/2）
             PreviewMouseDown += MainWindow_PreviewMouseDown;
             // 快捷键内联录音（滚轮）：录制态下支持 Ctrl+滚轮上/下绑定（WheelUp/WheelDown）
@@ -376,6 +378,7 @@ namespace SonicRoute
             if (_isClosed) return;
             var tag = ((RadioButton)sender).Tag as string;
             int navigationVersion = ++_navigationVersion;
+            if (tag == "Automation") EnsureAutomationPage();
             FinishPanelAnimations();
             if (tag != "Automation") StopAutoRefresh();
             OverviewPage.Visibility = tag == "Overview" ? Visibility.Visible : Visibility.Collapsed;
@@ -384,7 +387,7 @@ namespace SonicRoute
             ThemePage.Visibility = tag == "Theme" ? Visibility.Visible : Visibility.Collapsed;
             SettingsPage.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
             ExperimentalPage.Visibility = tag == "Experimental" ? Visibility.Visible : Visibility.Collapsed;
-            AutomationPage.Visibility = tag == "Automation" ? Visibility.Visible : Visibility.Collapsed;
+            AutomationPageHost.Visibility = tag == "Automation" ? Visibility.Visible : Visibility.Collapsed;
 
             if (tag == "Overview") await RefreshOverviewAsync();
             else if (tag == "Apps") await LoadAppsAsync();
@@ -1406,6 +1409,8 @@ namespace SonicRoute
             {
                 _suppressSettings = false;
             }
+            if (IsPackaged() && IsLoaded && !_autoStartChangeBusy)
+                _ = SyncStoreAutoStartAsync(++_autoStartSyncVersion);
         }
 
         private async Task RefreshSettingsAppsAsync(int navigationVersion)
@@ -1751,8 +1756,7 @@ namespace SonicRoute
 #else
             try
             {
-                _ = Windows.ApplicationModel.Package.Current;
-                return true;
+                return SonicRoute.StoreInterop.NativePackageIdentity.IsPackaged();
             }
             catch
             {
@@ -1762,62 +1766,104 @@ namespace SonicRoute
         }
 
         /// <summary>开机自启：MSIX 环境用 StartupTask API，非 MSIX（绿色版）写注册表 Run 键。</summary>
-#if NET48
-        // net48 Legacy 无 MSIX 分支（方法内无 await 调用）：去掉 async 修饰符，避免 CS1998
-        private void SettingsAutoStart_Changed(object sender, RoutedEventArgs e)
-#else
         private async void SettingsAutoStart_Changed(object sender, RoutedEventArgs e)
-#endif
         {
-            if (!IsSettingsChange(sender, e)) return;
+            if (!IsSettingsChange(sender, e) || _autoStartChangeBusy) return;
             bool on = SettingsAutoStart.IsChecked == true;
-            if (IsPackaged()) _config.AutoStartStore = on; else _config.AutoStart = on;
-            ConfigService.Save(_config);
-
-#if NET48
-            // net48 Legacy 无 MSIX / Store 形态：不做 Store 自启，恒走绿色版 Run 键分支
-#else
-            if (IsPackaged())
+            bool packaged = IsPackaged();
+            bool previous = packaged ? _config.AutoStartStore : _config.AutoStart;
+            _autoStartChangeBusy = true;
+            ++_autoStartSyncVersion;
+            SettingsAutoStart.IsEnabled = false;
+            CleanAutoStartBtn.IsEnabled = false;
+            try
             {
-                // MSIX：注册表写入会被沙箱重定向，必须用 StartupTask API
-                try
-                {
-                    var task = await Windows.ApplicationModel.StartupTask.GetAsync("SonicRouteStartup");
-                    if (on)
-                        await task.RequestEnableAsync();
-                    else
-                        task.Disable();
-                }
-                catch
-                {
-                    // StartupTask 调用失败不打断界面
-                }
-            }
-            else
+                AutoStartResult result;
+#if !NET48
+                if (packaged)
+                    result = await AutoStartSettings.ApplyStoreAsync(on, previous, GetStoreStartupTaskAsync);
+                else
 #endif
+                    result = await AutoStartSettings.ApplyPortableAsync(on, previous, ReadPortableAutoStart, WritePortableAutoStart);
+                ApplyAutoStartResult(packaged, result);
+            }
+            finally
             {
-                // 绿色版：写 HKCU\...\Run
-                try
+                _autoStartChangeBusy = false;
+                if (!_isClosed)
                 {
-                    using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                        @"Software\Microsoft\Windows\CurrentVersion\Run", writable: true);
-                    if (key == null) return;
-                    if (on)
-                    {
-                        var exe = AppInfo.ExecutablePath;
-                        if (!string.IsNullOrWhiteSpace(exe))
-                            key.SetValue("SonicRoute", $"\"{exe}\"");
-                    }
-                    else
-                    {
-                        key.DeleteValue("SonicRoute", throwOnMissingValue: false);
-                    }
-                }
-                catch
-                {
-                    // 注册表写入失败不打断界面
+                    SettingsAutoStart.IsEnabled = true;
+                    CleanAutoStartBtn.IsEnabled = true;
                 }
             }
+        }
+
+#if !NET48
+        private static async Task<IStartupTaskHandle> GetStoreStartupTaskAsync()
+        {
+            var task = await SonicRoute.StoreInterop.StoreStartup.GetHandleAsync();
+            return new DelegateStartupTaskHandle(() => task.State, task.RequestEnableAsync, task.Disable);
+        }
+#endif
+
+        private async Task SyncStoreAutoStartAsync(int version)
+        {
+#if !NET48
+            try
+            {
+                var task = await GetStoreStartupTaskAsync();
+                if (_isClosed || _autoStartChangeBusy || version != _autoStartSyncVersion
+                    || SettingsPage.Visibility != Visibility.Visible) return;
+                int state = task.State;
+                if (!AutoStartSettings.IsKnownState(state)) throw new InvalidOperationException("Unknown startup task state.");
+                ApplyAutoStartResult(true, new AutoStartResult(AutoStartSettings.IsEnabled(state), AutoStartFailure.None));
+            }
+            catch
+            {
+                if (!_isClosed && !_autoStartChangeBusy && version == _autoStartSyncVersion
+                    && SettingsPage.Visibility == Visibility.Visible)
+                    ((App)Application.Current).ShowOsd(L10n.T("St.AutoStartTitle"), L10n.T("St.AutoStartFail"));
+            }
+#else
+            await Task.CompletedTask;
+#endif
+        }
+
+        private void ApplyAutoStartResult(bool packaged, AutoStartResult result)
+        {
+            bool previous = packaged ? _config.AutoStartStore : _config.AutoStart;
+            if (previous != result.Enabled)
+            {
+                if (packaged) _config.AutoStartStore = result.Enabled; else _config.AutoStart = result.Enabled;
+                ConfigService.Save(_config);
+            }
+            if (_isClosed) return;
+            bool suppress = _suppressSettings;
+            _suppressSettings = true;
+            try { SettingsAutoStart.IsChecked = result.Enabled; }
+            finally { _suppressSettings = suppress; }
+            if (result.Failure == AutoStartFailure.None) return;
+            string key = result.Failure == AutoStartFailure.DisabledByUser ? "St.AutoStartDisabledByUser"
+                : result.Failure == AutoStartFailure.RestrictedByPolicy ? "St.AutoStartDisabledByPolicy" : "St.AutoStartFail";
+            ((App)Application.Current).ShowOsd(L10n.T("St.AutoStartTitle"), L10n.T(key));
+        }
+
+        private static bool ReadPortableAutoStart()
+        {
+            using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
+            return PortableStartupRegistration.Read(name => key?.GetValue(name) as string);
+        }
+
+        private static void WritePortableAutoStart(bool enabled)
+        {
+            using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Run", writable: true);
+            if (key == null) throw new InvalidOperationException("Startup registry key is unavailable.");
+            PortableStartupRegistration.Write(enabled, AppInfo.ExecutablePath, (name, command) =>
+            {
+                if (command == null) key.DeleteValue(name, throwOnMissingValue: false);
+                else key.SetValue(name, command);
+            });
         }
 
         /// <summary>统一裁剪展开，内部内容保持自然高度；中途点击从当前状态反向播放。</summary>
@@ -1860,41 +1906,36 @@ namespace SonicRoute
             AnimatePanelExpand(MicMorePanel, MicMoreToggle.IsChecked == true);
         }
         /// <summary>清理开机自启项（方案四B）：绿色版删 Run 键，商店版禁用 StartupTask；同步配置与 UI。</summary>
-        private void CleanAutoStart_Click(object sender, RoutedEventArgs e)
+        private async void CleanAutoStart_Click(object sender, RoutedEventArgs e)
         {
+            if (_autoStartChangeBusy) return;
+            bool packaged = IsPackaged();
+            bool previous = packaged ? _config.AutoStartStore : _config.AutoStart;
+            _autoStartChangeBusy = true;
+            ++_autoStartSyncVersion;
+            SettingsAutoStart.IsEnabled = false;
+            CleanAutoStartBtn.IsEnabled = false;
             try
             {
-#if NET48
-                // net48 Legacy 无 MSIX / Store 形态：只清理绿色版 Run 键
-#else
-                if (IsPackaged())
-                {
-                    var task = Windows.ApplicationModel.StartupTask.GetAsync("SonicRouteStartup").GetAwaiter().GetResult();
-                    task.Disable();
-                }
+                AutoStartResult result;
+#if !NET48
+                if (packaged)
+                    result = await AutoStartSettings.ApplyStoreAsync(false, previous, GetStoreStartupTaskAsync);
                 else
 #endif
-                {
-                    using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                        @"Software\Microsoft\Windows\CurrentVersion\Run", writable: true);
-                    key?.DeleteValue("SonicRoute", throwOnMissingValue: false);
-                }
-
-                // 同步配置与 UI（清理即视为关闭自启）
-                if (IsPackaged() ? _config.AutoStartStore : _config.AutoStart)
-                {
-                    if (IsPackaged()) _config.AutoStartStore = false; else _config.AutoStart = false;
-
-                    ConfigService.Save(_config);
-                    _suppressSettings = true;
-                    SettingsAutoStart.IsChecked = false;
-                    _suppressSettings = false;
-                }
-                ((App)Application.Current).ShowOsd(L10n.T("St.AutoStartTitle"), L10n.T("St.CleanAutoStartDone"));
+                    result = await AutoStartSettings.ApplyPortableAsync(false, previous, ReadPortableAutoStart, WritePortableAutoStart);
+                ApplyAutoStartResult(packaged, result);
+                if (!_isClosed && result.Failure == AutoStartFailure.None)
+                    ((App)Application.Current).ShowOsd(L10n.T("St.AutoStartTitle"), L10n.T("St.CleanAutoStartDone"));
             }
-            catch
+            finally
             {
-                ((App)Application.Current).ShowOsd(L10n.T("St.AutoStartTitle"), L10n.T("St.CleanAutoStartFail"));
+                _autoStartChangeBusy = false;
+                if (!_isClosed)
+                {
+                    SettingsAutoStart.IsEnabled = true;
+                    CleanAutoStartBtn.IsEnabled = true;
+                }
             }
         }
         // ==================================================================
@@ -3009,7 +3050,7 @@ namespace SonicRoute
                 var input = _uiLifetime.ReadAsync(() => AudioService.GetDevices(EDataFlow.eCapture));
                 await Task.WhenAll(output, input);
                 if (_isClosed || request != _autoDeviceRefreshRequest || navigationVersion != _navigationVersion
-                    || AutomationPage.Visibility != Visibility.Visible) return;
+                    || AutomationPageHost.Visibility != Visibility.Visible) return;
                 _autoOutputs = output.Result;
                 _autoInputs = input.Result;
                 foreach (var pair in _autoStepDeviceCombos)
@@ -3043,7 +3084,7 @@ namespace SonicRoute
         }
 
         private bool AutoRefreshWindowVisible => !_isClosed && IsVisible && WindowState != WindowState.Minimized
-            && AutomationPage.Visibility == Visibility.Visible;
+            && AutomationPageHost.Visibility == Visibility.Visible;
 
         private void AutoRefreshWindowStateChanged(object? sender, EventArgs e) => UpdateAutoRefreshVisibility();
         private void AutoRefreshVisibilityChanged(object sender, DependencyPropertyChangedEventArgs e) => UpdateAutoRefreshVisibility();
@@ -3143,7 +3184,7 @@ namespace SonicRoute
                     return (snapshot.Revision, snapshot.Rules, Fingerprints: fingerprints);
                 });
                 if (_isClosed || request != _autoRuleRefreshRequest
-                    || AutomationPage.Visibility != Visibility.Visible) return;
+                    || AutomationPageHost.Visibility != Visibility.Visible) return;
                 if (result.Rules != null)
                 {
                     EndAutomationRuleDrag(false);
@@ -3160,7 +3201,7 @@ namespace SonicRoute
                 if (string.Equals(_autoRuleListSignature, signature, StringComparison.Ordinal)) return;
                 await _uiLifetime.Post(Dispatcher, () => { }).Task;
                 if (_isClosed || request != _autoRuleRefreshRequest
-                    || AutomationPage.Visibility != Visibility.Visible) return;
+                    || AutomationPageHost.Visibility != Visibility.Visible) return;
                 var ids = new HashSet<string>(_autoRules.Select(r => r.Id), StringComparer.Ordinal);
                 foreach (string id in _autoRows.Keys.Where(id => !ids.Contains(id)).ToList())
                 {
@@ -3192,7 +3233,7 @@ namespace SonicRoute
                     {
                         await _uiLifetime.Post(Dispatcher, () => { }).Task;
                         if (_isClosed || request != _autoRuleRefreshRequest
-                            || AutomationPage.Visibility != Visibility.Visible) return;
+                            || AutomationPageHost.Visibility != Visibility.Visible) return;
                     }
                 }
                 ApplyAutoRuleFilters();

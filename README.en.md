@@ -54,7 +54,22 @@ See the [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki) for settings and
 | 🧪 Lite ARM64 (experimental) | Single EXE; requires the ARM64 .NET 8 Desktop Runtime; not yet fully validated on ARM64 hardware |
 | 🪟 Legacy x64 | .NET Framework 4.8; extract the entire folder; .NET 8 is not required |
 
-### v1.21 · 2026-10-09
+### v1.22 · 2026-10-11
+
+[View the v1.22 release](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22) · [Release notes](docs/release-v1.22.md)
+
+- Fixes command-copy stalls and failure handling, and aligns the automation, volume preset, and tray menus.
+- Lite and Legacy builds, nine-language resources, and help entries passed release checks; ARM64 was compiled only and remains experimental.
+
+| v1.22 asset | Download |
+|---|---|
+| Lite x64 | [SonicRoute-v1.22-Lite-x64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) |
+| Lite ARM64 (experimental) | [SonicRoute-v1.22-Lite-arm64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) |
+| Legacy x64 | [SonicRoute-v1.22-Legacy-x64.zip](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) |
+
+Lite builds require the matching .NET 8 Desktop Runtime. ARM64 was compiled but has not been tested on physical hardware. Extract the complete Legacy archive before running it. The Store listing reflects the version currently available there; v1.22 has not been submitted to the Store.
+
+### Previous release: v1.21 · 2026-10-09
 
 [View the v1.21 release](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.21) · [Release notes](docs/release-v1.21.md)
 
@@ -90,7 +105,7 @@ The following Wiki pages are in Chinese.
 
 Future improvements will be delivered in stages rather than held for one major release.
 
-- **v1.22 · Experience refinements (current source)**: Fix command-copy stalls and menu gutters, and continue improving the quick panel, OSD, and fullscreen interactions.
+- **v1.22 · Experience refinements (released)**: Fix command-copy stalls and menu gutters, and continue improving the quick panel, OSD, and fullscreen interactions.
 - **v1.23 · Performance and stability**: Improve background resource usage, responsiveness, and compatibility.
 - **Later stages**: Continue refining existing features based on feedback.
 

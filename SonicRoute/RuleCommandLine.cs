@@ -57,6 +57,8 @@ namespace SonicRoute
         /// <summary>正常启动时登记一次用户级短命令，后台写入；不覆盖整个 PATH，也不启动额外常驻进程。</summary>
         internal static void EnsureShortCommand(string help)
         {
+            // Explicitly isolated tooling must not register production short commands.
+            if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("SONICROUTE_DATA_DIRECTORY"))) return;
             try
             {
                 using var identity = WindowsIdentity.GetCurrent();

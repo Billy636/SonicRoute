@@ -400,6 +400,156 @@
             </DataTemplate>
         </Setter.Value></Setter>
     </Style>
+            <Grid x:Key="AutomationPageContent" x:Shared="False" x:Name="AutomationPage">
+                <ScrollViewer x:Name="AutomationScroll" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <StackPanel x:Name="AutoListPanel">
+                        <Grid Margin="0,0,0,18">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,12,0">
+                                <TextBlock Text="{Binding [Nav.Automation], Source={x:Static local:L10n.Instance}}"
+                                           FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
+                                <TextBlock Text="{Binding [Auto.Hint], Source={x:Static local:L10n.Instance}}"
+                                           FontSize="12" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Button x:Name="AutoNewButton" Grid.Column="1" Style="{StaticResource PrimaryButton}"
+                                    MinWidth="136" Height="40" VerticalAlignment="Center" Click="AutoNew_Click">
+                                <StackPanel Orientation="Horizontal" Margin="12,0">
+                                    <TextBlock Text="{Binding [Auto.New], Source={x:Static local:L10n.Instance}}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="AutoSearchBox" Style="{StaticResource AutomationSearchBox}" TextChanged="AutoSearch_TextChanged"
+                                     AutomationProperties.Name="{Binding [Auto.Search], Source={x:Static local:L10n.Instance}}" Margin="0,0,8,0"/>
+                            <ComboBox x:Name="AutoStateFilter" Grid.Column="1" Style="{StaticResource SelCombo}" Width="130"
+                                      AutomationProperties.Name="{Binding [Auto.FilterAllStates], Source={x:Static local:L10n.Instance}}"
+                                      SelectionChanged="AutoFilter_SelectionChanged" Margin="0,0,8,0"/>
+                            <ComboBox x:Name="AutoTriggerFilter" Grid.Column="2" Style="{StaticResource SelCombo}" Width="180"
+                                      AutomationProperties.Name="{Binding [Auto.FilterAllTriggers], Source={x:Static local:L10n.Instance}}"
+                                      SelectionChanged="AutoFilter_SelectionChanged" Margin="0,0,8,0"/>
+                            <Button x:Name="AutoListOptionsButton" Grid.Column="3" Style="{StaticResource GhostButton}" Width="36" Height="36"
+                                    ToolTip="{Binding [Auto.ListOptions], Source={x:Static local:L10n.Instance}}"
+                                    AutomationProperties.Name="{Binding [Auto.ListOptions], Source={x:Static local:L10n.Instance}}" Click="AutoListOptions_Click">
+                                <Viewbox Width="18" Height="18">
+                                    <Path Width="24" Height="24" Data="{x:Static local:AutomationIcons.Options}" Stroke="{DynamicResource Theme.TextSecondary}"
+                                          StrokeThickness="1.8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                </Viewbox>
+                            </Button>
+                        </Grid>
+                        <TextBlock x:Name="AutoEmptyText" Text="{Binding [Auto.Empty], Source={x:Static local:L10n.Instance}}"
+                                   FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Visibility="Collapsed" Margin="0,8,0,12"/>
+                        <ItemsControl x:Name="AutoRuleList" Margin="0,0,0,14">
+                            <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                        </ItemsControl>
+
+                        </StackPanel>
+
+                        <!-- 新建 / 编辑规则：复用字段和事件，编辑时独占右侧内容区。 -->
+                        <Border x:Name="AutoEditCard" Style="{StaticResource Card}" Visibility="Collapsed" Padding="18">
+                            <StackPanel>
+                                <DockPanel>
+                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Edit}"
+                                                    Width="42" Height="42" Margin="0,0,12,0" DockPanel.Dock="Left"/>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock x:Name="AutoEditTitle" Text="{Binding [Auto.EditorNew], Source={x:Static local:L10n.Instance}}"
+                                                   FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
+                                        <TextBlock Text="{Binding [Auto.EditorHint], Source={x:Static local:L10n.Instance}}" FontSize="11.5"
+                                                   Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </DockPanel>
+                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14,0,12"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Info}" Margin="0,0,12,0"/>
+                                    <TextBlock Text="{Binding [Auto.BasicInfo], Source={x:Static local:L10n.Instance}}" FontSize="14.5"
+                                               FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Auto.Name], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
+                                    <TextBox x:Name="AutoNameBox" Grid.Column="1" FontSize="12.5" Height="34" Padding="9,4"
+                                             local:InputAppearance.Placeholder="{Binding [Auto.DefaultNameHint], Source={x:Static local:L10n.Instance}}"
+                                             AutomationProperties.Name="{Binding [Auto.Name], Source={x:Static local:L10n.Instance}}"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Auto.Trigger], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
+                                    <ComboBox x:Name="AutoTriggerCombo" Grid.Column="1" Style="{StaticResource SelCombo}"
+                                              AutomationProperties.Name="{Binding [Auto.Trigger], Source={x:Static local:L10n.Instance}}"
+                                              SelectionChanged="AutoTriggerCombo_SelectionChanged"/>
+                                </Grid>
+                                <Grid x:Name="AutoHotkeyPanel" Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Auto.Hotkey], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}" VerticalAlignment="Top" Margin="0,9,10,0"/>
+                                    <StackPanel Grid.Column="1">
+                                        <Button x:Name="AutoHotkeyCapture" Style="{StaticResource GhostButton}" Height="34"
+                                                Foreground="{DynamicResource Theme.OsdTitleText}" FontWeight="SemiBold" Click="AutoHotkeyCapture_Click"/>
+                                        <TextBlock x:Name="AutoHotkeyHintText" Text="{Binding [Auto.HotkeyHint], Source={x:Static local:L10n.Instance}}"
+                                                   FontSize="11" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,6,0,0" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid x:Name="AutoTriggerAppPanel" Margin="0,10,0,0" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Auto.TriggerApp], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
+                                    <ComboBox x:Name="AutoTriggerAppCombo" Grid.Column="1" Style="{StaticResource SelCombo}"
+                                              ItemTemplate="{StaticResource AutoAppItemTemplate}"/>
+                                </Grid>
+                                <!-- 定时区（触发 = 定时：仅一次 / 每天 / 每周） -->
+                                <StackPanel x:Name="AutoSchedulePanel" Margin="84,10,0,0" Visibility="Collapsed">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding [Auto.ScheduleMode], Source={x:Static local:L10n.Instance}}"
+                                                       FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
+                                            <ComboBox x:Name="AutoScheduleModeCombo" Style="{StaticResource SelCombo}" Width="140"
+                                                      HorizontalAlignment="Left" SelectionChanged="AutoScheduleModeCombo_SelectionChanged"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="14,0,0,0">
+                                            <TextBlock Text="{Binding [Auto.ScheduleTime], Source={x:Static local:L10n.Instance}}"
+                                                       FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <ComboBox x:Name="AutoScheduleHourCombo" Style="{StaticResource SelCombo}" Width="62"
+                                                          HorizontalAlignment="Left"/>
+                                                <TextBlock Text=":" FontSize="12.5" VerticalAlignment="Center" Margin="4,0"/>
+                                                <ComboBox x:Name="AutoScheduleMinuteCombo" Style="{StaticResource SelCombo}" Width="62"
+                                                          HorizontalAlignment="Left"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel x:Name="AutoScheduleWeekdayPanel" Margin="0,0,0,0">
+                                        <TextBlock Text="{Binding [Auto.ScheduleWeekday], Source={x:Static local:L10n.Instance}}"
+                                                   FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
+                                        <WrapPanel x:Name="AutoWeekdayPanel"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,12"/>
+                                <DockPanel Margin="0,0,0,10">
+                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Play}" Margin="0,0,12,0" DockPanel.Dock="Left"/>
+                                    <TextBlock Text="{Binding [Auto.Action], Source={x:Static local:L10n.Instance}}" FontSize="14.5" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" Margin="0,0,12,0" DockPanel.Dock="Left"/>
+                                    <TextBlock Text="{Binding [Auto.ActionsHint], Source={x:Static local:L10n.Instance}}" FontSize="11.5" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource Theme.TextSecondary}" VerticalAlignment="Center"/>
+                                </DockPanel>
+                                <ItemsControl x:Name="AutoStepsHost">
+                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                <Button x:Name="AutoAddStepBtn" Click="AutoAddStep_Click" Content="{Binding [Auto.AddAction], Source={x:Static local:L10n.Instance}}"
+                                        Style="{StaticResource GhostButton}" MinWidth="160" Height="34" HorizontalAlignment="Left"/>
+                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,14"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button x:Name="AutoCancelButton" Content="{Binding [Auto.Cancel], Source={x:Static local:L10n.Instance}}"
+                                            Style="{StaticResource GhostButton}" MinWidth="90" Margin="0,0,10,0" Click="AutoCancel_Click"/>
+                                    <Button x:Name="AutoSaveButton" Content="{Binding [Auto.Save], Source={x:Static local:L10n.Instance}}"
+                                            Style="{StaticResource PrimaryButton}" MinWidth="110" Click="AutoSave_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -1088,156 +1238,7 @@
                 </ScrollViewer>
             </Grid>
             <!-- 自动化（极简规则） -->
-            <Grid x:Name="AutomationPage" Visibility="Collapsed">
-                <ScrollViewer x:Name="AutomationScroll" VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <StackPanel x:Name="AutoListPanel">
-                        <Grid Margin="0,0,0,18">
-                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                            <StackPanel Margin="0,0,12,0">
-                                <TextBlock Text="{Binding [Nav.Automation], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
-                                <TextBlock Text="{Binding [Auto.Hint], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="12" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                            </StackPanel>
-                            <Button x:Name="AutoNewButton" Grid.Column="1" Style="{StaticResource PrimaryButton}"
-                                    MinWidth="136" Height="40" VerticalAlignment="Center" Click="AutoNew_Click">
-                                <StackPanel Orientation="Horizontal" Margin="12,0">
-                                    <TextBlock Text="{Binding [Auto.New], Source={x:Static local:L10n.Instance}}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-                        </Grid>
-                        <Grid Margin="0,0,0,10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="AutoSearchBox" Style="{StaticResource AutomationSearchBox}" TextChanged="AutoSearch_TextChanged"
-                                     AutomationProperties.Name="{Binding [Auto.Search], Source={x:Static local:L10n.Instance}}" Margin="0,0,8,0"/>
-                            <ComboBox x:Name="AutoStateFilter" Grid.Column="1" Style="{StaticResource SelCombo}" Width="130"
-                                      AutomationProperties.Name="{Binding [Auto.FilterAllStates], Source={x:Static local:L10n.Instance}}"
-                                      SelectionChanged="AutoFilter_SelectionChanged" Margin="0,0,8,0"/>
-                            <ComboBox x:Name="AutoTriggerFilter" Grid.Column="2" Style="{StaticResource SelCombo}" Width="180"
-                                      AutomationProperties.Name="{Binding [Auto.FilterAllTriggers], Source={x:Static local:L10n.Instance}}"
-                                      SelectionChanged="AutoFilter_SelectionChanged" Margin="0,0,8,0"/>
-                            <Button x:Name="AutoListOptionsButton" Grid.Column="3" Style="{StaticResource GhostButton}" Width="36" Height="36"
-                                    ToolTip="{Binding [Auto.ListOptions], Source={x:Static local:L10n.Instance}}"
-                                    AutomationProperties.Name="{Binding [Auto.ListOptions], Source={x:Static local:L10n.Instance}}" Click="AutoListOptions_Click">
-                                <Viewbox Width="18" Height="18">
-                                    <Path Width="24" Height="24" Data="{x:Static local:AutomationIcons.Options}" Stroke="{DynamicResource Theme.TextSecondary}"
-                                          StrokeThickness="1.8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                                </Viewbox>
-                            </Button>
-                        </Grid>
-                        <TextBlock x:Name="AutoEmptyText" Text="{Binding [Auto.Empty], Source={x:Static local:L10n.Instance}}"
-                                   FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Visibility="Collapsed" Margin="0,8,0,12"/>
-                        <ItemsControl x:Name="AutoRuleList" Margin="0,0,0,14">
-                            <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
-                        </ItemsControl>
-
-                        </StackPanel>
-
-                        <!-- 新建 / 编辑规则：复用字段和事件，编辑时独占右侧内容区。 -->
-                        <Border x:Name="AutoEditCard" Style="{StaticResource Card}" Visibility="Collapsed" Padding="18">
-                            <StackPanel>
-                                <DockPanel>
-                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Edit}"
-                                                    Width="42" Height="42" Margin="0,0,12,0" DockPanel.Dock="Left"/>
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock x:Name="AutoEditTitle" Text="{Binding [Auto.EditorNew], Source={x:Static local:L10n.Instance}}"
-                                                   FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
-                                        <TextBlock Text="{Binding [Auto.EditorHint], Source={x:Static local:L10n.Instance}}" FontSize="11.5"
-                                                   Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,5,0,0" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </DockPanel>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14,0,12"/>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Info}" Margin="0,0,12,0"/>
-                                    <TextBlock Text="{Binding [Auto.BasicInfo], Source={x:Static local:L10n.Instance}}" FontSize="14.5"
-                                               FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <Grid Margin="0,0,0,10">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding [Auto.Name], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
-                                    <TextBox x:Name="AutoNameBox" Grid.Column="1" FontSize="12.5" Height="34" Padding="9,4"
-                                             local:InputAppearance.Placeholder="{Binding [Auto.DefaultNameHint], Source={x:Static local:L10n.Instance}}"
-                                             AutomationProperties.Name="{Binding [Auto.Name], Source={x:Static local:L10n.Instance}}"/>
-                                </Grid>
-                                <Grid>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding [Auto.Trigger], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
-                                    <ComboBox x:Name="AutoTriggerCombo" Grid.Column="1" Style="{StaticResource SelCombo}"
-                                              AutomationProperties.Name="{Binding [Auto.Trigger], Source={x:Static local:L10n.Instance}}"
-                                              SelectionChanged="AutoTriggerCombo_SelectionChanged"/>
-                                </Grid>
-                                <Grid x:Name="AutoHotkeyPanel" Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding [Auto.Hotkey], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}" VerticalAlignment="Top" Margin="0,9,10,0"/>
-                                    <StackPanel Grid.Column="1">
-                                        <Button x:Name="AutoHotkeyCapture" Style="{StaticResource GhostButton}" Height="34"
-                                                Foreground="{DynamicResource Theme.OsdTitleText}" FontWeight="SemiBold" Click="AutoHotkeyCapture_Click"/>
-                                        <TextBlock x:Name="AutoHotkeyHintText" Text="{Binding [Auto.HotkeyHint], Source={x:Static local:L10n.Instance}}"
-                                                   FontSize="11" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,6,0,0" TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid x:Name="AutoTriggerAppPanel" Margin="0,10,0,0" Visibility="Collapsed">
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="84"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding [Auto.TriggerApp], Source={x:Static local:L10n.Instance}}" Style="{StaticResource AutomationFormLabel}"/>
-                                    <ComboBox x:Name="AutoTriggerAppCombo" Grid.Column="1" Style="{StaticResource SelCombo}"
-                                              ItemTemplate="{StaticResource AutoAppItemTemplate}"/>
-                                </Grid>
-                                <!-- 定时区（触发 = 定时：仅一次 / 每天 / 每周） -->
-                                <StackPanel x:Name="AutoSchedulePanel" Margin="84,10,0,0" Visibility="Collapsed">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding [Auto.ScheduleMode], Source={x:Static local:L10n.Instance}}"
-                                                       FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
-                                            <ComboBox x:Name="AutoScheduleModeCombo" Style="{StaticResource SelCombo}" Width="140"
-                                                      HorizontalAlignment="Left" SelectionChanged="AutoScheduleModeCombo_SelectionChanged"/>
-                                        </StackPanel>
-                                        <StackPanel Margin="14,0,0,0">
-                                            <TextBlock Text="{Binding [Auto.ScheduleTime], Source={x:Static local:L10n.Instance}}"
-                                                       FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <ComboBox x:Name="AutoScheduleHourCombo" Style="{StaticResource SelCombo}" Width="62"
-                                                          HorizontalAlignment="Left"/>
-                                                <TextBlock Text=":" FontSize="12.5" VerticalAlignment="Center" Margin="4,0"/>
-                                                <ComboBox x:Name="AutoScheduleMinuteCombo" Style="{StaticResource SelCombo}" Width="62"
-                                                          HorizontalAlignment="Left"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel x:Name="AutoScheduleWeekdayPanel" Margin="0,0,0,0">
-                                        <TextBlock Text="{Binding [Auto.ScheduleWeekday], Source={x:Static local:L10n.Instance}}"
-                                                   FontSize="12.5" Foreground="{DynamicResource Theme.TextSecondary}" Margin="0,0,0,4"/>
-                                        <WrapPanel x:Name="AutoWeekdayPanel"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,12"/>
-                                <DockPanel Margin="0,0,0,10">
-                                    <ContentControl Style="{StaticResource AutomationSectionIcon}" Content="{x:Static local:AutomationIcons.Play}" Margin="0,0,12,0" DockPanel.Dock="Left"/>
-                                    <TextBlock Text="{Binding [Auto.Action], Source={x:Static local:L10n.Instance}}" FontSize="14.5" FontWeight="SemiBold"
-                                               Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" Margin="0,0,12,0" DockPanel.Dock="Left"/>
-                                    <TextBlock Text="{Binding [Auto.ActionsHint], Source={x:Static local:L10n.Instance}}" FontSize="11.5" TextWrapping="Wrap"
-                                               Foreground="{DynamicResource Theme.TextSecondary}" VerticalAlignment="Center"/>
-                                </DockPanel>
-                                <ItemsControl x:Name="AutoStepsHost">
-                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                                <Button x:Name="AutoAddStepBtn" Click="AutoAddStep_Click" Content="{Binding [Auto.AddAction], Source={x:Static local:L10n.Instance}}"
-                                        Style="{StaticResource GhostButton}" MinWidth="160" Height="34" HorizontalAlignment="Left"/>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,14"/>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button x:Name="AutoCancelButton" Content="{Binding [Auto.Cancel], Source={x:Static local:L10n.Instance}}"
-                                            Style="{StaticResource GhostButton}" MinWidth="90" Margin="0,0,10,0" Click="AutoCancel_Click"/>
-                                    <Button x:Name="AutoSaveButton" Content="{Binding [Auto.Save], Source={x:Static local:L10n.Instance}}"
-                                            Style="{StaticResource PrimaryButton}" MinWidth="110" Click="AutoSave_Click"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            <Border x:Name="AutomationPageHost" Visibility="Collapsed"/>
             </Grid>
             </Grid>
         </Grid>

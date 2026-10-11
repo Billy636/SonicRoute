@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
     <UseWPF>true</UseWPF>
@@ -17,6 +17,8 @@
     <!-- 官方 portable RID（不使用 win10-x64 / win10-arm64） -->
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
     <Version>1.22</Version>
+    <InformationalVersion>1.22</InformationalVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <AssemblyTitle>SonicRoute</AssemblyTitle>
     <Product>音跃 SonicRoute</Product>
     <Authors>困困困</Authors>
@@ -30,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SonicRoute.Core\SonicRoute.Core.csproj" />
+    <ProjectReference Include="..\SonicRoute.Core\SonicRoute.Core.csproj" /><ProjectReference Include="..\StoreInterop\StoreInterop.csproj" />
     <Resource Include="SonicRoute.png" />
     <Resource Include="SonicRoute.ico" />
     <EmbeddedResource Include="Resources\Lang\*.json" />
