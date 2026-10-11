@@ -169,11 +169,7 @@ namespace SonicRoute
             {
                 using var identity = WindowsIdentity.GetCurrent();
                 using var process = Process.GetCurrentProcess();
-#if NET48
-                const string edition = "Legacy";
-#else
-                const string edition = "Lite";
-#endif
+                string edition = AppRuntimeIdentity.Current.CommandEdition;
                 return "SonicRoute.RuleCommand." + edition + "." + process.SessionId + "." + identity.User!.Value;
             }
         }

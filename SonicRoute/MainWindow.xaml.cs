@@ -1749,21 +1749,7 @@ namespace SonicRoute
 
         /// <summary>检测当前是否运行在 MSIX 包中（非包环境调用 Package.Current 会抛异常）。
         /// net48 Legacy 为传统桌面程序，不依赖 WinRT / Windows App SDK，恒为 false。</summary>
-        private static bool IsPackaged()
-        {
-#if NET48
-            return false;
-#else
-            try
-            {
-                return SonicRoute.StoreInterop.NativePackageIdentity.IsPackaged();
-            }
-            catch
-            {
-                return false;
-            }
-#endif
-        }
+        private static bool IsPackaged() => AppRuntimeIdentity.Current.IsPackaged;
 
         /// <summary>开机自启：MSIX 环境用 StartupTask API，非 MSIX（绿色版）写注册表 Run 键。</summary>
         private async void SettingsAutoStart_Changed(object sender, RoutedEventArgs e)

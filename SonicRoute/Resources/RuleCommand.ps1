@@ -20,7 +20,7 @@ if ($args.Count -eq 1 -and $args[0] -in @('--help', '-h')) {
     exit 0
 }
 
-$editions = @('Lite', 'Legacy')
+$editions = @('Lite', 'Legacy', 'Store')
 $selector = ''
 if ($args.Count -eq 1) {
     $selector = [string] $args[0]

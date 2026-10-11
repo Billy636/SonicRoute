@@ -69,19 +69,10 @@ namespace SonicRoute
         private bool _lastMicMutedBaseline;
         private bool _micMuteWatchInProgress;
 
-        // ===== 单实例标识（net8 主版本 与 net48 Legacy 各自独立）=====
-        // 两版可能被同一用户同时安装。若共用同一互斥体名，先启动的一版会阻止另一版启动
-        // （第二实例会向第一实例投递"激活主窗口"消息后自行退出），表现为"点了没反应/弹错窗口"。
-        // 因此按 TFM 区分：net8 分支保持原有名称不变（行为零变化），Legacy 分支使用独立名称。
-#if NET48
-        private const string InstanceMutexName = @"Local\SonicRoute_Legacy_9NQZGRTPM1NT";
-        private const string ActivateSinkTitle = "SonicRoute_Legacy_ActivateSink";
-        private const string ActivateMessageName = "SonicRoute_Legacy_ActivateMain";
-#else
-        private const string InstanceMutexName = @"Local\SonicRoute_9NQZGRTPM1NT";
-        private const string ActivateSinkTitle = "SonicRoute_ActivateSink";
-        private const string ActivateMessageName = "SonicRoute_ActivateMain";
-#endif
+        // Store, portable Lite and Legacy activate only their own running instance.
+        private static string InstanceMutexName => AppRuntimeIdentity.Current.MutexName;
+        private static string ActivateSinkTitle => AppRuntimeIdentity.Current.ActivateSinkTitle;
+        private static string ActivateMessageName => AppRuntimeIdentity.Current.ActivateMessageName;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -383,21 +374,7 @@ namespace SonicRoute
         }
         /// <summary>检测当前是否运行在 MSIX 包中（非包环境调用 Package.Current 会抛异常）。
         /// net48 Legacy 为传统桌面程序，不依赖 WinRT / Windows App SDK，恒为 false。</summary>
-        private static bool IsPackaged()
-        {
-#if NET48
-            return false;
-#else
-            try
-            {
-                return SonicRoute.StoreInterop.NativePackageIdentity.IsPackaged();
-            }
-            catch
-            {
-                return false;
-            }
-#endif
-        }
+        private static bool IsPackaged() => AppRuntimeIdentity.Current.IsPackaged;
 
         /// <summary>
         /// 启动自检修复：自启开启时，注册表 Run 键指向的 exe 与当前路径不一致则自动重写。

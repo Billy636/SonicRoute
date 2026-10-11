@@ -36,7 +36,7 @@
                           BackgroundColor="transparent" />
       <Extensions>
         <desktop:Extension Category="windows.startupTask" Executable="SonicRoute.exe" EntryPoint="Windows.FullTrustApplication">
-          <desktop:StartupTask TaskId="SonicRouteStartup" Enabled="false" DisplayName="SonicRoute" />
+          <desktop:StartupTask TaskId="SonicRouteStartup" Enabled="false" DisplayName="SonicRoute (Microsoft Store)" />
         </desktop:Extension>
       </Extensions>
     </Application>

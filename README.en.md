@@ -51,7 +51,7 @@ See the [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki) for settings and
 | Version | Requirements |
 |---|---|
 | ⚡ Lite x64 | Single EXE; requires the x64 .NET 8 Desktop Runtime |
-| 🧪 Lite ARM64 (experimental) | Single EXE; requires the ARM64 .NET 8 Desktop Runtime; not yet fully validated on ARM64 hardware |
+| 🧪 Lite ARM64 (experimental) | Single EXE; requires the ARM64 .NET 8 Desktop Runtime |
 | 🪟 Legacy x64 | .NET Framework 4.8; extract the entire folder; .NET 8 is not required |
 
 ### v1.22 · 2026-10-11
@@ -59,7 +59,7 @@ See the [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki) for settings and
 [View the v1.22 release](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22) · [Release notes](docs/release-v1.22.md)
 
 - Fixes command-copy stalls and failure handling, and aligns the automation, volume preset, and tray menus.
-- Lite and Legacy builds, nine-language resources, and help entries passed release checks; ARM64 was compiled only and remains experimental.
+- Keeps Store and portable startup controls independent, streamlines the startup integration, loads automation on demand, and improves wording across nine languages.
 
 | v1.22 asset | Download |
 |---|---|
@@ -67,7 +67,7 @@ See the [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki) for settings and
 | Lite ARM64 (experimental) | [SonicRoute-v1.22-Lite-arm64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) |
 | Legacy x64 | [SonicRoute-v1.22-Legacy-x64.zip](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) |
 
-Lite builds require the matching .NET 8 Desktop Runtime. ARM64 was compiled but has not been tested on physical hardware. Extract the complete Legacy archive before running it. The Store listing reflects the version currently available there; v1.22 has not been submitted to the Store.
+Lite builds require the matching .NET 8 Desktop Runtime. Extract the complete Legacy archive before running it. Microsoft Store users can get the available version from the [Store listing](https://apps.microsoft.com/detail/9NQZGRTPM1NT).
 
 ### Previous release: v1.21 · 2026-10-09
 
@@ -109,7 +109,7 @@ Future improvements will be delivered in stages rather than held for one major r
 - **v1.23 · Performance and stability**: Improve background resource usage, responsiveness, and compatibility.
 - **Later stages**: Continue refining existing features based on feedback.
 
-See the [theme and settings guide (Chinese)](docs/theme-settings.md) and [automation guide (Chinese)](docs/automation-convenience.md) for v1.21 details. Later plans may change based on feedback.
+See the [theme and settings guide (Chinese)](docs/theme-settings.md) and [automation guide (Chinese)](docs/automation-convenience.md) for detailed instructions. Later plans may change based on feedback.
 
 💡 Have an idea or feedback? [Open an issue](https://github.com/kunkunkunQoQ/SonicRoute/issues/new/choose).
 

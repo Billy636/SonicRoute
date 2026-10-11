@@ -51,7 +51,7 @@ Windows 已提供音量合成器，但切换设备、调整单个应用音量等
 | 版本 | 说明 |
 |---|---|
 | ⚡ Lite x64 | 单 EXE，需安装 x64 .NET 8 Desktop Runtime |
-| 🧪 Lite ARM64（实验） | 单 EXE，需安装 ARM64 .NET 8 Desktop Runtime；尚未完成 ARM64 真机完整验证 |
+| 🧪 Lite ARM64（实验） | 单 EXE，需安装 ARM64 .NET 8 Desktop Runtime |
 | 🪟 Legacy x64 | .NET Framework 4.8；解压完整目录后运行，无需安装 .NET 8 |
 
 ### v1.22 · 2026-10-11
@@ -59,7 +59,7 @@ Windows 已提供音量合成器，但切换设备、调整单个应用音量等
 [查看 v1.22 正式版](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22) · [更新说明](docs/release-v1.22.md)
 
 - 修复复制执行命令的界面卡顿与失败处理，统一自动化、音量预设和托盘菜单的排版。
-- Lite 与 Legacy 构建、九语言资源及帮助入口完成发布验证；ARM64 仅完成编译，仍属实验版。
+- 精简自启动接口，商店版与普通版自启分别控制；自动化页面按需加载，并修正九种语言文案。
 
 | v1.22 资产 | 下载 |
 |---|---|
@@ -67,7 +67,7 @@ Windows 已提供音量合成器，但切换设备、调整单个应用音量等
 | Lite ARM64（实验） | [SonicRoute-v1.22-Lite-arm64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) |
 | Legacy x64 | [SonicRoute-v1.22-Legacy-x64.zip](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) |
 
-Lite 版本需要匹配架构的 .NET 8 Desktop Runtime；ARM64 仅完成编译，尚未完成真机验证。Legacy 需完整解压后运行。Microsoft Store 仍以实际在架版本为准，v1.22 尚未提交商店。
+Lite 版本需要匹配架构的 .NET 8 Desktop Runtime。Legacy 需完整解压后运行。Microsoft Store 用户可从 [商店页面](https://apps.microsoft.com/detail/9NQZGRTPM1NT) 获取在架版本。
 
 ### 历史版本：v1.21 · 2026-10-09
 
@@ -83,7 +83,7 @@ Lite 版本需要匹配架构的 .NET 8 Desktop Runtime；ARM64 仅完成编译�
 | Lite ARM64（实验） | [SonicRoute-v1.21-Lite-arm64.exe](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.21/SonicRoute-v1.21-Lite-arm64.exe) |
 | Legacy x64 | [SonicRoute-v1.21-Legacy-x64.zip](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.21/SonicRoute-v1.21-Legacy-x64.zip) |
 
-Lite 版本需要匹配架构的 .NET 8 Desktop Runtime；ARM64 尚未完成真机完整验证。Legacy 需完整解压后运行。Microsoft Store 用户可从 [商店页面](https://apps.microsoft.com/detail/9NQZGRTPM1NT) 获取上架版本。
+Lite 版本需要匹配架构的 .NET 8 Desktop Runtime。Legacy 需完整解压后运行。Microsoft Store 用户可从 [商店页面](https://apps.microsoft.com/detail/9NQZGRTPM1NT) 获取上架版本。
 
 ## 📚 完整文档 → [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki)
 
