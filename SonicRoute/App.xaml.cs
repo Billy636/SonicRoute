@@ -159,6 +159,12 @@ namespace SonicRoute
             // 单击左键 → 快速面板（延时判别，避免与双击冲突）
             _trayIcon.MouseClick += (_, args) =>
             {
+                if (args.Button == MouseButtons.Right)
+                {
+                    _singleClickCts?.Cancel();
+                    Dispatcher.BeginInvoke(ShowTrayMenu);
+                    return;
+                }
                 if (args.Button != MouseButtons.Left) return;
                 _singleClickCts?.Cancel();
                 var cts = _singleClickCts = new CancellationTokenSource();
@@ -306,20 +312,8 @@ namespace SonicRoute
         /// <summary>重建托盘右键菜单（语言即时生效时调用：菜单文本取当前语言）。</summary>
         internal void RebuildTrayMenu()
         {
-            try
-            {
-                if (_trayIcon == null) return;
-                var menu = new ContextMenuStrip { ShowImageMargin = false, ShowCheckMargin = false };
-                menu.Items.Add(L10n.T("St.Settings"), null, (_, _) => ShowMainWindow());
-                menu.Items.Add(L10n.T("Tray.OpenPanel"), null, (_, _) => ToggleQuickPanel());
-                menu.Items.Add(BuildFavoriteRulesMenu(menu));
-                menu.Items.Add(new ToolStripSeparator());
-                menu.Items.Add(L10n.T("Tray.Exit"), null, (_, _) => Quit());
-                var previous = _trayIcon.ContextMenuStrip;
-                _trayIcon.ContextMenuStrip = menu;
-                previous?.Dispose();
-            }
-            catch { }
+            // 下次右键时按当前语言/主题创建，关闭后不常驻菜单视觉树。
+            CloseTrayMenu();
         }
         /// <summary>麦克风静音状态 OSD 统一入口（快捷键 / 后台检测器 / 面板共用）：静音且常驻开关开启 → 常驻显示。</summary>
         internal void ShowMicMuteOsd(string app, bool muted)
@@ -547,7 +541,7 @@ namespace SonicRoute
                 // Check and trim in one dispatcher turn so reopening cannot race the idle pass.
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    if (_mainWindow != null || _quickPanel != null || token.IsCancellationRequested || !ShouldReclaimIdle()) return;
+                    if (_mainWindow != null || _quickPanel != null || _trayMenu != null || token.IsCancellationRequested || !ShouldReclaimIdle()) return;
                     // This pages out inactive working-set memory; it does not collect managed objects.
                     TrimWorkingSet();
                     RecordUiReclaimBaseline();
@@ -950,11 +944,13 @@ namespace SonicRoute
         /// <summary>释放托盘图标及其 HICON（避免退出后残留 GDI 资源）。</summary>
         private void DisposeTray()
         {
-            if (_trayIcon == null) return;
-            try { _trayIcon.Visible = false; } catch { }
-            try { _trayIcon.Icon?.Dispose(); } catch { }
-            _trayIcon.Dispose();
+            var tray = _trayIcon;
             _trayIcon = null;
+            CloseTrayMenu();
+            if (tray == null) return;
+            try { tray.Visible = false; } catch { }
+            try { tray.Icon?.Dispose(); } catch { }
+            tray.Dispose();
         }
 
         /// <summary>首次启动：按 Windows 系统 UI 语言匹配到支持的语言；未匹配则默认英文。</summary>

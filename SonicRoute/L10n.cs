@@ -12,7 +12,7 @@ namespace SonicRoute
     /// 支持实验设置「导入语言」加载外置语言文件（%LocalAppData%\SonicRoute\Lang\{code}.json，优先于内置），
     /// 外置文件可含特殊键 Lang.Code / Lang.NativeName（自定义语言显示名）。
     /// XAML 用 {Binding [key], Source={x:Static local:L10n.Instance}}，代码用 L10n.T("key")。
-    /// 只加载当前语言 + zh-CN 回退表；语言更改/导入在下次启动生效。
+    /// 只加载当前语言 + zh-CN 回退表；语言更改/导入即时生效。
     /// </summary>
     public sealed class L10n : INotifyPropertyChanged
     {
@@ -39,9 +39,10 @@ namespace SonicRoute
         {
             if (string.IsNullOrWhiteSpace(lang)) lang = "zh-CN";
             // 未知 code（如附加语言文件被删 / 配置残留 / 换机器）回退 zh-CN
-            if (!SupportedLanguages.Any(x => x.Code == lang)) lang = "zh-CN";
+            lang = SupportedLanguages.FirstOrDefault(x => string.Equals(x.Code, lang, StringComparison.OrdinalIgnoreCase)).Code ?? "zh-CN";
             if (CurrentLanguage == lang) return;
             CurrentLanguage = lang;
+            _tables = null;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
         }
 
@@ -100,7 +101,8 @@ namespace SonicRoute
                 foreach (var f in Directory.GetFiles(ExternalLangDir, "*.json"))
                 {
                     var code = Path.GetFileNameWithoutExtension(f);
-                    if (string.IsNullOrWhiteSpace(code)) continue;
+                    if (!LanguageFiles.IsValidCode(code)) continue;
+                    code = BuiltinLanguages.FirstOrDefault(x => string.Equals(x.Code, code, StringComparison.OrdinalIgnoreCase)).Code ?? code;
                     try
                     {
                         using var fs = File.OpenRead(f);
@@ -144,8 +146,10 @@ namespace SonicRoute
                 var ext = Path.Combine(ExternalLangDir, lang + ".json");
                 // 带 Lang.Custom 的同名外置文件不覆盖内置语言内容（仅作为附加语言存在于下拉框）
                 if (File.Exists(ext) && !_customLangCodes.Contains(lang))
-                    using (var fs = File.OpenRead(ext))
-                        return ParseLangJson(fs);
+                {
+                    try { using var fs = File.OpenRead(ext); return ParseLangJson(fs); }
+                    catch { /* 损坏的覆盖回退内置同语言。 */ }
+                }
                 var resName = "SonicRoute.Resources.Lang." + lang + ".json";
                 using (var rs = typeof(L10n).Assembly.GetManifestResourceStream(resName))
                 {
@@ -163,6 +167,7 @@ namespace SonicRoute
             dict.Remove("Lang.Code");
             dict.Remove("Lang.NativeName");
             dict.Remove("Lang.Custom");
+            foreach (var key in dict.Where(pair => pair.Value == null).Select(pair => pair.Key).ToArray()) dict.Remove(key);
             return dict;
         }
 
@@ -201,13 +206,12 @@ namespace SonicRoute
                             ?? new Dictionary<string, string>();
                     d["Lang.Code"] = code;
                     d["Lang.NativeName"] = native;
-                    File.WriteAllText(Path.Combine(dir, code + ".json"),
+                    LanguageFiles.WriteAtomic(Path.Combine(dir, code + ".json"),
                         JsonSerializer.Serialize(d, new JsonSerializerOptions
                         {
                             WriteIndented = true,
                             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                        }),
-                        new System.Text.UTF8Encoding(false));
+                        }));
                 }
                 return true;
             }
@@ -243,49 +247,11 @@ namespace SonicRoute
         }
 
         /// <summary>实验设置-导入语言：从 json 读取语言代码（Lang.Code，缺省用文件名）写入外置目录。
-        /// 原子写入：先写临时文件（.json.tmp，不匹配 *.json 扫描）再 Move 覆盖，目标要么旧要么新，不会出现半成品。
+        /// 原子写入：先写唯一临时文件（不匹配 *.json 扫描）再 Replace/Move，目标要么旧要么新，不会出现半成品。
         /// 返回键覆盖率 CoveragePct（导入文件键数 / 内置 zh-CN 键数，用于缺失键警告）。</summary>
         public static (bool Ok, string Code, int CoveragePct) ImportLanguageFile(string file)
         {
-            try
-            {
-                var json = File.ReadAllText(file);
-                var d = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-                if (d == null) return (false, "", 0);
-                var code = d.TryGetValue("Lang.Code", out var c) && !string.IsNullOrWhiteSpace(c)
-                    ? c.Trim()
-                    : Path.GetFileNameWithoutExtension(file);
-                if (string.IsNullOrWhiteSpace(code) || code.Length > 32
-                    || code.IndexOf('#') >= 0 // '#' 保留给附加语言内部码专用，禁止作为语言 code
-                    || code.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) return (false, "", 0);
-                int cov = 100;
-                if (ZhKeys.Count > 0)
-                {
-                    var have = 0;
-                    foreach (var k in d.Keys) if (ZhKeys.Contains(k)) have++;
-                    cov = (int)Math.Round(have * 100.0 / ZhKeys.Count);
-                }
-                Directory.CreateDirectory(ExternalLangDir);
-                var dest = Path.Combine(ExternalLangDir, code + ".json");
-                var tmp = Path.Combine(ExternalLangDir, code + ".json.tmp");
-                try
-                {
-                    File.Copy(file, tmp, true);
-                    // net48 无 File.Move(src, dst, overwrite) 三参重载（.NET Core 3.0+）。
-                    // 目标已存在 → File.Replace（原子覆盖替换，语义与原实现一致）；不存在 → File.Move。
-                    if (File.Exists(dest))
-                        File.Replace(tmp, dest, null);
-                    else
-                        File.Move(tmp, dest);
-                }
-                catch
-                {
-                    try { if (File.Exists(tmp)) File.Delete(tmp); } catch { }
-                    return (false, "", 0);
-                }
-                return (true, code, cov);
-            }
-            catch { return (false, "", 0); }
+            return LanguageFiles.Import(file, ExternalLangDir, ZhKeys, BuiltinLanguages.Select(x => x.Code));
         }
 
         /// <summary>导入语言后即时生效（无需重启）：重建外置语言索引、语言列表与语言表缓存并切到目标语言，触发全量绑定刷新。</summary>
@@ -294,7 +260,7 @@ namespace SonicRoute
             _supported = null;
             _tables = null;
             _extIndexBuilt = false; // 统一索引随缓存一起重建
-            if (!string.IsNullOrWhiteSpace(code)) CurrentLanguage = code;
+            CurrentLanguage = SupportedLanguages.FirstOrDefault(x => string.Equals(x.Code, code, StringComparison.OrdinalIgnoreCase)).Code ?? "zh-CN";
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
         }
 
@@ -318,19 +284,18 @@ namespace SonicRoute
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(newName)) return false;
+                if (!LanguageFiles.IsValidCode(code) || _builtinCodes.Contains(code) || string.IsNullOrWhiteSpace(newName)) return false;
                 var path = Path.Combine(ExternalLangDir, code + ".json");
                 if (!File.Exists(path)) return false;
                 var d = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(path))
                         ?? new Dictionary<string, string>();
                 d["Lang.NativeName"] = newName.Trim();
-                File.WriteAllText(path,
+                LanguageFiles.WriteAtomic(path,
                     JsonSerializer.Serialize(d, new JsonSerializerOptions
                     {
                         WriteIndented = true,
                         Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                    }),
-                    new System.Text.UTF8Encoding(false));
+                    }));
                 _supported = null;
                 _extIndexBuilt = false; // 索引缓存了旧显示名，需重建
                 return true;
@@ -343,7 +308,7 @@ namespace SonicRoute
         {
             try
             {
-                if (_builtinCodes.Contains(code)) return false;
+                if (!LanguageFiles.IsValidCode(code) || _builtinCodes.Contains(code)) return false;
                 var path = Path.Combine(ExternalLangDir, code + ".json");
                 if (!File.Exists(path)) return false;
                 File.Delete(path);
@@ -364,30 +329,13 @@ namespace SonicRoute
         public static bool OpenExternalLangDir() => Core.ShellOpen.Folder(ExternalLangDir);
 
         /// <summary>还原被覆盖的内置语言：删除外置目录中与内置 9 语言同名的文件（附加语言带 Lang.Custom 的除外）；自定义语言保留。返回还原数量。</summary>
-        public static (bool Ok, int Restored) RestoreBuiltinLanguages()
+        public static async Task<(bool Ok, int Restored)> RestoreBuiltinLanguagesAsync()
         {
-            try
-            {
-                if (!Directory.Exists(ExternalLangDir)) return (true, 0);
-                EnsureExtIndex();
-                var n = 0;
-                foreach (var e in _extEntries)
-                {
-                    if (_builtinCodes.Contains(e.FileCode) && e.CustomName == null)
-                    {
-                        File.Delete(Path.Combine(ExternalLangDir, e.FileCode + ".json"));
-                        n++;
-                    }
-                }
-                if (n > 0)
-                {
-                    _supported = null;
-                    _tables = null;
-                    _extIndexBuilt = false;
-                }
-                return (true, n);
-            }
-            catch { return (false, 0); }
+            var result = await Task.Run(() => LanguageFiles.Restore(ExternalLangDir, BuiltinLanguages.Select(x => x.Code)));
+            _supported = null;
+            _tables = null;
+            _extIndexBuilt = false;
+            return result;
         }
     }
 }

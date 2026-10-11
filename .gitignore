@@ -61,3 +61,7 @@ SonicRoute.wiki/
 
 # 本地配置编辑器（单文件 HTML 工具，不推送 GitHub）
 /config-editor/
+
+# 本地试验版和本次试验前快照
+/试验版/
+/archive/v1.22-before-store-interop-20261011-132410/

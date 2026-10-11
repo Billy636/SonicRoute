@@ -44,7 +44,6 @@ namespace SonicRoute
             public ScaleTransform? PeakTransform;
             public float PeakLevel;
             public bool IsMuted;
-            public Thumb? Thumb;
             public ToggleButton ExpandButton = null!;
             public StackPanel ExpandPanel = null!;
             public AnimatedExpandHost ExpandWrap = null!;
@@ -751,33 +750,10 @@ namespace SonicRoute
                         row.PeakTransform = new ScaleTransform(0, 1);
                         row.PeakVisual.RenderTransform = row.PeakTransform;
                     }
-                    row.Thumb = row.Slider.Template.FindName("PART_Thumb", row.Slider) as Thumb;
                     // 轨道宽度变化和 ValueChanged 才需要重排，避免每次电平渲染触发所有行的布局计算。
                     if (row.TrackBg != null)
                         row.TrackBg.SizeChanged += (_, _) => UpdateRowSliderLayout(row);
-                    if (row.Thumb != null)
-                    {
-                        row.Thumb.DragDelta += (_, e2) =>
-                        {
-                            if (row.TrackBg == null || row.TrackBg.ActualWidth <= 0) return;
-                            double range = row.Slider.Maximum - row.Slider.Minimum;
-                            double left = (row.Thumb?.Margin.Left ?? 0) + e2.HorizontalChange;
-                            row.Slider.Value = MathEx.Clamp(row.Slider.Minimum + left / row.TrackBg.ActualWidth * range,
-                                row.Slider.Minimum, row.Slider.Maximum);
-                        };
-                    }
-                    if (row.TrackBg != null)
-                    {
-                        row.TrackBg.MouseLeftButtonDown += (_, e2) =>
-                        {
-                            if (row.TrackBg.ActualWidth <= 0) return;
-                            double range = row.Slider.Maximum - row.Slider.Minimum;
-                            double x = e2.GetPosition(row.TrackBg).X;
-                            row.Slider.Value = MathEx.Clamp(row.Slider.Minimum + x / row.TrackBg.ActualWidth * range,
-                                row.Slider.Minimum, row.Slider.Maximum);
-                            e2.Handled = true;
-                        };
-                    }
+                    // 标准 Track 负责点击定位和拖动；透明的 32px 区域也可命中。
                     row.Slider.ValueChanged += RowSlider_ValueChanged;
                     VolumePresets.Attach(row.Slider);
                     row.Slider.MouseWheel += RowSlider_MouseWheel;
@@ -833,20 +809,16 @@ namespace SonicRoute
 
         }
 
-        /// <summary>更新行滑块进度条/圆点的布局（Value → 填充宽度 + 圆点位置）。</summary>
+        /// <summary>更新行滑块填充宽度；圆点定位与输入由标准 Track 处理。</summary>
         private void UpdateRowSliderLayout(AppRow row)
         {
-            if (row.TrackBg == null || row.TrackFill == null || row.Thumb == null) return;
+            if (row.TrackBg == null || row.TrackFill == null) return;
             double w = row.TrackBg.ActualWidth;
             if (w <= 0) return;
             double range = row.Slider.Maximum - row.Slider.Minimum;
             double frac = range <= 0 ? 0 : (row.Slider.Value - row.Slider.Minimum) / range;
             double fillWidth = Math.Max(0, w * frac);
             if (row.TrackFill.Width != fillWidth) row.TrackFill.Width = fillWidth;
-            double thumbMax = Math.Max(0, w - 14);
-            double thumbLeft = MathEx.Clamp(fillWidth - 7, 0, thumbMax);
-            if (row.Thumb.Margin.Left != thumbLeft)
-                row.Thumb.Margin = new Thickness(thumbLeft, 0, 0, 0);
             UpdatePeakVisual(row);
         }
 

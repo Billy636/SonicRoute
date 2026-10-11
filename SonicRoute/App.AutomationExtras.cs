@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Controls;
+using ContextMenu = System.Windows.Controls.ContextMenu;
+using MenuItem = System.Windows.Controls.MenuItem;
 using SonicRoute.Core;
 
 namespace SonicRoute
@@ -11,16 +13,13 @@ namespace SonicRoute
     {
         private int _favoriteMenuRequest;
 
-        private ToolStripMenuItem BuildFavoriteRulesMenu(ContextMenuStrip owner)
+        private MenuItem BuildFavoriteRulesMenu(ContextMenu owner)
         {
-            var favorites = new ToolStripMenuItem(L10n.T("Auto.Favorites"));
-            if (favorites.DropDown is ToolStripDropDownMenu dropdown)
-            {
-                dropdown.ShowImageMargin = false;
-                dropdown.ShowCheckMargin = false;
-            }
-            favorites.DropDownItems.Add(L10n.T("Auto.FavoritesEmpty")).Enabled = false;
-            owner.Opening += async (_, _) =>
+            var favorites = ConvenienceMenus.Item(L10n.T("Auto.Favorites"));
+            var empty = ConvenienceMenus.Item(L10n.T("Auto.FavoritesEmpty"));
+            empty.IsEnabled = false;
+            favorites.Items.Add(empty);
+            owner.Opened += async (_, _) =>
             {
                 int request = ++_favoriteMenuRequest;
                 try
@@ -28,18 +27,22 @@ namespace SonicRoute
                     var ids = new List<string>(ConfigService.Load().FavoriteRuleIds ?? new List<string>());
                     var rules = await Task.Run(() => ids.Distinct(StringComparer.Ordinal).Select(AutoRuleStore.Find)
                         .Where(rule => rule != null).Select(rule => rule!).ToList());
-                    if (request != _favoriteMenuRequest || owner.IsDisposed || _trayIcon?.ContextMenuStrip != owner || Dispatcher.HasShutdownStarted) return;
+                    if (request != _favoriteMenuRequest || !owner.IsOpen || _trayMenu != owner || Dispatcher.HasShutdownStarted) return;
                     var byId = rules.ToDictionary(rule => rule.Id, StringComparer.Ordinal);
-                    foreach (ToolStripItem item in favorites.DropDownItems.Cast<ToolStripItem>().ToArray()) item.Dispose();
-                    favorites.DropDownItems.Clear();
+                    favorites.Items.Clear();
                     foreach (string id in ids.Distinct(StringComparer.Ordinal))
                     {
                         if (!byId.TryGetValue(id, out var rule)) continue;
-                        var entry = new ToolStripMenuItem(rule.Name.Replace("&", "&&")) { Enabled = !AutoRuleService.IsRunning(id) };
-                        entry.Click += async (_, _) => await RunFavoriteRuleAsync(id);
-                        favorites.DropDownItems.Add(entry);
+                        var entry = ConvenienceMenus.Item(rule.Name.Replace("_", "__"));
+                        entry.IsEnabled = !AutoRuleService.IsRunning(id);
+                        entry.Click += async (_, _) =>
+                        {
+                            owner.IsOpen = false;
+                            await RunFavoriteRuleAsync(id);
+                        };
+                        favorites.Items.Add(entry);
                     }
-                    if (favorites.DropDownItems.Count == 0) favorites.DropDownItems.Add(L10n.T("Auto.FavoritesEmpty")).Enabled = false;
+                    if (favorites.Items.Count == 0) favorites.Items.Add(empty);
                 }
                 catch { /* 菜单仍可用于打开设置和退出。 */ }
             };
