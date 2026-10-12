@@ -9,7 +9,7 @@
 
 **Control the audio of your current app without digging through Windows sound settings.**
 
-SonicRoute is an open-source Windows audio utility that lives in the system tray. Route input/output devices for individual apps, adjust volume, and mute audio using hotkeys, the taskbar wheel, a quick panel, and OSD feedback — including while gaming or using fullscreen apps. Automation rules are available when you need them.
+SonicRoute is an open-source Windows audio utility that lives in the system tray. Route input/output devices for individual apps, adjust volume, and mute audio using hotkeys, scrolling in the system tray area, a quick panel, and OSD feedback — including while gaming or using fullscreen apps. Automation rules are available when you need them.
 
 <table>
   <tr>
@@ -31,17 +31,17 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · C# / WPF
 ## ✨ Core features
 
 - 🎯 **Per-app device routing**: Switch input/output devices for the current app, running apps, or Windows defaults.
-- ⌨️ **Hotkeys and taskbar wheel**: Adjust app volume, switch devices, mute audio, or control the microphone with fewer window switches.
+- ⌨️ **Hotkeys and tray scrolling**: Use global hotkeys for volume, device switching, and muting; scroll in the system tray notification area to adjust the current app's volume.
 - 🖱 **Tray quick panels**: Control devices, volume, and mute; view live app audio activity in Quick or App panel layouts.
 - 🖥 **OSD feedback**: Show volume and microphone mute status with customizable appearance, positioning, and feedback effects.
-- 🤖 **Automation and CLI**: Trigger multi-step rules on app events, hotkeys, schedules, or startup, or invoke them with `sr "Rule name or ID"`.
+- 🤖 **Automation and CLI**: Trigger multi-step rules on app events, hotkeys, schedules, or startup. Use `sr "Rule name or ID"` to invoke rules in an already-running SonicRoute instance (reopen the terminal after the command is first registered).
 - 🎨 **Personalization**: Light/dark themes, nine languages, device filtering, and custom names.
 
 ## 🚀 Download and quick start
 
 **Recommended:** For most Windows x64 users, choose the **Microsoft Store** build for automatic updates. Choose **Lite x64** for a single executable, or **Legacy x64** if installing .NET 8 is not convenient.
 
-**Current stable release:** [v1.22 · 2026-10-11](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22) · [Full release notes (Chinese)](docs/release-v1.22.md)
+**Get the latest release:** [GitHub Releases](https://github.com/kunkunkunQoQ/SonicRoute/releases/latest) · Direct downloads below are for **v1.22 (2026-10-11)**; [release notes (Chinese)](docs/release-v1.22.md).
 
 | Edition | Requirements / when to use | Download |
 |---|---|---|
@@ -50,11 +50,13 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · C# / WPF
 | Legacy x64 | .NET Framework 4.8; extract the whole ZIP; no .NET 8 required | [Download ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) |
 | Lite ARM64 (experimental) | Single EXE; requires .NET 8 Desktop Runtime (ARM64) | [Download EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) |
 
+The version currently available on Microsoft Store may differ from the latest GitHub release; check the Store listing for its version.
+
 **Getting started:**
 
 1. Download an edition for your system. Lite users need the matching [Microsoft .NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (choose **Desktop Runtime**, not the basic .NET Runtime). Legacy users should extract the full ZIP first.
 2. Launch SonicRoute and find its icon in the Windows notification area (it may be under hidden icons). Open the quick panel or main window from the tray.
-3. Set up hotkeys, taskbar wheel controls, and per-app routing as needed. See the [user guide (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97) for details.
+3. Set up hotkeys, scrolling in the system tray area, and per-app routing as needed. See the [user guide (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97) for details.
 
 > **Compatibility:** ARM64 is experimental and has not been thoroughly validated on physical hardware. Audio routing behavior can vary by app; see the [FAQ (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki/06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98) if device switching does not work as expected.
 
@@ -86,4 +88,4 @@ Improvements will continue in stages; plans may change based on feedback.
 
 ---
 
-**Author: [Bilibili](https://b23.tv/TDqSAKM) | [Afdian](https://www.ifdian.net/a/koukou021) | [GitHub](https://github.com/kunkunkunQoQ/SonicRoute)**
+**Author: [Bilibili](https://b23.tv/TDqSAKM) | [Afdian](https://www.ifdian.net/a/koukou021) | [GitHub](https://github.com/kunkunkunQoQ)**
