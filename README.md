@@ -4,11 +4,13 @@
 
 [![License: MIT](https://img.shields.io/github/license/kunkunkunQoQ/SonicRoute?color=green)](LICENSE) [![Release](https://img.shields.io/github/v/release/kunkunkunQoQ/SonicRoute?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![Downloads](https://img.shields.io/github/downloads/kunkunkunQoQ/SonicRoute/total?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![爱发电](https://img.shields.io/badge/赞助-爱发电-946CE6?logo=afdian&logoColor=white)](https://www.ifdian.net/a/koukou021)
 
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="使用指南"><img src="docs/images/mascot-headphones.png" width="80" align="right" alt="音跃使用指南"></a>
+
 **把每个应用的声音，送到你想要的设备。**
 
-让音乐走音箱，让游戏和通话走耳机。SonicRoute 是常驻托盘的 Windows 音频工具：为应用分别选择输出与输入设备，用快捷键、托盘滚轮或快速面板控制声音，再把常用操作组合成自动化规则。
+SonicRoute 是常驻托盘的 Windows 音频工具：为应用分别选择输出与输入设备，让音乐走音箱，游戏和通话走耳机。用快捷键、托盘区域滚轮或快速面板控制声音，再把常用操作组合成自动化规则。
 
-📥 [下载正式版](https://github.com/kunkunkunQoQ/SonicRoute/releases/latest) ｜ [Microsoft Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) ｜ [使用指南](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
+📥 [下载正式版](https://github.com/kunkunkunQoQ/SonicRoute/releases/latest) ｜ [Microsoft Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) ｜ [使用指南](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97) ｜ [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki)
 
 Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 开源
 
