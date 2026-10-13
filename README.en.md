@@ -93,7 +93,7 @@ The Wiki is currently in Chinese.
 
 ---
 
-<a href="EASTER_EGGS.md" title="The mascot's quiet corner"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Click the resting mascot to discover an Easter egg"></a>
+<a href="EASTER_EGGS.md" title="An Easter egg: yesterday and tomorrow"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Click the resting mascot to discover an Easter egg"></a>
 
 Thanks for using SonicRoute. [Read the guides (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Report an issue](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

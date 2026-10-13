@@ -91,7 +91,7 @@ Lite 请安装对应架构的 [.NET 8 Desktop Runtime](https://dotnet.microsoft.
 
 ---
 
-<a href="EASTER_EGGS.md" title="看板娘的休息角落"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="点击看板娘发现一个彩蛋"></a>
+<a href="EASTER_EGGS.md" title="关于昨天是否经过明天的讨论"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="点击看板娘发现一个彩蛋"></a>
 
 感谢使用 SonicRoute。[查看文档](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [反馈问题](https://github.com/kunkunkunQoQ/SonicRoute/issues)。
 
