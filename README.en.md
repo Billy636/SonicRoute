@@ -4,26 +4,28 @@
 
 [![License: MIT](https://img.shields.io/github/license/kunkunkunQoQ/SonicRoute?color=green)](LICENSE) [![Release](https://img.shields.io/github/v/release/kunkunkunQoQ/SonicRoute?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![Downloads](https://img.shields.io/github/downloads/kunkunkunQoQ/SonicRoute/total?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![Support on Afdian](https://img.shields.io/badge/Support-Afdian-946CE6?logo=afdian&logoColor=white)](https://www.ifdian.net/a/koukou021)
 
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="User guide (Chinese)"><img src="docs/images/mascot-welcome.png" width="96" align="right" alt="SonicRoute mascot welcoming you to the user guide"></a>
+
 **Send each app's audio to the device you choose.**
 
 Keep music on your speakers and games or calls on your headset. SonicRoute is a Windows audio utility that lives in the system tray: choose output and input devices for individual apps, control audio with hotkeys, the tray wheel or a panel, and combine routine actions into automation rules.
 
-📥 [Download the latest release](https://github.com/kunkunkunQoQ/SonicRoute/releases/latest) | [Microsoft Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | [User guide](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97)
+📥 [Download the latest release](https://github.com/kunkunkunQoQ/SonicRoute/releases/latest) | [Microsoft Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | [User guide](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97) | [Wiki (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki)
 
 Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages · MIT licensed
 
-<table>
-  <tr>
-    <th width="35%" align="left">Quick panel · App volume and routing</th>
-    <th width="65%" align="left">Theme settings · Make it your own</th>
-  </tr>
-  <tr>
-    <td valign="top"><a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" alt="SonicRoute Quick panel: selected output device, app volume and live audio activity"></a></td>
-    <td valign="top"><a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" alt="SonicRoute theme settings: appearance, accent color and background opacity"></a></td>
-  </tr>
-</table>
+<div>
+<img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="The mascot peeks over the Quick panel and points to its controls">
+<br>
+<a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute Quick panel: output device and per-app volume controls"></a>
+<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="SonicRoute theme settings: appearance, accent color and background opacity"></a>
+</div>
+
+<sub>Interface examples: Quick panel for app volume and routing; theme settings for appearance.</sub>
 
 ## ✨ What SonicRoute offers
+
+<img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Listening along while you choose app audio devices">
 
 - **Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.
 - **Control the app you're using.** Resolve the current app from foreground activity and audio sessions, with recent, last-used and specified-app modes. Filter and rename your preferred devices, then cycle through them with the same hotkey.
@@ -33,6 +35,8 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 - **Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export.
 
 ## 🎮 Everyday uses
+
+<img src="docs/images/mascot-automation.png" width="48" align="middle" alt="The mascot plays an automation robot"> Set a game to use your headset when it starts, or save several actions as one rule. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | Your situation | What you can do |
 |---|---|
@@ -90,5 +94,9 @@ The Wiki is currently in Chinese.
 - **[WinAudioRoute](https://github.com/kunkunkunQoQ/WinAudioRoute)**: A .NET library for Windows audio devices, sessions, per-app routing, events and CLI access.
 
 ---
+
+<img src="docs/images/mascot-footer.png" width="56" align="right" alt="A resting mascot at the end of the guide">
+
+Thanks for using SonicRoute. [Read the guides (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Report an issue](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 
 **Author: [Bilibili](https://b23.tv/TDqSAKM) | [Afdian](https://www.ifdian.net/a/koukou021) | [GitHub](https://github.com/kunkunkunQoQ)**
