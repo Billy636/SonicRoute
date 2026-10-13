@@ -4,8 +4,6 @@
 
 [![License: MIT](https://img.shields.io/github/license/kunkunkunQoQ/SonicRoute?color=green)](LICENSE) [![Release](https://img.shields.io/github/v/release/kunkunkunQoQ/SonicRoute?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![Downloads](https://img.shields.io/github/downloads/kunkunkunQoQ/SonicRoute/total?color=blue)](https://github.com/kunkunkunQoQ/SonicRoute/releases) [![爱发电](https://img.shields.io/badge/赞助-爱发电-946CE6?logo=afdian&logoColor=white)](https://www.ifdian.net/a/koukou021)
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="使用指南"><img src="docs/images/mascot-welcome.png" width="96" align="right" alt="音跃看板娘挥手欢迎，进入使用指南"></a>
-
 **把每个应用的声音，送到你想要的设备。**
 
 SonicRoute 是常驻托盘的 Windows 音频工具：为应用分别选择输出与输入设备，让音乐走音箱，游戏和通话走耳机。用快捷键、托盘区域滚轮或快速面板控制声音，再把常用操作组合成自动化规则。
@@ -15,7 +13,7 @@ SonicRoute 是常驻托盘的 Windows 音频工具：为应用分别选择输出
 Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 开源
 
 <div>
-<img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="看板娘探头向下指向快捷面板的设备与音量控件">
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="使用指南"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="点击看板娘查看使用指南"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute 快捷面板：顶部输出设备与各应用音量"></a>
 <a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="SonicRoute 主题设置：主题模式、强调色与背景透明度"></a>
@@ -25,7 +23,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 
 
 ## ✨ SonicRoute 的特点
 
-<img src="docs/images/mascot-headphones.png" width="68" align="right" alt="看板娘扶着耳机，陪你选择应用的声音去向">
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能特性"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="点击看板娘查看功能特性"></a>
 
 - **按应用分配声音**：分别设置应用的播放与录音设备，也能切换运行中应用的设备或 Windows 系统默认设备。应用路由由 Windows 保存，退出 SonicRoute 后仍会保留。
 - **围绕当前应用操作**：根据前台与音频会话识别当前应用，支持最近使用、上次操作和指定应用。常用设备可筛选、改名，用同一组快捷键循环切换。
@@ -36,7 +34,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 
 
 ## 🎮 这样使用
 
-<img src="docs/images/mascot-automation.png" width="48" align="middle" alt="铁锅小机器人提示自动化场景"> 打开游戏时自动切到耳机，或把几步常用操作保存成一条规则。[配置自动化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)。
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自动化规则"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="点击小机器人查看自动化规则"></a> 打开游戏时自动切到耳机，或把几步常用操作保存成一条规则。[配置自动化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)。
 
 | 你的场景 | SonicRoute 可以做什么 |
 |---|---|
@@ -93,7 +91,7 @@ Lite 请安装对应架构的 [.NET 8 Desktop Runtime](https://dotnet.microsoft.
 
 ---
 
-<img src="docs/images/mascot-footer.png" width="56" align="right" alt="看板娘在页尾坐下，陪你找到下一步">
+<a href="EASTER_EGGS.md" title="看板娘的休息角落"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="点击看板娘发现一个彩蛋"></a>
 
 感谢使用 SonicRoute。[查看文档](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [反馈问题](https://github.com/kunkunkunQoQ/SonicRoute/issues)。
 
