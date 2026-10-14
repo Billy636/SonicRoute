@@ -1,0 +1,32 @@
+name: README consistency
+
+on:
+  push:
+    paths:
+      - 'README*.md'
+      - 'docs/readme/**'
+      - 'SonicRoute/Resources/Lang/*.json'
+      - '.github/workflows/readme.yml'
+  pull_request:
+    paths:
+      - 'README*.md'
+      - 'docs/readme/**'
+      - 'SonicRoute/Resources/Lang/*.json'
+      - '.github/workflows/readme.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node docs/readme/generate.cjs --check
