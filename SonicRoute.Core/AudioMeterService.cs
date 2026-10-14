@@ -112,8 +112,8 @@ namespace SonicRoute.Core
                         if (_stopping) break;
                         if (_targetsVersion != seenVersion)
                         {
-                            // 目标只在面板行或静音状态改变时复制，避免 30Hz 空转分配。
-                            targets = new HashSet<int>(_targets);
+                            // 发布后不修改目标集；更新只替换引用，工作线程可直接持有旧快照。
+                            targets = _targets;
                             seenVersion = _targetsVersion;
                             targetsChanged = true;
                         }

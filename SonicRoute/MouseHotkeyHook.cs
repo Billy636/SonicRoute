@@ -83,6 +83,9 @@ namespace SonicRoute
             {
                 try
                 {
+                    // 录制态让 WPF 捕获输入，避免既有滚轮绑定抢先调音量并吞掉事件。
+                    if (System.Windows.Application.Current is App app && app.IsHotkeyCaptureActive)
+                        return CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
                     var ms = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
 
                     // 只有按下事件参与匹配（滚轮/中键无"按下"语义，直接处理；XButton 需按下）
@@ -121,6 +124,16 @@ namespace SonicRoute
                 }
             }
             return CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
+        }
+
+        internal bool HasWheelBinding(int delta)
+        {
+            if (_disposed || delta == 0) return false;
+            string key = delta > 0 ? "WheelUp" : "WheelDown";
+            uint mods = GetPressedMods();
+            foreach (var binding in _bindings)
+                if (binding.Mods == mods && string.Equals(binding.Key, key, StringComparison.OrdinalIgnoreCase)) return true;
+            return false;
         }
 
         /// <summary>拆分快捷键组合串（'+' 分隔）：去空段 + 逐段 Trim。

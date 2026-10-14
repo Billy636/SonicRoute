@@ -213,6 +213,8 @@
   "Act.MuteInput": "切換所有麥克風的靜音狀態",
   "Act.VolUp": "增大當前應用音量",
   "Act.VolDown": "減小當前應用音量",
+  "Act.SystemVolUp": "增大系統預設輸出音量",
+  "Act.SystemVolDown": "減小系統預設輸出音量",
   "Act.Panel": "打開快速面板",
   "Act.SwitchInput": "切換當前應用麥克風裝置",
   "Act.SetDefaultOutput": "預設輸出",

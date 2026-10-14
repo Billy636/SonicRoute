@@ -116,9 +116,12 @@ namespace SonicRoute
             if (!_disposed && nCode >= 0 && (int)wParam == WM_MOUSEWHEEL)
             {
                 var data = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
+                int delta = (short)((data.mouseData >> 16) & 0xFFFF);
+                // 托盘钩子可能先收到事件；已匹配全局滚轮快捷键时只交给下一钩子。
+                if (System.Windows.Application.Current is App current && current.ShouldBypassTrayWheel(delta))
+                    return CallNextHookEx(_hook, nCode, wParam, lParam);
                 if (IsOverTray(data.pt))
                 {
-                    int delta = (short)((data.mouseData >> 16) & 0xFFFF);
                     // 钩子线程绝不做 COM/音频调用：合并滚轮量，UI 入口启动后台处理。
                     System.Threading.Interlocked.Add(ref _pendingDelta, delta);
                     if (!_dispatchScheduled)

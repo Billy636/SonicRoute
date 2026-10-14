@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using SonicRoute.Core.Compat;
 using SonicRoute.Core.Interop;
 using SonicRoute.Core.Models;
@@ -25,7 +27,7 @@ namespace SonicRoute.Core
         /// <summary>枚举指定方向的激活设备（播放 eRender / 录音 eCapture）。
         /// 带极短 TTL 缓存：同一短时间内（如启动→打开面板、快捷键连续切换）避免重复 WASAPI 枚举。
         /// 返回防御性副本，调用方修改（如 IsDefault 显示标记）不影响缓存。
-        /// 缓存不感知设备插拔/默认设备变化，TTL 极短（3s），过期后自动重新枚举。</summary>
+        /// 设备通知使缓存失效，3s TTL 作为未收到通知时的回退。</summary>
         public static List<AudioDeviceInfo> GetDevices(EDataFlow flow)
         {
             // 同方向冷缓存只枚举一次；播放与录音仍可并行。
@@ -35,11 +37,16 @@ namespace SonicRoute.Core
                 {
                     var cache = flow == EDataFlow.eRender ? _deviceCacheRender : _deviceCaptureRender;
                     var at = flow == EDataFlow.eRender ? _deviceCacheRenderAt : _deviceCacheCaptureAt;
-                    if (cache != null && CompatEnv.TickCount64 - at < DeviceCacheTtlMs)
+                    int generation = flow == EDataFlow.eRender
+                        ? Volatile.Read(ref _renderDeviceGeneration) : Volatile.Read(ref _captureDeviceGeneration);
+                    int cachedGeneration = flow == EDataFlow.eRender ? _renderCacheGeneration : _captureCacheGeneration;
+                    if (cache != null && cachedGeneration == generation && CompatEnv.TickCount64 - at < DeviceCacheTtlMs)
                         return CloneDevices(cache);
                 }
 
                 // 锁外枚举：不同方向可并行，不持有短时缓存锁。
+                int enumerationGeneration = flow == EDataFlow.eRender
+                    ? Volatile.Read(ref _renderDeviceGeneration) : Volatile.Read(ref _captureDeviceGeneration);
                 var list = EnumerateDevices(flow);
                 lock (_deviceCacheLock)
                 {
@@ -47,11 +54,13 @@ namespace SonicRoute.Core
                     {
                         _deviceCacheRender = list;
                         _deviceCacheRenderAt = CompatEnv.TickCount64;
+                        _renderCacheGeneration = enumerationGeneration;
                     }
                     else
                     {
                         _deviceCaptureRender = list;
                         _deviceCacheCaptureAt = CompatEnv.TickCount64;
+                        _captureCacheGeneration = enumerationGeneration;
                     }
                     return CloneDevices(list);
                 }
@@ -80,6 +89,15 @@ namespace SonicRoute.Core
         private static List<AudioDeviceInfo>? _deviceCaptureRender;
         private static long _deviceCacheRenderAt;
         private static long _deviceCacheCaptureAt;
+        private static int _renderDeviceGeneration, _captureDeviceGeneration;
+        private static int _renderCacheGeneration, _captureCacheGeneration;
+
+        public static void InvalidateDeviceCache(EDataFlow? flow = null)
+        {
+            // Notification callbacks never wait on a lock held during a COM enumeration.
+            if (flow != EDataFlow.eCapture) Interlocked.Increment(ref _renderDeviceGeneration);
+            if (flow != EDataFlow.eRender) Interlocked.Increment(ref _captureDeviceGeneration);
+        }
         // CompatEnv.TickCount64 的单位是毫秒；设备列表保留 3 秒。
         private const long DeviceCacheTtlMs = 3000;
 
@@ -191,18 +209,49 @@ namespace SonicRoute.Core
         {
             lock (_appsLock)
             {
-                if (!refresh && _appsCache != null && (DateTime.UtcNow - _appsCacheAt).TotalMilliseconds < 1000)
+                if (!refresh && _appsCache != null && _appsCacheGeneration == Volatile.Read(ref _appsGeneration)
+                    && CompatEnv.TickCount64 - _appsCacheAt < 1000)
                     return _appsCache;
+                int generation = Volatile.Read(ref _appsGeneration);
                 var apps = EnumerateApps();
                 _appsCache = apps;
-                _appsCacheAt = DateTime.UtcNow;
+                _appsCacheAt = CompatEnv.TickCount64;
+                _appsCacheGeneration = generation;
                 return apps;
             }
         }
 
         private static readonly object _appsLock = new();
         private static List<AudioAppInfo>? _appsCache;
-        private static DateTime _appsCacheAt;
+        private static long _appsCacheAt;
+        private static int _appsGeneration, _appsCacheGeneration;
+        private static readonly object _appsReadGate = new();
+        private static Task<List<AudioAppInfo>>? _appsReadTask;
+        private static int _appsReadGeneration;
+
+        public static void InvalidateAppsCache() => Interlocked.Increment(ref _appsGeneration);
+
+        /// <summary>Share ordinary reads without blocking the UI on the enumeration lock.
+        /// Forced reads remain independent, and an invalidation starts a new read generation.</summary>
+        public static Task<List<AudioAppInfo>> GetAppsAsync(bool refresh = false)
+        {
+            if (refresh) return Task.Run(() => GetApps(refresh: true));
+            lock (_appsReadGate)
+            {
+                int generation = Volatile.Read(ref _appsGeneration);
+                if (_appsReadTask != null && _appsReadGeneration == generation)
+                {
+                    if (!_appsReadTask.IsCompleted) return _appsReadTask;
+                    if (_appsReadTask.Status == TaskStatus.RanToCompletion
+                        && ReferenceEquals(_appsReadTask.Result, Volatile.Read(ref _appsCache))
+                        && Volatile.Read(ref _appsCacheGeneration) == generation
+                        && CompatEnv.TickCount64 - Interlocked.Read(ref _appsCacheAt) < 1000)
+                        return _appsReadTask;
+                }
+                _appsReadGeneration = generation;
+                return _appsReadTask = Task.Run(() => GetApps());
+            }
+        }
 
         private static List<AudioAppInfo> EnumerateApps()
         {
@@ -355,14 +404,20 @@ namespace SonicRoute.Core
                     // 系统默认虚拟项：清除该应用持久化路由 → 跟随系统默认（与一键还原单应用方式一致）
                     int hrClear = config.SetDefaultEndPoint(null, processId);
                     if (hrClear >= 0)
+                    {
+                        InvalidateAppsCache();
                         return (true, hrClear, "成功");
+                    }
                     return (false, hrClear, $"HRESULT: 0x{hrClear:X8} ({hrClear})");
                 }
                 // 设备 ID 可能是短 ID（IMMDevice.GetId()），统一包装为完整接口路径再调用
                 string fullDeviceId = AudioPolicyConfig.EnsureFullDeviceId(deviceId, flow);
                 int hr = config.SetDefaultEndPoint(fullDeviceId, processId);
                 if (hr >= 0)
+                {
+                    InvalidateAppsCache();
                     return (true, hr, "成功");
+                }
                 return (false, hr, $"HRESULT: 0x{hr:X8} ({hr})");
             }
             catch (Exception ex)
@@ -414,6 +469,7 @@ namespace SonicRoute.Core
             // HKCU\Software\Microsoft\Internet Explorer\LowRegistry\Audio\PolicyConfig\PropertyStore
             // 每个子键 = 一个应用的持久化端点（默认值含应用路径）。整树删除 = 全部还原为系统默认。
             int cleared = ClearPersistedPolicyStore();
+            if (hrClear >= 0 || okOut > 0 || okIn > 0 || cleared > 0) InvalidateAppsCache();
             return (okOut + cleared, okIn + cleared, total + cleared);
         }
 

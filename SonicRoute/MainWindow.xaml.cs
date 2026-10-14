@@ -35,6 +35,7 @@ namespace SonicRoute
     public partial class MainWindow : Window
     {
         private bool _isClosed;
+        internal bool IsHotkeyRecording => _recordingAction != null || _autoCapturingHotkey;
         private HwndSource? _hwndSource;
         private List<AudioDeviceInfo> _outputs = new();
         private List<AudioDeviceInfo> _outputDisplay = new();
@@ -105,7 +106,6 @@ namespace SonicRoute
             VolumePresets.Attach(OverviewVolumeSlider);
             VolumePresets.Attach(AppsVolumeSlider);
             AppsRenameBox.LostKeyboardFocus += NameEdit_LostKeyboardFocus;
-            FixedAppCombo.DropDownOpened += AppCombo_DropDownOpened;
 
             Title = $"SonicRoute {App.DisplayVersion}";
             if (HeaderTitleText != null)
@@ -118,7 +118,6 @@ namespace SonicRoute
                 if (_isClosed) return;
                 if (!_isClosed && OverviewPage.Visibility == Visibility.Visible)
                     await RefreshOverviewAsync();
-                SyncOsdSliders();
                 // 实验 UI（概览/应用/设置输入区/名称区）可见性：麦克风选项开启时显示
                 ApplyExpMicUi(_config.ExperimentalMic);
                 NavExperimental.Visibility = _config.ExperimentalUnlocked && _config.ExperimentalMode
@@ -379,14 +378,22 @@ namespace SonicRoute
             var tag = ((RadioButton)sender).Tag as string;
             int navigationVersion = ++_navigationVersion;
             if (tag == "Automation") EnsureAutomationPage();
+            else if (tag == "Theme") EnsureThemePage();
+            else if (tag == "Settings") EnsureSettingsPage();
+            else if (tag == "Hotkeys") EnsureHotkeysPage();
+            else if (tag == "Experimental") EnsureExperimentalPage();
             FinishPanelAnimations();
             if (tag != "Automation") StopAutoRefresh();
             OverviewPage.Visibility = tag == "Overview" ? Visibility.Visible : Visibility.Collapsed;
             AppsPage.Visibility = tag == "Apps" ? Visibility.Visible : Visibility.Collapsed;
-            HotkeysPage.Visibility = tag == "Hotkeys" ? Visibility.Visible : Visibility.Collapsed;
-            ThemePage.Visibility = tag == "Theme" ? Visibility.Visible : Visibility.Collapsed;
-            SettingsPage.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
-            ExperimentalPage.Visibility = tag == "Experimental" ? Visibility.Visible : Visibility.Collapsed;
+            HotkeysPageHost.Visibility = tag == "Hotkeys" ? Visibility.Visible : Visibility.Collapsed;
+            if (HotkeysPage != null) HotkeysPage.Visibility = HotkeysPageHost.Visibility;
+            ThemePageHost.Visibility = tag == "Theme" ? Visibility.Visible : Visibility.Collapsed;
+            SettingsPageHost.Visibility = tag == "Settings" ? Visibility.Visible : Visibility.Collapsed;
+            if (ThemePage != null) ThemePage.Visibility = ThemePageHost.Visibility;
+            if (SettingsPage != null) SettingsPage.Visibility = SettingsPageHost.Visibility;
+            ExperimentalPageHost.Visibility = tag == "Experimental" ? Visibility.Visible : Visibility.Collapsed;
+            if (ExperimentalPage != null) ExperimentalPage.Visibility = ExperimentalPageHost.Visibility;
             AutomationPageHost.Visibility = tag == "Automation" ? Visibility.Visible : Visibility.Collapsed;
 
             if (tag == "Overview") await RefreshOverviewAsync();
@@ -409,7 +416,7 @@ namespace SonicRoute
         private async Task LoadDevicesAsync()
         {
             if (_isClosed) return;
-            // 输出/输入两组并行枚举（各自含设备列表 + 默认设备），互不依赖
+            // 输出立即读取；麦克风 UI 需要时才并行读取输入。
             var outTask = _uiLifetime.ReadAsync(() =>
             {
                 var outputs = AudioService.GetDevices(EDataFlow.eRender);
@@ -417,13 +424,7 @@ namespace SonicRoute
                 foreach (var d in outputs) d.IsDefault = string.Equals(d.Id, defOut, StringComparison.OrdinalIgnoreCase);
                 return outputs;
             });
-            var inTask = _uiLifetime.ReadAsync(() =>
-            {
-                var inputs = AudioService.GetDevices(EDataFlow.eCapture);
-                string? defIn = AudioService.GetDefaultDeviceId(EDataFlow.eCapture);
-                foreach (var d in inputs) d.IsDefault = string.Equals(d.Id, defIn, StringComparison.OrdinalIgnoreCase);
-                return inputs;
-            });
+            if (_config.ExperimentalMic) _ = EnsureInputDevicesAsync();
 
             List<AudioDeviceInfo> outputs;
             try { outputs = await outTask; }
@@ -431,14 +432,10 @@ namespace SonicRoute
             if (_isClosed) return;
             _outputs = outputs;
 
-            // 输入设备（麦克风）：仅实验模式 + 麦克风选项使用（快速切换当前应用麦克风设备/保留设置）
-            try
-            {
-                _inputs = await inTask;
-            }
-            catch { _inputs = new List<AudioDeviceInfo>(); }
+            if (_config.ExperimentalMic) await EnsureInputDevicesAsync();
             if (_isClosed) return;
             ReloadDeviceDisplay();
+            _initialDeviceLoadComplete = true;
 
         }
 
@@ -476,15 +473,22 @@ namespace SonicRoute
         {
             string? overviewId = (OverviewOutputCombo.SelectedItem as AudioDeviceInfo)?.Id;
             string? appsId = (AppsOutputCombo.SelectedItem as AudioDeviceInfo)?.Id;
+            string? overviewInputId = (OverviewInputCombo.SelectedItem as AudioDeviceInfo)?.Id;
+            string? appsInputId = (AppsInputCombo.SelectedItem as AudioDeviceInfo)?.Id;
             _outputDisplay = PanelDevices.WithSystemDefault(DisplayDevices(_outputs), EDataFlow.eRender, _config);
+            _inputDisplay = PanelDevices.WithSystemDefault(DisplayDevices(_inputs), EDataFlow.eCapture, _config);
             bool suppressed = _suppressDevCombo;
             _suppressDevCombo = true;
             try
             {
                 OverviewOutputCombo.ItemsSource = _outputDisplay;
                 AppsOutputCombo.ItemsSource = _outputDisplay;
+                OverviewInputCombo.ItemsSource = _inputDisplay;
+                AppsInputCombo.ItemsSource = _inputDisplay;
                 if (overviewId != null) OverviewOutputCombo.SelectedItem = _outputDisplay.FirstOrDefault(d => d.Id == overviewId);
                 if (appsId != null) AppsOutputCombo.SelectedItem = _outputDisplay.FirstOrDefault(d => d.Id == appsId);
+                if (overviewInputId != null) OverviewInputCombo.SelectedItem = _inputDisplay.FirstOrDefault(d => d.Id == overviewInputId);
+                if (appsInputId != null) AppsInputCombo.SelectedItem = _inputDisplay.FirstOrDefault(d => d.Id == appsInputId);
             }
             finally { _suppressDevCombo = suppressed; }
         }
@@ -499,7 +503,7 @@ namespace SonicRoute
             try
             {
                 int request = ++_overviewRefreshRequest;
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps(force));
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync(force));
                 if (_isClosed || request != _overviewRefreshRequest) return;
                 var items = GetAppCandidates(apps);
                 AppItem.LoadIconsAsync(items);
@@ -604,10 +608,12 @@ namespace SonicRoute
                 }
 
                 var pid = (int)_overviewApp.ProcessId;
-                // 5 路音频查询并行（持久化端点×2、会话音量/静音、全局麦克风），互不依赖
+                // 并行读取可见功能的状态；隐藏输入路由时不查询其持久化端点。
                 var tMic = _uiLifetime.ReadAsync(() => GlobalMicMuteService.IsMuted());
                 var tOut = _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eRender));
-                var tIn = _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eCapture));
+                var tIn = _config.ExperimentalMic
+                    ? _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eCapture))
+                    : Task.FromResult<string?>(null);
                 var tVol = _uiLifetime.ReadAsync(() => SessionVolumeService.GetVolumePercent(pid));
                 var tMuted = _uiLifetime.ReadAsync(() => SessionVolumeService.IsMuted(pid));
                 await Task.WhenAll(tMic, tOut, tIn, tVol, tMuted);
@@ -916,7 +922,7 @@ namespace SonicRoute
             try
             {
                 int request = ++_appsRefreshRequest;
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps());
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync());
                 if (_isClosed || request != _appsRefreshRequest) return;
                 if (SameAutoApps(_appItems.Select(item => item.Info).ToList(), apps))
                 {
@@ -1168,7 +1174,9 @@ namespace SonicRoute
                 if (app == null) return;
                 var pid = (int)app.ProcessId;
                 var output = _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eRender));
-                var input = _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eCapture));
+                var input = _config.ExperimentalMic
+                    ? _uiLifetime.ReadAsync(() => AudioService.GetPersistedEndpoint(pid, EDataFlow.eCapture))
+                    : Task.FromResult<string?>(null);
                 var volume = _uiLifetime.ReadAsync(() => SessionVolumeService.GetVolumePercent(pid));
                 var mute = _uiLifetime.ReadAsync(() => SessionVolumeService.IsMuted(pid));
                 await Task.WhenAll(output, input, volume, mute);
@@ -1349,10 +1357,7 @@ namespace SonicRoute
                 FixedAppCombo.IsEnabled = _config.DefaultAppMode == "fixed";
 
                 // 语言（下拉，重启生效）
-                LangCombo.ItemsSource = L10n.SupportedLanguages.Select(x => x.NativeName).ToList();
-                int li = Array.FindIndex(L10n.SupportedLanguages,
-                    x => string.Equals(x.Code, _config.Language, StringComparison.OrdinalIgnoreCase));
-                LangCombo.SelectedIndex = li < 0 ? 0 : li;
+                RefreshLangCombo(_config.Language);
                 // 自定义语言管理区（方案3）
                 RefreshCustomLangList();
 
@@ -1372,17 +1377,12 @@ namespace SonicRoute
                 SettingsShowPanelOnStart.IsChecked = _config.StartPanelOnStart;
                 SettingsPanelChangeSysDef.IsChecked = _config.PanelChangeSystemDefault;
                 // 快速面板样式：应用面板 / 快捷面板（默认简洁）
-                QuickPanelStyleCombo.ItemsSource = new[] { L10n.T("St.PanelClassic"), L10n.T("St.PanelModern") };
-                QuickPanelStyleCombo.SelectedIndex = _config.QuickPanelStyle == "classic" ? 0 : 1;
+                SyncSettingsPanelStyle();
                 // 快捷面板更改系统默认设备：仅"快捷面板"样式时显示
                 PanelChangeSysDefSection.Visibility = _config.QuickPanelStyle == "classic"
                     ? Visibility.Collapsed : Visibility.Visible;
-                // 快捷面板高度设置：应用面板不显示
-                PanelHeightSection.Visibility = _config.QuickPanelStyle == "classic"
-                    ? Visibility.Collapsed : Visibility.Visible;
-                // 快捷面板固定高度（px，350–800，默认 450）
-                PanelHeightSlider.Value = MathEx.Clamp(_config.QuickPanelHeight, 350, 800);
-                PanelHeightValue.Text = MathEx.Clamp(_config.QuickPanelHeight, 350, 800) + " px";
+                // 主题页未创建时保留配置；首次进入主题页再同步高度。
+                SyncThemePanelHeight();
                 VolumeStepBox.Text = MathEx.Clamp(_config.VolumeStep, 1, 20).ToString();
                 SettingsTrayWheelEverywhere.IsChecked = _config.TrayWheelEverywhere;
 
@@ -1418,7 +1418,7 @@ namespace SonicRoute
             if (_isClosed) return;
             try
             {
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps());
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync());
                 if (_isClosed || navigationVersion != _navigationVersion
                     || SettingsPage.Visibility != Visibility.Visible) return;
                 if (SameAutoApps(_settingsApps, apps) && FixedAppCombo.ItemsSource != null) return;
@@ -1524,14 +1524,7 @@ namespace SonicRoute
                 UpdateAppsDisableAutoButton();
                 UpdateAppsShowInPanelButton();
                 // 设置页动态文本
-                bool previous = _suppressSettings;
-                _suppressSettings = true;
-                try
-                {
-                    QuickPanelStyleCombo.ItemsSource = new[] { L10n.T("St.PanelClassic"), L10n.T("St.PanelModern") };
-                    QuickPanelStyleCombo.SelectedIndex = _config.QuickPanelStyle == "classic" ? 0 : 1;
-                }
-                finally { _suppressSettings = previous; }
+                SyncSettingsPanelStyle();
                 InvalidateSettingsDeviceSections();
                 EnsureSettingsDeviceSections();
                 RefreshCustomLangList();
@@ -1551,13 +1544,11 @@ namespace SonicRoute
                 string accent = _config.Accent ?? "blue";
                 SyncThemeColorUi(accent);
                 AppPeakMeterCheck.IsChecked = _config.ShowAppPeakMeter;
+                SyncOsdSliders();
 
                 // 快速面板高度（快捷面板固定高度，350–800，默认 450）：
                 // 该设置位于主题页，必须在 LoadTheme 初始化，否则会显示 XAML 硬编码初值；应用面板不显示
-                PanelHeightSection.Visibility = _config.QuickPanelStyle == "classic"
-                    ? Visibility.Collapsed : Visibility.Visible;
-                PanelHeightSlider.Value = MathEx.Clamp(_config.QuickPanelHeight, 350, 800);
-                PanelHeightValue.Text = MathEx.Clamp(_config.QuickPanelHeight, 350, 800) + " px";
+                SyncThemePanelHeight();
             }
             finally
             {
@@ -1735,8 +1726,7 @@ namespace SonicRoute
             PanelChangeSysDefSection.Visibility = _config.QuickPanelStyle == "classic"
                 ? Visibility.Collapsed : Visibility.Visible;
             // 快捷面板高度设置仅快捷面板样式显示
-            PanelHeightSection.Visibility = _config.QuickPanelStyle == "classic"
-                ? Visibility.Collapsed : Visibility.Visible;
+            SyncThemePanelHeight();
         }
 
         /// <summary>快捷面板更改系统默认设备开关（默认关）：开启后快捷面板下拉框切换设备 = 更改系统默认输出设备。</summary>
@@ -1869,7 +1859,7 @@ namespace SonicRoute
 
         private void FinishPanelAnimations()
         {
-            foreach (var panel in new FrameworkElement[] { LangMorePanel, SettingsMorePanel, MicMorePanel,
+            foreach (var panel in new FrameworkElement[] { LangMorePanel, SettingsMorePanel,
                 KeepDevicesBody, DeviceNamesBody, OsdSlidersPanel })
                 if (panel?.Parent is AnimatedExpandHost host) host.FinishImmediately();
         }
@@ -1880,17 +1870,12 @@ namespace SonicRoute
             AnimatePanelExpand(LangMorePanel, LangMoreToggle.IsChecked == true);
         }
 
-        /// <summary>设置页「显示更多选项」折叠：展开/收起清理自启项与麦克风子选项。</summary>
+        /// <summary>设置页「显示更多选项」折叠：展开/收起清理自启项。</summary>
         private void SettingsMoreToggle_Click(object sender, RoutedEventArgs e)
         {
             AnimatePanelExpand(SettingsMorePanel, SettingsMoreToggle.IsChecked == true);
         }
 
-        /// <summary>麦克风子选项「显示更多选项」折叠：展开/收起「在快捷面板显示麦克风」。</summary>
-        private void MicMoreToggle_Click(object sender, RoutedEventArgs e)
-        {
-            AnimatePanelExpand(MicMorePanel, MicMoreToggle.IsChecked == true);
-        }
         /// <summary>清理开机自启项（方案四B）：绿色版删 Run 键，商店版禁用 StartupTask；同步配置与 UI。</summary>
         private async void CleanAutoStart_Click(object sender, RoutedEventArgs e)
         {
@@ -1971,15 +1956,17 @@ namespace SonicRoute
             OverviewInputCard.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
             AppsInputLabel.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
             AppsInputCombo.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
-            InputFilterHeader.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
-            InputFilterList.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
-            InputNameHeader.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
-            InputNameList.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+            if (SettingsPage != null)
+            {
+                InputFilterHeader.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+                InputFilterList.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+                InputNameHeader.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+                InputNameList.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+            }
             // 麦克风子选项折叠按钮：仅麦克风选项开启时显示
             if (ExpMicPanelCheck != null)
                 ExpMicPanelCheck.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
-            if (MicMoreToggle != null)
-                MicMoreToggle.Visibility = expMic ? Visibility.Visible : Visibility.Collapsed;
+            if (expMic) _ = EnsureInputDevicesAsync();
         }
 
         /// <summary>实验设置页：加载麦克风选项 / 快捷面板显示 / 折叠 的当前配置。</summary>
@@ -2042,11 +2029,12 @@ namespace SonicRoute
             try
             {
                 var (okOut, okIn, total) = await Task.Run(() => AudioService.ResetAllPersistedEndpoints());
+                if (_isClosed) return;
                 if (total == 0) ShowToast(L10n.T("Exp.ResetAllNone"));
                 else if (okOut == total && okIn == total) ShowToast(string.Format(L10n.T("Exp.ResetAllDone"), total));
                 else ShowToast(string.Format(L10n.T("Exp.ResetAllFail"), okOut, total, okIn, total));
             }
-            finally { ExpResetAllButton.IsEnabled = true; }
+            finally { if (!_isClosed && ExpResetAllButton != null) ExpResetAllButton.IsEnabled = true; }
         }
 
         /// <summary>实验设置 - 一键清理配置文件：删除 config.json 恢复全部默认并自动重启应用。</summary>
@@ -2237,12 +2225,18 @@ namespace SonicRoute
         /// <summary>重建语言下拉列表并选中指定语言（导入/删除/重命名后刷新，抑制保存）。</summary>
         private void RefreshLangCombo(string selectCode)
         {
+            if (_isClosed || LangCombo == null) return;
             bool previous = _suppressSettings;
             _suppressSettings = true;
             try
             {
-                LangCombo.ItemsSource = L10n.SupportedLanguages.Select(x => x.NativeName).ToList();
-                int idx = Array.FindIndex(L10n.SupportedLanguages,
+                var languages = L10n.SupportedLanguages;
+                if (!ReferenceEquals(_settingsLanguageChoices, languages))
+                {
+                    LangCombo.ItemsSource = languages.Select(x => x.NativeName).ToList();
+                    _settingsLanguageChoices = languages;
+                }
+                int idx = Array.FindIndex(languages,
                     x => string.Equals(x.Code, selectCode, StringComparison.OrdinalIgnoreCase));
                 LangCombo.SelectedIndex = idx < 0 ? 0 : idx;
             }
@@ -2253,11 +2247,17 @@ namespace SonicRoute
         /// 每行「显示名输入框 + code + 改名 + 移除」。</summary>
         private void RefreshCustomLangList()
         {
+            if (_isClosed || CustomLangList == null) return;
             var langs = L10n.ListCustomLanguages()
                 .OrderBy(x => x.NativeName, StringComparer.OrdinalIgnoreCase)
                 .OrderByDescending(x => string.Equals(x.Code, L10n.CurrentLanguage, StringComparison.OrdinalIgnoreCase))
                 .ToList();
             CustomLangSection.Visibility = langs.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            if (langs.Count == 0)
+            {
+                CustomLangList.Content = null;
+                return;
+            }
             var panel = new StackPanel();
             foreach (var (code, native) in langs)
             {
@@ -2354,6 +2354,7 @@ namespace SonicRoute
         private void SetLanguageFilesBusy(bool busy)
         {
             _languageFilesBusy = busy;
+            if (_isClosed || CustomLangList == null) return;
             ExpExportLangButton.IsEnabled = !busy;
             ExpImportLangButton.IsEnabled = !busy;
             ExpRestoreLangButton.IsEnabled = !busy;
@@ -2604,28 +2605,31 @@ namespace SonicRoute
         private void SyncOsdSliders()
         {
             if (OsdWidthSlider == null) return;
+            bool syncing = _syncingOsdSliders;
             _syncingOsdSliders = true;
-            OsdWidthSlider.Value = _config.OsdWidth;
-            OsdFontSlider.Value = _config.OsdFontScale;
-            if (OsdFadeInSlider != null) OsdFadeInSlider.Value = _config.OsdFadeInMs;
-            if (OsdFadeOutSlider != null) OsdFadeOutSlider.Value = _config.OsdFadeOutMs;
-            if (OsdVolumeVisualCheck != null) OsdVolumeVisualCheck.IsChecked = _config.OsdVolumeVisualEnabled;
-            _syncingOsdSliders = false;
-            OsdWidthValue.Text = _config.OsdWidth + "px";
-            OsdFontValue.Text = (int)Math.Round(_config.OsdFontScale * 100) + "%";
-            if (OsdFadeInValue != null) OsdFadeInValue.Text = _config.OsdFadeInMs + "ms";
-            if (OsdFadeOutValue != null) OsdFadeOutValue.Text = _config.OsdFadeOutMs + "ms";
-            if (MicMutePersistCheck != null) MicMutePersistCheck.IsChecked = _config.MicMuteOsdPersistent;
-            if (MicMuteTrackInputCheck != null) MicMuteTrackInputCheck.IsChecked = _config.MicMuteOsdTrackInputMuted;
-            if (MicMuteTrackInputCheck != null) ApplyMicMutePersistUi(_config.MicMuteOsdPersistent);
+            try
+            {
+                OsdWidthSlider.Value = _config.OsdWidth;
+                OsdFontSlider.Value = _config.OsdFontScale;
+                if (OsdFadeInSlider != null) OsdFadeInSlider.Value = _config.OsdFadeInMs;
+                if (OsdFadeOutSlider != null) OsdFadeOutSlider.Value = _config.OsdFadeOutMs;
+                if (OsdVolumeVisualCheck != null) OsdVolumeVisualCheck.IsChecked = _config.OsdVolumeVisualEnabled;
+                OsdWidthValue.Text = _config.OsdWidth + "px";
+                OsdFontValue.Text = (int)Math.Round(_config.OsdFontScale * 100) + "%";
+                if (OsdFadeInValue != null) OsdFadeInValue.Text = _config.OsdFadeInMs + "ms";
+                if (OsdFadeOutValue != null) OsdFadeOutValue.Text = _config.OsdFadeOutMs + "ms";
+                if (MicMutePersistCheck != null) MicMutePersistCheck.IsChecked = _config.MicMuteOsdPersistent;
+                if (MicMuteTrackInputCheck != null) MicMuteTrackInputCheck.IsChecked = _config.MicMuteOsdTrackInputMuted;
+                if (MicMuteTrackInputCheck != null) ApplyMicMutePersistUi(_config.MicMuteOsdPersistent);
+            }
+            finally { _syncingOsdSliders = syncing; }
         }
 
-        /// <summary>常驻开关控制监听子项的可见性；OSD 参数共用更多选项。</summary>
+        /// <summary>常驻开关控制其下方监听行的可见性；OSD 参数独立使用更多选项。</summary>
         private void ApplyMicMutePersistUi(bool on)
         {
-            // 主开关关闭时隐藏监听子项，OSD 参数共用一个更多选项入口。
-            if (MicMuteTrackInputCheck != null)
-                MicMuteTrackInputCheck.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
+            if (MicMuteTrackInputRow != null)
+                MicMuteTrackInputRow.Visibility = on ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>折叠/展开设置页"保留的设备"卡片（实验设置-折叠开启时可见）。</summary>
@@ -2647,7 +2651,7 @@ namespace SonicRoute
         /// （开启且当前默认输入静音 → 立即常驻显示；关闭且常驻横幅仅由输入静音维持 → 退出常驻）。</summary>
         private void MicMuteTrackInput_Changed(object sender, RoutedEventArgs e)
         {
-            if (!IsLoaded || MicMuteTrackInputCheck == null) return;
+            if (!IsLoaded || _syncingOsdSliders || _suppressSettings || MicMuteTrackInputCheck == null) return;
             bool on = MicMuteTrackInputCheck.IsChecked == true;
             if (_config.MicMuteOsdTrackInputMuted != on)
             {
@@ -2668,7 +2672,7 @@ namespace SonicRoute
         /// （开启且当前已静音 → 立即常驻显示；关闭且正在常驻 → 退出常驻按普通生命周期隐藏）。</summary>
         private void MicMutePersist_Changed(object sender, RoutedEventArgs e)
         {
-            if (!IsLoaded || MicMutePersistCheck == null) return;
+            if (!IsLoaded || _syncingOsdSliders || _suppressSettings || MicMutePersistCheck == null) return;
             bool on = MicMutePersistCheck.IsChecked == true;
             if (_config.MicMuteOsdPersistent != on)
             {
@@ -2851,6 +2855,7 @@ namespace SonicRoute
 
         private void BuildHotkeyList()
         {
+            if (_isClosed || HotkeyList == null) return;
             _recordingAction = null;
             HotkeyList.Items.Clear();
             // 实验模式隐藏动作：仅在"实验模式 + 麦克风选项"开启时显示（切换当前应用麦克风设备）
@@ -2882,6 +2887,8 @@ namespace SonicRoute
                     {
                         Text = actionLabel,
                         FontSize = 13,
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(0, 0, 10, 0),
                         VerticalAlignment = VerticalAlignment.Center,
                         Foreground = (Brush)FindResource("Theme.TextPrimary")
                     };
@@ -3107,7 +3114,7 @@ namespace SonicRoute
             _autoRefreshInProgress = true;
             try
             {
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps());
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync());
                 if (_isClosed || navigationVersion != _navigationVersion
                     || !AutoRefreshWindowVisible) return;
                 if (SameAutoApps(_autoApps, apps)) return;

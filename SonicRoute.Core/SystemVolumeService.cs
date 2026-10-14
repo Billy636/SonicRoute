@@ -93,10 +93,20 @@ namespace SonicRoute.Core
         /// 增减操作串行；接口只在本轮持有，默认设备或会话改变后仍重新获取。</summary>
         public static (int Current, int Requested, int Actual, bool Applied) AdjustVolumePercent(string? deviceId, int delta)
         {
+            var result = AdjustVolumeCore(deviceId, delta, readMute: false);
+            return (result.Current, result.Requested, result.Actual, result.Applied);
+        }
+
+        /// <summary>调整并读回音量/静音，快捷键和面板共用本轮端点接口。</summary>
+        public static (int Current, int Requested, int Actual, bool Applied, bool Muted) AdjustVolumeWithState(string? deviceId, int delta)
+            => AdjustVolumeCore(deviceId, delta, readMute: true);
+
+        private static (int Current, int Requested, int Actual, bool Applied, bool Muted) AdjustVolumeCore(string? deviceId, int delta, bool readMute)
+        {
             lock (_adjustVolumeLock)
             {
                 var volume = GetVolume(deviceId);
-                if (volume == null) return (-1, -1, -1, false);
+                if (volume == null) return (-1, -1, -1, false, false);
                 try
                 {
                     int Read()
@@ -109,7 +119,7 @@ namespace SonicRoute.Core
                         catch { return -1; }
                     }
                     int current = Read();
-                    if (current < 0) return (-1, -1, -1, false);
+                    if (current < 0) return (-1, -1, -1, false, false);
                     int requested = MathEx.Clamp(current + delta, 0, 100);
                     bool applied;
                     try
@@ -118,7 +128,11 @@ namespace SonicRoute.Core
                         applied = volume.SetMasterVolumeLevelScalar(requested / 100f, ref context) >= 0;
                     }
                     catch { applied = false; }
-                    return (current, requested, Read(), applied);
+                    int actual = Read();
+                    bool muted = false;
+                    if (readMute)
+                        try { muted = volume.GetMute(out int state) >= 0 && state != 0; } catch { }
+                    return (current, requested, actual, applied, muted);
                 }
                 finally { Marshal.ReleaseComObject(volume); }
             }

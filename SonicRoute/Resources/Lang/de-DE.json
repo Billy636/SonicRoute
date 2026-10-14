@@ -212,6 +212,8 @@
   "Act.MuteInput": "Stummschaltung aller Mikrofone umschalten",
   "Act.VolUp": "Lautstärke der aktuellen App erhöhen",
   "Act.VolDown": "Lautstärke der aktuellen App verringern",
+  "Act.SystemVolUp": "Lautstärke des Standardausgabegeräts erhöhen",
+  "Act.SystemVolDown": "Lautstärke des Standardausgabegeräts verringern",
   "Act.Panel": "Schnellpanel öffnen",
   "Act.SwitchInput": "Mikrofon der aktuellen App umschalten",
   "Act.SetDefaultOutput": "Standardausgabe",

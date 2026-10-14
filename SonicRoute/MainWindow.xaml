@@ -550,6 +550,422 @@
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
+        <Grid x:Key="ThemePageContent" x:Shared="False" x:Name="ThemePage" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding [Nav.Theme], Source={x:Static local:L10n.Instance}}" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
+                    <TextBlock Text="{Binding [Th.PageHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,5,0,18"/>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,14">
+                                <ContentControl Content="{x:Static local:AutomationIcons.Palette}" Style="{StaticResource AutomationSectionIcon}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding [St.ThemeMode], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}"/>
+                                    <TextBlock Text="{Binding [Th.ModeHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <WrapPanel Margin="0,0,-6,2">
+                                <RadioButton x:Name="ThemeSystem" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="system" Checked="Theme_Changed" Content="{Binding [St.ThemeSystem], Source={x:Static local:L10n.Instance}}"/>
+                                <RadioButton x:Name="ThemeLight" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="light" Checked="Theme_Changed" Content="{Binding [St.ThemeLight], Source={x:Static local:L10n.Instance}}"/>
+                                <RadioButton x:Name="ThemeDark" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="dark" Checked="Theme_Changed" Content="{Binding [St.ThemeDark], Source={x:Static local:L10n.Instance}}"/>
+                            </WrapPanel>
+                            <Border BorderBrush="{DynamicResource Theme.Border}" BorderThickness="1" CornerRadius="11" Padding="14,12">
+                                <StackPanel>
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="1.4*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*" MinWidth="130"/></Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding [Th.CustomTitle], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="13.5"/>
+                                            <TextBlock Text="{Binding [Th.CustomHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                            <WrapPanel Margin="0,10,0,0" VerticalAlignment="Center">
+                                                <Border x:Name="ThemeColorPreview" Width="54" Height="54" CornerRadius="8" Background="#2F80ED" Margin="0,0,10,6"/>
+                                                <TextBox x:Name="ThemeColorHex" Text="#2F80ED" FontFamily="Consolas" FontSize="12" Width="90" Height="34" Margin="0,0,8,6" VerticalAlignment="Center"
+                                                         AutomationProperties.Name="{Binding [Th.CustomTitle], Source={x:Static local:L10n.Instance}}" LostFocus="ThemeHex_LostFocus" PreviewKeyDown="ThemeHex_PreviewKeyDown"/>
+                                                <Button x:Name="ThemeChooseColor" Style="{StaticResource GhostButton}" Height="34" Margin="0,0,0,6" Click="ThemeChooseColor_Click" VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" Margin="9,0">
+                                                        <Viewbox Width="15" Height="15" Margin="0,0,6,0"><Path Data="{x:Static local:AutomationIcons.Theme}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
+                                                        <TextBlock Text="{Binding [Th.ChooseColor], Source={x:Static local:L10n.Instance}}" FontSize="12" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </WrapPanel>
+                                        </StackPanel>
+                                        <ContentControl Grid.Column="2" ContentTemplate="{StaticResource ThemePreview}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <DockPanel Margin="0,0,0,12">
+                                <ContentControl Content="{x:Static local:AutomationIcons.Transparency}" Style="{StaticResource AutomationSectionIcon}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding [St.Opacity], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}"/>
+                                    <TextBlock Text="{Binding [Th.OpacityHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel Margin="36,0,0,0">
+                                <Border Background="{DynamicResource Theme.SurfaceAlt}" CornerRadius="12" Width="58" Height="34" DockPanel.Dock="Right" Margin="14,0,0,0">
+                                    <TextBlock x:Name="OpacityText" Text="85%" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Slider x:Name="OpacitySlider" Minimum="0" Maximum="100" IsMoveToPointEnabled="True" ValueChanged="OpacitySlider_ValueChanged" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <TextBlock Text="{Binding [St.OpacityHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="36,7,0,0"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- OSD 外观：共享图标标题、位置按钮和三列参数行。 -->
+                    <Border Style="{StaticResource ThemeSettingsCard}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <ContentControl Style="{StaticResource ThemeCardHeader}" Tag="{x:Static local:AutomationIcons.Monitor}" Margin="0,0,10,0">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding [Theme.OsdAppearanceSettings], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="16" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding [Th.OsdHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                    </StackPanel>
+                                </ContentControl>
+                                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="320">
+                                    <Button x:Name="OsdAdjustBtnTheme" Content="{Binding [Exp.OsdAdjust], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Position}" Margin="0,0,8,0" Click="OsdAdjust_Click" ToolTip="{Binding [Exp.OsdAdjustHint], Source={x:Static local:L10n.Instance}}"/>
+                                    <Button x:Name="OsdResetButtonTheme" Content="{Binding [Exp.OsdReset], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Reset}" Click="OsdReset_Click"/>
+                                </WrapPanel>
+                            </Grid>
+                            <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,14"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <StackPanel Margin="0,0,16,0">
+                                    <TextBlock Text="{Binding [Theme.OsdVolumeVisual], Source={x:Static local:L10n.Instance}}" FontSize="13.5" Foreground="{DynamicResource Theme.TextPrimary}"/>
+                                    <TextBlock Text="{Binding [Theme.OsdVolumeVisualHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                </StackPanel>
+                                <CheckBox x:Name="OsdVolumeVisualCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.OsdVolumeVisual], Source={x:Static local:L10n.Instance}}" Checked="OsdVolumeVisual_Changed" Unchecked="OsdVolumeVisual_Changed"/>
+                            </Grid>
+                            <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding [Theme.MicMuteOsdPersist], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSwitchLabel}"/>
+                                <CheckBox x:Name="MicMutePersistCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.MicMuteOsdPersist], Source={x:Static local:L10n.Instance}}" Checked="MicMutePersist_Changed" Unchecked="MicMutePersist_Changed"/>
+                            </Grid>
+                            <Grid x:Name="MicMuteTrackInputRow" Margin="0,14,0,0" Visibility="Collapsed">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding [Theme.MicMuteTrackInput], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSwitchLabel}"/>
+                                <CheckBox x:Name="MicMuteTrackInputCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.MicMuteTrackInput], Source={x:Static local:L10n.Instance}}" Checked="MicMuteTrackInput_Changed" Unchecked="MicMuteTrackInput_Changed"/>
+                            </Grid>
+                            <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14,0,10"/>
+                            <ToggleButton x:Name="OsdMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Checked="OsdMoreToggle_Click" Unchecked="OsdMoreToggle_Click"/>
+                            <local:AnimatedExpandHost>
+                                <StackPanel x:Name="OsdSlidersPanel" Margin="8,10,0,0" Visibility="Collapsed">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="110"/><ColumnDefinition Width="*"/><ColumnDefinition Width="62"/></Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions><RowDefinition Height="40"/><RowDefinition Height="40"/><RowDefinition Height="40"/><RowDefinition Height="40"/></Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding [Exp.OsdWidthLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
+                                        <Slider x:Name="OsdWidthSlider" Grid.Column="1" Minimum="180" Maximum="600" Value="240" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdWidthSlider_ValueChanged"/>
+                                        <TextBlock x:Name="OsdWidthValue" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding [Exp.OsdFontLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
+                                        <Slider x:Name="OsdFontSlider" Grid.Row="1" Grid.Column="1" Minimum="0.7" Maximum="2.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFontSlider_ValueChanged"/>
+                                        <TextBlock x:Name="OsdFontValue" Grid.Row="1" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding [Exp.OsdFadeInLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
+                                        <Slider x:Name="OsdFadeInSlider" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="500" Value="100" IsSnapToTickEnabled="True" TickFrequency="10" SmallChange="10" LargeChange="50" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFadeInSlider_ValueChanged"/>
+                                        <TextBlock x:Name="OsdFadeInValue" Grid.Row="2" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
+                                        <TextBlock Grid.Row="3" Text="{Binding [Exp.OsdFadeOutLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
+                                        <Slider x:Name="OsdFadeOutSlider" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="1000" Value="200" IsSnapToTickEnabled="True" TickFrequency="50" SmallChange="50" LargeChange="100" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFadeOutSlider_ValueChanged"/>
+                                        <TextBlock x:Name="OsdFadeOutValue" Grid.Row="3" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
+                                    </Grid>
+                                </StackPanel>
+                            </local:AnimatedExpandHost>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource ThemeSettingsCard}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <ContentControl Style="{StaticResource ThemeCardHeader}" Tag="{x:Static local:AutomationIcons.Application}" Margin="0,0,10,0">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding [Exp.PanelPosSection], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="16" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding [Th.PanelHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                                    </StackPanel>
+                                </ContentControl>
+                                <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="320">
+                                    <Button x:Name="PanelPosAdjustBtn" Content="{Binding [Exp.PanelPosAdjust], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Position}" Margin="0,0,8,0" Click="PanelPosAdjust_Click"/>
+                                    <Button x:Name="PanelPosResetBtn" Content="{Binding [Exp.PanelPosReset], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Reset}" Click="PanelPosReset_Click"/>
+                                </WrapPanel>
+                            </Grid>
+                            <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,12"/>
+                            <TextBlock Text="{Binding [Exp.PanelPosHint2], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,0,0,8"/>
+                            <StackPanel x:Name="PanelHeightSection">
+                                <Grid Margin="8,2,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="110"/><ColumnDefinition Width="*"/><ColumnDefinition Width="62"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Exp.PanelHeight], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
+                                    <Slider x:Name="PanelHeightSlider" Grid.Column="1" Minimum="350" Maximum="800" Value="450" TickFrequency="10" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="8,0,16,0" ValueChanged="PanelHeightSlider_Changed"/>
+                                    <TextBlock x:Name="PanelHeightValue" Grid.Column="2" Text="450 px" Style="{StaticResource ThemeSliderValue}"/>
+                                </Grid>
+                                <Grid Margin="0,16,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding [Theme.AppPeakMeter], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSwitchLabel}"/>
+                                    <CheckBox x:Name="AppPeakMeterCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.AppPeakMeter], Source={x:Static local:L10n.Instance}}" Checked="AppPeakMeter_Changed" Unchecked="AppPeakMeter_Changed"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Key="SettingsPageContent" x:Shared="False" x:Name="SettingsPage" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding [St.Settings], Source={x:Static local:L10n.Instance}}" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
+                    <TextBlock Text="{Binding [Settings.PageHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,5,0,18"/>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <DockPanel>
+                                <ToggleButton x:Name="KeepDevicesMoreToggle" Style="{StaticResource MoreOptionsToggle}" DockPanel.Dock="Right" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Visibility="Collapsed" VerticalAlignment="Top" Click="KeepDevicesMoreToggle_Click"/>
+                                <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Monitor}" Content="{Binding [Settings.KeepTitle], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [Settings.KeepHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
+                            </DockPanel>
+                            <local:AnimatedExpandHost>
+                                <StackPanel x:Name="KeepDevicesBody" Margin="0,8,0,0">
+                                    <DockPanel Margin="0,0,0,8">
+                                        <Button x:Name="SelectAllOutputButton" DockPanel.Dock="Right" Content="{Binding [St.SelectAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" Height="26" Padding="12,0" FontSize="11.5" Click="SelectAllOutput_Click"/>
+                                        <TextBlock Text="{Binding [St.Output], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <ItemsControl x:Name="OutputFilterList"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl>
+                                    <DockPanel x:Name="InputFilterHeader" Margin="0,4,0,8" Visibility="Collapsed">
+                                        <Button x:Name="SelectAllInputButton" DockPanel.Dock="Right" Content="{Binding [St.SelectAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" Height="26" Padding="12,0" FontSize="11.5" Click="SelectAllInput_Click"/>
+                                        <TextBlock Text="{Binding [St.Input], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" VerticalAlignment="Center"/>
+                                    </DockPanel>
+                                    <ItemsControl x:Name="InputFilterList" Visibility="Collapsed"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl>
+                                </StackPanel>
+                            </local:AnimatedExpandHost>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <DockPanel>
+                                <ToggleButton x:Name="DeviceNamesMoreToggle" Style="{StaticResource MoreOptionsToggle}" DockPanel.Dock="Right" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Visibility="Collapsed" VerticalAlignment="Top" Click="DeviceNamesMoreToggle_Click"/>
+                                <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Label}" Content="{Binding [St.DeviceNames], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [St.DeviceNamesHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
+                            </DockPanel>
+                            <local:AnimatedExpandHost>
+                                <StackPanel x:Name="DeviceNamesBody" Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding [St.Output], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,0,0,8"/>
+                                    <ItemsControl x:Name="OutputNameList"/>
+                                    <TextBlock x:Name="InputNameHeader" Text="{Binding [St.Input], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,8,0,8" Visibility="Collapsed"/>
+                                    <ItemsControl x:Name="InputNameList" Visibility="Collapsed"/>
+                                </StackPanel>
+                            </local:AnimatedExpandHost>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Apps}" Content="{Binding [St.DefaultApp], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [St.DefaultAppHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
+                            <Grid Margin="0,0,-8,8"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                <RadioButton x:Name="DefaultAppRecent" Grid.Column="0" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="recent" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppRecent], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.RecentHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
+                                <RadioButton x:Name="DefaultAppLast" Grid.Column="1" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="last" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppLast], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.LastHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
+                                <RadioButton x:Name="DefaultAppFixed" Grid.Column="2" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="fixed" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppFixed], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.FixedHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
+                            </Grid>
+                            <ComboBox x:Name="FixedAppCombo" Style="{StaticResource SelCombo}" ItemTemplate="{StaticResource AppItemTemplate}" Margin="0,0,0,2" SelectionChanged="FixedAppCombo_SelectionChanged"/>
+                            <TextBlock Text="{Binding [St.FixedAppHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Settings}" Content="{Binding [St.Misc], Source={x:Static local:L10n.Instance}}"/>
+                            <CheckBox x:Name="SettingsStartMinimized" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Monitor}" Checked="SettingsStartMinimized_Changed" Unchecked="SettingsStartMinimized_Changed"><StackPanel><TextBlock Text="{Binding [St.StartMinimized], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.StartMinimizedHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <CheckBox x:Name="SettingsAutoStart" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Power}" Checked="SettingsAutoStart_Changed" Unchecked="SettingsAutoStart_Changed"><StackPanel><TextBlock Text="{Binding [St.AutoStart], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.AutoStartHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <ToggleButton x:Name="SettingsMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Margin="32,6,0,4" Checked="SettingsMoreToggle_Click" Unchecked="SettingsMoreToggle_Click"/>
+                            <local:AnimatedExpandHost><StackPanel x:Name="SettingsMorePanel" Visibility="Collapsed" Margin="32,6,0,0">
+                                <Button x:Name="CleanAutoStartBtn" Content="{Binding [St.CleanAutoStart], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" FontSize="12.5" HorizontalAlignment="Left" Click="CleanAutoStart_Click"/>
+                            </StackPanel></local:AnimatedExpandHost>
+                            <CheckBox x:Name="SettingsShowPanelOnStart" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Application}" Checked="SettingsShowPanelOnStart_Changed" Unchecked="SettingsShowPanelOnStart_Changed"><StackPanel><TextBlock Text="{Binding [St.StartPanel], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.StartPanelHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <Grid Margin="2,10,0,10"><Grid.ColumnDefinitions><ColumnDefinition Width="30"/><ColumnDefinition/><ColumnDefinition Width="64"/></Grid.ColumnDefinitions>
+                                <Viewbox Width="17" Height="17" HorizontalAlignment="Left"><Path Data="{x:Static local:AutomationIcons.Speaker}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
+                                <StackPanel Grid.Column="1" Margin="0,0,16,0"><TextBlock Text="{Binding [St.VolumeStep], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}"/><TextBlock Text="{Binding [St.VolumeStepHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/></StackPanel>
+                                <TextBox x:Name="VolumeStepBox" Grid.Column="2" FontSize="12.5" Height="30" VerticalContentAlignment="Center" Padding="6,4" TextAlignment="Center" LostFocus="VolumeStepBox_LostFocus" KeyDown="VolumeStepBox_KeyDown"/>
+                            </Grid>
+                            <CheckBox x:Name="SettingsTrayWheelEverywhere" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Speaker}" Checked="SettingsTrayWheelEverywhere_Changed" Unchecked="SettingsTrayWheelEverywhere_Changed"><StackPanel><TextBlock Text="{Binding [St.TrayWheelEverywhere], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.TrayWheelEverywhereHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <CheckBox x:Name="ExpMicOptionCheck" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Microphone}" Checked="ExpMicOption_Changed" Unchecked="ExpMicOption_Changed"><StackPanel><TextBlock Text="{Binding [St.ExperimentalMic], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.ExperimentalMicHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <CheckBox x:Name="ExpMicPanelCheck" Margin="32,6,0,0" Visibility="Collapsed" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Microphone}" Checked="ExpMicPanel_Changed" Unchecked="ExpMicPanel_Changed"><StackPanel><TextBlock Text="{Binding [Exp.MicPanel], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/></StackPanel></CheckBox>
+                            <Grid Margin="2,12,0,12"><Grid.ColumnDefinitions><ColumnDefinition Width="30"/><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <Viewbox Width="17" Height="17" HorizontalAlignment="Left"><Path Data="{x:Static local:AutomationIcons.Monitor}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
+                                <TextBlock Grid.Column="1" Text="{Binding [St.QuickPanelStyle], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" Margin="0,0,12,0" TextWrapping="Wrap"/>
+                                <ComboBox x:Name="QuickPanelStyleCombo" Grid.Column="2" Style="{StaticResource SelCombo}" MinWidth="150" HorizontalAlignment="Left" SelectionChanged="QuickPanelStyleCombo_Changed"/>
+                            </Grid>
+                            <StackPanel x:Name="PanelChangeSysDefSection">
+                                <CheckBox x:Name="SettingsPanelChangeSysDef" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Switch}" Checked="SettingsPanelChangeSysDef_Changed" Unchecked="SettingsPanelChangeSysDef_Changed"><StackPanel><TextBlock Text="{Binding [St.PanelChangeSystemDefault], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.PanelChangeSystemDefaultHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            </StackPanel>
+                            <CheckBox x:Name="ExpCollapseCheck" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Options}" Checked="ExpCollapse_Changed" Unchecked="ExpCollapse_Changed"><StackPanel><TextBlock Text="{Binding [Exp.Collapse], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Exp.CollapseHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
+                            <CheckBox x:Name="SettingsExperimentalMode" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Experiment}" Visibility="Collapsed" Checked="SettingsExperimentalMode_Changed" Unchecked="SettingsExperimentalMode_Changed">
+                                <StackPanel><TextBlock Text="{Binding [St.ExperimentalMode], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock x:Name="ExperimentalModeHint" Text="{Binding [St.ExperimentalModeHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Visibility="Collapsed"/></StackPanel>
+                            </CheckBox>
+                        </StackPanel>
+                    </Border>
+                    <!-- 语言（置于作者名上方）：语言下拉 + 语言文件管理（导出/导入/打开/还原） -->
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Message}" Content="{Binding [St.Language], Source={x:Static local:L10n.Instance}}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox x:Name="LangCombo" Style="{StaticResource SelCombo}"
+                                          MaxWidth="240" MinWidth="200" VerticalAlignment="Center"
+                                          SelectionChanged="Language_SelectionChanged"/>
+                                <ToggleButton x:Name="LangMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}"
+                                              Margin="12,0,0,0" VerticalAlignment="Center"
+                                              Checked="LangMoreToggle_Click" Unchecked="LangMoreToggle_Click"/>
+                            </StackPanel>
+                            <!-- 语言文件管理（折叠）：导出/导入/打开语言文件夹/还原默认语言 -->
+                            <local:AnimatedExpandHost>
+                                <StackPanel x:Name="LangMorePanel" Margin="0,10,0,0" Visibility="Collapsed">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="ExpExportLangButton" Content="{Binding [Exp.ExportLang], Source={x:Static local:L10n.Instance}}"
+                                                Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
+                                                Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpExportLang_Click"/>
+                                        <Button x:Name="ExpImportLangButton" Content="{Binding [Exp.ImportLang], Source={x:Static local:L10n.Instance}}"
+                                                Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
+                                                Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpImportLang_Click"
+                                                AllowDrop="True" DragOver="ExpImportLangButton_DragOver" Drop="ExpImportLangButton_Drop"/>
+                                        <Button x:Name="ExpOpenLangDirButton" Content="{Binding [Exp.OpenLangDir], Source={x:Static local:L10n.Instance}}"
+                                                Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
+                                                Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpOpenLangDir_Click"/>
+                                        <Button x:Name="ExpRestoreLangButton" Content="{Binding [Exp.RestoreLang], Source={x:Static local:L10n.Instance}}"
+                                                Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
+                                                HorizontalAlignment="Left" Click="ExpRestoreLang_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </local:AnimatedExpandHost>
+                            <!-- 自定义语言管理（方案3）：列出外置目录非内置语言，可改名/删除 -->
+                            <StackPanel x:Name="CustomLangSection" Margin="0,12,0,0" Visibility="Collapsed">
+                                <TextBlock Text="{Binding [Exp.CustomLang], Source={x:Static local:L10n.Instance}}"
+                                           Style="{StaticResource SectionTitle}" FontSize="12.5"/>
+                                <ContentControl x:Name="CustomLangList"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ⑥ 其他 + 关于 -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock x:Name="AboutAuthorText"
+                                       FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
+                                       Margin="0,16,0,0"
+                                       Cursor="Hand" ToolTip="{Binding [St.ExpAuthorTip], Source={x:Static local:L10n.Instance}}"
+                                       MouseLeftButtonDown="AboutAuthorText_MouseLeftButtonDown">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="[App.About]" Source="{x:Static local:L10n.Instance}"/>
+                                        <Binding Source="{x:Static local:App.DisplayVersion}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <TextBlock Margin="0,12,0,0" FontSize="13"
+                                       Foreground="{DynamicResource Theme.TextSecondary}">
+                                <Run Text="{Binding [St.AuthorHome], Mode=OneWay, Source={x:Static local:L10n.Instance}}"/>
+                                <Hyperlink x:Name="BiliLink" Click="BiliLink_Click"
+                                           Foreground="{DynamicResource Theme.Accent}">
+                                    <Run Text="哔哩哔哩"/>
+                                </Hyperlink>
+                                <Run Text=" ‖ "/>
+                                <Hyperlink x:Name="IfdianLink" Click="IfdianLink_Click"
+                                           Foreground="{DynamicResource Theme.Accent}">
+                                    <Run Text="爱发电"/>
+                                </Hyperlink>
+                                <Run Text=" ‖ "/>
+                                <Hyperlink x:Name="GithubLink" Click="GithubLink_Click"
+                                           Foreground="{DynamicResource Theme.Accent}">
+                                    <Run Text="GitHub"/>
+                                </Hyperlink>
+                                <Run Text=" ‖ "/>
+                                <Hyperlink x:Name="CheckUpdateLink" Click="CheckUpdate_Click"
+                                           Foreground="{DynamicResource Theme.Accent}">
+                                    <Run x:Name="CheckUpdateRun"
+                                         Text="{Binding [St.CheckUpdate], Mode=OneWay, Source={x:Static local:L10n.Instance}}"/>
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Key="HotkeysPageContent" x:Shared="False" x:Name="HotkeysPage" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding [Hk.Hint], Source={x:Static local:L10n.Instance}}"
+                               FontSize="12" Foreground="{DynamicResource Theme.TextSecondary}"
+                               Margin="0,0,0,16" TextWrapping="Wrap"/>
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <ItemsControl x:Name="HotkeyList">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid x:Key="ExperimentalPageContent" x:Shared="False" x:Name="ExperimentalPage" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="{Binding [Nav.Experimental], Source={x:Static local:L10n.Instance}}"
+                               Style="{StaticResource PageTitle}"/>
+
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <CheckBox x:Name="ExpBackgroundPollingCheck" Style="{StaticResource SettingsSwitchRow}"
+                                  Tag="{x:Static local:AutomationIcons.Options}"
+                                  Checked="ExpBackgroundPolling_Changed" Unchecked="ExpBackgroundPolling_Changed">
+                            <StackPanel>
+                                <TextBlock Text="{Binding [Exp.BackgroundPolling], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/>
+                                <TextBlock Style="{StaticResource ThemeHint}" Margin="0,3,0,0"
+                                           Text="{Binding [Exp.BackgroundPollingHint], Source={x:Static local:L10n.Instance}}"/>
+                            </StackPanel>
+                        </CheckBox>
+                    </Border>
+
+                    <!-- 一键还原全部应用为默认播放设备 -->
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock Text="{Binding [Exp.ResetAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
+                            <TextBlock Text="{Binding [Exp.ResetAllHint], Source={x:Static local:L10n.Instance}}"
+                                       FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
+                                       Margin="0,-4,0,10" TextWrapping="Wrap"/>
+                            <Button x:Name="ExpResetAllButton" Content="{Binding [Exp.ResetAll], Source={x:Static local:L10n.Instance}}"
+                                    Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
+                                    HorizontalAlignment="Left" Click="ExpResetAll_Click"/>
+                            <TextBlock Text="{Binding [Exp.ResetAllTip], Source={x:Static local:L10n.Instance}}"
+                                       FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
+                                       Margin="0,6,0,0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 一键清理配置文件 -->
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock Text="{Binding [Exp.ClearConfig], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
+                            <TextBlock Text="{Binding [Exp.ClearConfigHint], Source={x:Static local:L10n.Instance}}"
+                                       FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
+                                       Margin="0,-4,0,10" TextWrapping="Wrap"/>
+                            <Button x:Name="ExpClearConfigButton" Content="{Binding [Exp.ClearConfig], Source={x:Static local:L10n.Instance}}"
+                                    Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
+                                    HorizontalAlignment="Left" Click="ExpClearConfig_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 配置文件备份：导出 / 导入 -->
+                    <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock Text="{Binding [Exp.ConfigBackup], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
+                            <TextBlock Text="{Binding [Exp.ConfigTransferHint], Source={x:Static local:L10n.Instance}}"
+                                       FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
+                                       Margin="0,-4,0,10" TextWrapping="Wrap"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ExpExportConfigButton" Content="{Binding [Exp.ExportConfig], Source={x:Static local:L10n.Instance}}"
+                                        Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
+                                        Margin="0,0,10,0" HorizontalAlignment="Left" Click="ExpExportConfig_Click"/>
+                                <Button x:Name="ExpImportConfigButton" Content="{Binding [Exp.ImportConfig], Source={x:Static local:L10n.Instance}}"
+                                        Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
+                                        HorizontalAlignment="Left" Click="ExpImportConfig_Click"
+                                        AllowDrop="True" DragOver="ExpImportConfigButton_DragOver" Drop="ExpImportConfigButton_Drop"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -821,422 +1237,16 @@
             </Grid>
 
             <!-- 快捷键 -->
-            <Grid x:Name="HotkeysPage" Visibility="Collapsed">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="{Binding [Hk.Hint], Source={x:Static local:L10n.Instance}}"
-                                   FontSize="12" Foreground="{DynamicResource Theme.TextSecondary}"
-                                   Margin="0,0,0,16" TextWrapping="Wrap"/>
-                        <Border Style="{StaticResource Card}">
-                            <StackPanel>
-                                <ItemsControl x:Name="HotkeyList">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            <Border x:Name="HotkeysPageHost" Visibility="Collapsed"/>
 
             <!-- 主题 -->
-            <Grid x:Name="ThemePage" Visibility="Collapsed">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="{Binding [Nav.Theme], Source={x:Static local:L10n.Instance}}" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
-                        <TextBlock Text="{Binding [Th.PageHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,5,0,18"/>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <DockPanel Margin="0,0,0,14">
-                                    <ContentControl Content="{x:Static local:AutomationIcons.Palette}" Style="{StaticResource AutomationSectionIcon}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding [St.ThemeMode], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}"/>
-                                        <TextBlock Text="{Binding [Th.ModeHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                    </StackPanel>
-                                </DockPanel>
-                                <WrapPanel Margin="0,0,-6,2">
-                                    <RadioButton x:Name="ThemeSystem" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="system" Checked="Theme_Changed" Content="{Binding [St.ThemeSystem], Source={x:Static local:L10n.Instance}}"/>
-                                    <RadioButton x:Name="ThemeLight" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="light" Checked="Theme_Changed" Content="{Binding [St.ThemeLight], Source={x:Static local:L10n.Instance}}"/>
-                                    <RadioButton x:Name="ThemeDark" Style="{StaticResource ThemeChoice}" GroupName="ThemeMode" Tag="dark" Checked="Theme_Changed" Content="{Binding [St.ThemeDark], Source={x:Static local:L10n.Instance}}"/>
-                                </WrapPanel>
-                                <Border BorderBrush="{DynamicResource Theme.Border}" BorderThickness="1" CornerRadius="11" Padding="14,12">
-                                    <StackPanel>
-                                        <Grid Margin="0,0,0,12">
-                                            <Grid.ColumnDefinitions><ColumnDefinition Width="1.4*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="*" MinWidth="130"/></Grid.ColumnDefinitions>
-                                            <StackPanel>
-                                                <TextBlock Text="{Binding [Th.CustomTitle], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="13.5"/>
-                                                <TextBlock Text="{Binding [Th.CustomHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                                <WrapPanel Margin="0,10,0,0" VerticalAlignment="Center">
-                                                    <Border x:Name="ThemeColorPreview" Width="54" Height="54" CornerRadius="8" Background="#2F80ED" Margin="0,0,10,6"/>
-                                                    <TextBox x:Name="ThemeColorHex" Text="#2F80ED" FontFamily="Consolas" FontSize="12" Width="90" Height="34" Margin="0,0,8,6" VerticalAlignment="Center"
-                                                             AutomationProperties.Name="{Binding [Th.CustomTitle], Source={x:Static local:L10n.Instance}}" LostFocus="ThemeHex_LostFocus" PreviewKeyDown="ThemeHex_PreviewKeyDown"/>
-                                                    <Button x:Name="ThemeChooseColor" Style="{StaticResource GhostButton}" Height="34" Margin="0,0,0,6" Click="ThemeChooseColor_Click" VerticalAlignment="Center">
-                                                        <StackPanel Orientation="Horizontal" Margin="9,0">
-                                                            <Viewbox Width="15" Height="15" Margin="0,0,6,0"><Path Data="{x:Static local:AutomationIcons.Theme}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
-                                                            <TextBlock Text="{Binding [Th.ChooseColor], Source={x:Static local:L10n.Instance}}" FontSize="12" VerticalAlignment="Center"/>
-                                                        </StackPanel>
-                                                    </Button>
-                                                </WrapPanel>
-                                            </StackPanel>
-                                            <ContentControl Grid.Column="2" ContentTemplate="{StaticResource ThemePreview}" VerticalAlignment="Center"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <DockPanel Margin="0,0,0,12">
-                                    <ContentControl Content="{x:Static local:AutomationIcons.Transparency}" Style="{StaticResource AutomationSectionIcon}" DockPanel.Dock="Left" Margin="0,0,10,0"/>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding [St.Opacity], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}"/>
-                                        <TextBlock Text="{Binding [Th.OpacityHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                    </StackPanel>
-                                </DockPanel>
-                                <DockPanel Margin="36,0,0,0">
-                                    <Border Background="{DynamicResource Theme.SurfaceAlt}" CornerRadius="12" Width="58" Height="34" DockPanel.Dock="Right" Margin="14,0,0,0">
-                                        <TextBlock x:Name="OpacityText" Text="85%" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </Border>
-                                    <Slider x:Name="OpacitySlider" Minimum="0" Maximum="100" IsMoveToPointEnabled="True" ValueChanged="OpacitySlider_ValueChanged" VerticalAlignment="Center"/>
-                                </DockPanel>
-                                <TextBlock Text="{Binding [St.OpacityHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="36,7,0,0"/>
-                            </StackPanel>
-                        </Border>
-                        <!-- OSD 外观：共享图标标题、位置按钮和三列参数行。 -->
-                        <Border Style="{StaticResource ThemeSettingsCard}">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                    <ContentControl Style="{StaticResource ThemeCardHeader}" Tag="{x:Static local:AutomationIcons.Monitor}" Margin="0,0,10,0">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding [Theme.OsdAppearanceSettings], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="16" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding [Th.OsdHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                        </StackPanel>
-                                    </ContentControl>
-                                    <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="320">
-                                        <Button x:Name="OsdAdjustBtnTheme" Content="{Binding [Exp.OsdAdjust], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Position}" Margin="0,0,8,0" Click="OsdAdjust_Click" ToolTip="{Binding [Exp.OsdAdjustHint], Source={x:Static local:L10n.Instance}}"/>
-                                        <Button x:Name="OsdResetButtonTheme" Content="{Binding [Exp.OsdReset], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Reset}" Click="OsdReset_Click"/>
-                                    </WrapPanel>
-                                </Grid>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,14"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                    <StackPanel Margin="0,0,16,0">
-                                        <TextBlock Text="{Binding [Theme.OsdVolumeVisual], Source={x:Static local:L10n.Instance}}" FontSize="13.5" Foreground="{DynamicResource Theme.TextPrimary}"/>
-                                        <TextBlock Text="{Binding [Theme.OsdVolumeVisualHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                    </StackPanel>
-                                    <CheckBox x:Name="OsdVolumeVisualCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.OsdVolumeVisual], Source={x:Static local:L10n.Instance}}" Checked="OsdVolumeVisual_Changed" Unchecked="OsdVolumeVisual_Changed"/>
-                                </Grid>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding [Theme.MicMuteOsdPersist], Source={x:Static local:L10n.Instance}}" FontSize="13.5" TextWrapping="Wrap" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" Margin="0,0,16,0"/>
-                                    <CheckBox x:Name="MicMutePersistCheck" Grid.Column="1" Style="{StaticResource AutomationSwitch}" Width="34" VerticalAlignment="Center" AutomationProperties.Name="{Binding [Theme.MicMuteOsdPersist], Source={x:Static local:L10n.Instance}}" Checked="MicMutePersist_Changed" Unchecked="MicMutePersist_Changed"/>
-                                </Grid>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,14,0,10"/>
-                                <ToggleButton x:Name="OsdMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Checked="OsdMoreToggle_Click" Unchecked="OsdMoreToggle_Click"/>
-                                <local:AnimatedExpandHost>
-                                    <StackPanel x:Name="OsdSlidersPanel" Margin="8,10,0,0" Visibility="Collapsed">
-                                        <CheckBox x:Name="MicMuteTrackInputCheck" Content="{Binding [Theme.MicMuteTrackInput], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}" Margin="0,0,0,10" Visibility="Collapsed" Checked="MicMuteTrackInput_Changed" Unchecked="MicMuteTrackInput_Changed"/>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions><ColumnDefinition Width="110"/><ColumnDefinition Width="*"/><ColumnDefinition Width="62"/></Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions><RowDefinition Height="40"/><RowDefinition Height="40"/><RowDefinition Height="40"/><RowDefinition Height="40"/></Grid.RowDefinitions>
-                                            <TextBlock Text="{Binding [Exp.OsdWidthLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
-                                            <Slider x:Name="OsdWidthSlider" Grid.Column="1" Minimum="180" Maximum="600" Value="240" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdWidthSlider_ValueChanged"/>
-                                            <TextBlock x:Name="OsdWidthValue" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
-                                            <TextBlock Grid.Row="1" Text="{Binding [Exp.OsdFontLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
-                                            <Slider x:Name="OsdFontSlider" Grid.Row="1" Grid.Column="1" Minimum="0.7" Maximum="2.0" Value="1.0" SmallChange="0.05" LargeChange="0.1" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFontSlider_ValueChanged"/>
-                                            <TextBlock x:Name="OsdFontValue" Grid.Row="1" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
-                                            <TextBlock Grid.Row="2" Text="{Binding [Exp.OsdFadeInLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
-                                            <Slider x:Name="OsdFadeInSlider" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="500" Value="100" IsSnapToTickEnabled="True" TickFrequency="10" SmallChange="10" LargeChange="50" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFadeInSlider_ValueChanged"/>
-                                            <TextBlock x:Name="OsdFadeInValue" Grid.Row="2" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
-                                            <TextBlock Grid.Row="3" Text="{Binding [Exp.OsdFadeOutLabel], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
-                                            <Slider x:Name="OsdFadeOutSlider" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="1000" Value="200" IsSnapToTickEnabled="True" TickFrequency="50" SmallChange="50" LargeChange="100" Margin="8,0,16,0" VerticalAlignment="Center" ValueChanged="OsdFadeOutSlider_ValueChanged"/>
-                                            <TextBlock x:Name="OsdFadeOutValue" Grid.Row="3" Grid.Column="2" Style="{StaticResource ThemeSliderValue}"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </local:AnimatedExpandHost>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource ThemeSettingsCard}">
-                            <StackPanel>
-                                <Grid>
-                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                    <ContentControl Style="{StaticResource ThemeCardHeader}" Tag="{x:Static local:AutomationIcons.Application}" Margin="0,0,10,0">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding [Exp.PanelPosSection], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSectionTitle}" FontSize="16" TextWrapping="Wrap"/>
-                                            <TextBlock Text="{Binding [Th.PanelHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                                        </StackPanel>
-                                    </ContentControl>
-                                    <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="320">
-                                        <Button x:Name="PanelPosAdjustBtn" Content="{Binding [Exp.PanelPosAdjust], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Position}" Margin="0,0,8,0" Click="PanelPosAdjust_Click"/>
-                                        <Button x:Name="PanelPosResetBtn" Content="{Binding [Exp.PanelPosReset], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemePositionButton}" Tag="{x:Static local:AutomationIcons.Reset}" Click="PanelPosReset_Click"/>
-                                    </WrapPanel>
-                                </Grid>
-                                <Border Height="1" Background="{DynamicResource Theme.Border}" Margin="0,16,0,12"/>
-                                <TextBlock Text="{Binding [Exp.PanelPosHint2], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,0,0,8"/>
-                                <StackPanel x:Name="PanelHeightSection">
-                                    <Grid Margin="8,2,0,0">
-                                        <Grid.ColumnDefinitions><ColumnDefinition Width="110"/><ColumnDefinition Width="*"/><ColumnDefinition Width="62"/></Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding [Exp.PanelHeight], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeSliderLabel}"/>
-                                        <Slider x:Name="PanelHeightSlider" Grid.Column="1" Minimum="350" Maximum="800" Value="450" TickFrequency="10" IsSnapToTickEnabled="True" VerticalAlignment="Center" Margin="8,0,16,0" ValueChanged="PanelHeightSlider_Changed"/>
-                                        <TextBlock x:Name="PanelHeightValue" Grid.Column="2" Text="450 px" Style="{StaticResource ThemeSliderValue}"/>
-                                    </Grid>
-                                    <CheckBox x:Name="AppPeakMeterCheck" Content="{Binding [Theme.AppPeakMeter], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}" Margin="8,16,0,0" Checked="AppPeakMeter_Changed" Unchecked="AppPeakMeter_Changed"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            <Border x:Name="ThemePageHost" Visibility="Collapsed"/>
 
             <!-- 设置 -->
-            <Grid x:Name="SettingsPage" Visibility="Collapsed">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="{Binding [St.Settings], Source={x:Static local:L10n.Instance}}" FontSize="22" FontWeight="SemiBold" Foreground="{DynamicResource Theme.TextPrimary}"/>
-                        <TextBlock Text="{Binding [Settings.PageHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,5,0,18"/>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <DockPanel>
-                                    <ToggleButton x:Name="KeepDevicesMoreToggle" Style="{StaticResource MoreOptionsToggle}" DockPanel.Dock="Right" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Visibility="Collapsed" VerticalAlignment="Top" Click="KeepDevicesMoreToggle_Click"/>
-                                    <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Monitor}" Content="{Binding [Settings.KeepTitle], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [Settings.KeepHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
-                                </DockPanel>
-                                <local:AnimatedExpandHost>
-                                    <StackPanel x:Name="KeepDevicesBody" Margin="0,8,0,0">
-                                        <DockPanel Margin="0,0,0,8">
-                                            <Button x:Name="SelectAllOutputButton" DockPanel.Dock="Right" Content="{Binding [St.SelectAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" Height="26" Padding="12,0" FontSize="11.5" Click="SelectAllOutput_Click"/>
-                                            <TextBlock Text="{Binding [St.Output], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <ItemsControl x:Name="OutputFilterList"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl>
-                                        <DockPanel x:Name="InputFilterHeader" Margin="0,4,0,8" Visibility="Collapsed">
-                                            <Button x:Name="SelectAllInputButton" DockPanel.Dock="Right" Content="{Binding [St.SelectAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" Height="26" Padding="12,0" FontSize="11.5" Click="SelectAllInput_Click"/>
-                                            <TextBlock Text="{Binding [St.Input], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" VerticalAlignment="Center"/>
-                                        </DockPanel>
-                                        <ItemsControl x:Name="InputFilterList" Visibility="Collapsed"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl>
-                                    </StackPanel>
-                                </local:AnimatedExpandHost>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <DockPanel>
-                                    <ToggleButton x:Name="DeviceNamesMoreToggle" Style="{StaticResource MoreOptionsToggle}" DockPanel.Dock="Right" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Visibility="Collapsed" VerticalAlignment="Top" Click="DeviceNamesMoreToggle_Click"/>
-                                    <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Label}" Content="{Binding [St.DeviceNames], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [St.DeviceNamesHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
-                                </DockPanel>
-                                <local:AnimatedExpandHost>
-                                    <StackPanel x:Name="DeviceNamesBody" Margin="0,8,0,0">
-                                        <TextBlock Text="{Binding [St.Output], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,0,0,8"/>
-                                        <ItemsControl x:Name="OutputNameList"/>
-                                        <TextBlock x:Name="InputNameHeader" Text="{Binding [St.Input], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Margin="0,8,0,8" Visibility="Collapsed"/>
-                                        <ItemsControl x:Name="InputNameList" Visibility="Collapsed"/>
-                                    </StackPanel>
-                                </local:AnimatedExpandHost>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <StackPanel><ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Apps}" Content="{Binding [St.DefaultApp], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" Margin="32,0,0,10" Text="{Binding [St.DefaultAppHint], Source={x:Static local:L10n.Instance}}"/></StackPanel>
-                                <Grid Margin="0,0,-8,8"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
-                                    <RadioButton x:Name="DefaultAppRecent" Grid.Column="0" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="recent" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppRecent], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.RecentHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
-                                    <RadioButton x:Name="DefaultAppLast" Grid.Column="1" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="last" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppLast], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.LastHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
-                                    <RadioButton x:Name="DefaultAppFixed" Grid.Column="2" Style="{StaticResource SettingsAppChoice}" GroupName="DefaultApp" Tag="fixed" Checked="DefaultAppMode_Changed"><StackPanel><TextBlock FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding [St.DefaultAppFixed], Source={x:Static local:L10n.Instance}}"/><TextBlock Style="{StaticResource ThemeHint}" FontSize="10" Text="{Binding [Settings.FixedHint], Source={x:Static local:L10n.Instance}}"/></StackPanel></RadioButton>
-                                </Grid>
-                                <ComboBox x:Name="FixedAppCombo" Style="{StaticResource SelCombo}" ItemTemplate="{StaticResource AppItemTemplate}" Margin="0,0,0,2" SelectionChanged="FixedAppCombo_SelectionChanged"/>
-                                <TextBlock Text="{Binding [St.FixedAppHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Settings}" Content="{Binding [St.Misc], Source={x:Static local:L10n.Instance}}"/>
-                                <CheckBox x:Name="SettingsStartMinimized" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Monitor}" Checked="SettingsStartMinimized_Changed" Unchecked="SettingsStartMinimized_Changed"><StackPanel><TextBlock Text="{Binding [St.StartMinimized], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.StartMinimizedHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <CheckBox x:Name="SettingsAutoStart" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Power}" Checked="SettingsAutoStart_Changed" Unchecked="SettingsAutoStart_Changed"><StackPanel><TextBlock Text="{Binding [St.AutoStart], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.AutoStartHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <ToggleButton x:Name="SettingsMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Margin="32,6,0,4" Checked="SettingsMoreToggle_Click" Unchecked="SettingsMoreToggle_Click"/>
-                                <local:AnimatedExpandHost><StackPanel x:Name="SettingsMorePanel" Visibility="Collapsed" Margin="32,6,0,0">
-                                    <Button x:Name="CleanAutoStartBtn" Content="{Binding [St.CleanAutoStart], Source={x:Static local:L10n.Instance}}" Style="{StaticResource GhostButton}" FontSize="12.5" HorizontalAlignment="Left" Click="CleanAutoStart_Click"/>
-                                </StackPanel></local:AnimatedExpandHost>
-                                <CheckBox x:Name="SettingsShowPanelOnStart" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Application}" Checked="SettingsShowPanelOnStart_Changed" Unchecked="SettingsShowPanelOnStart_Changed"><StackPanel><TextBlock Text="{Binding [St.StartPanel], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Settings.StartPanelHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <Grid Margin="2,10,0,10"><Grid.ColumnDefinitions><ColumnDefinition Width="30"/><ColumnDefinition/><ColumnDefinition Width="64"/></Grid.ColumnDefinitions>
-                                    <Viewbox Width="17" Height="17" HorizontalAlignment="Left"><Path Data="{x:Static local:AutomationIcons.Speaker}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
-                                    <StackPanel Grid.Column="1" Margin="0,0,16,0"><TextBlock Text="{Binding [St.VolumeStep], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}"/><TextBlock Text="{Binding [St.VolumeStepHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}"/></StackPanel>
-                                    <TextBox x:Name="VolumeStepBox" Grid.Column="2" FontSize="12.5" Height="30" VerticalContentAlignment="Center" Padding="6,4" TextAlignment="Center" LostFocus="VolumeStepBox_LostFocus" KeyDown="VolumeStepBox_KeyDown"/>
-                                </Grid>
-                                <CheckBox x:Name="SettingsTrayWheelEverywhere" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Speaker}" Checked="SettingsTrayWheelEverywhere_Changed" Unchecked="SettingsTrayWheelEverywhere_Changed"><StackPanel><TextBlock Text="{Binding [St.TrayWheelEverywhere], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.TrayWheelEverywhereHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <CheckBox x:Name="ExpMicOptionCheck" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Microphone}" Checked="ExpMicOption_Changed" Unchecked="ExpMicOption_Changed"><StackPanel><TextBlock Text="{Binding [St.ExperimentalMic], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.ExperimentalMicHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <ToggleButton x:Name="MicMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}" Margin="32,6,0,0" Visibility="Collapsed" Checked="MicMoreToggle_Click" Unchecked="MicMoreToggle_Click"/>
-                                <local:AnimatedExpandHost><StackPanel x:Name="MicMorePanel" Margin="32,6,0,0" Visibility="Collapsed">
-                                    <CheckBox x:Name="ExpMicPanelCheck" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Microphone}" Checked="ExpMicPanel_Changed" Unchecked="ExpMicPanel_Changed"><StackPanel><TextBlock Text="{Binding [Exp.MicPanel], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/></StackPanel></CheckBox>
-                                </StackPanel></local:AnimatedExpandHost>
-                                <Grid Margin="2,12,0,12"><Grid.ColumnDefinitions><ColumnDefinition Width="30"/><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                    <Viewbox Width="17" Height="17" HorizontalAlignment="Left"><Path Data="{x:Static local:AutomationIcons.Monitor}" Width="24" Height="24" Stroke="{DynamicResource Theme.TextSecondary}" StrokeThickness="1.8"/></Viewbox>
-                                    <TextBlock Grid.Column="1" Text="{Binding [St.QuickPanelStyle], Source={x:Static local:L10n.Instance}}" FontSize="12.5" Foreground="{DynamicResource Theme.TextPrimary}" VerticalAlignment="Center" Margin="0,0,12,0" TextWrapping="Wrap"/>
-                                    <ComboBox x:Name="QuickPanelStyleCombo" Grid.Column="2" Style="{StaticResource SelCombo}" MinWidth="150" HorizontalAlignment="Left" SelectionChanged="QuickPanelStyleCombo_Changed"/>
-                                </Grid>
-                                <StackPanel x:Name="PanelChangeSysDefSection">
-                                    <CheckBox x:Name="SettingsPanelChangeSysDef" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Switch}" Checked="SettingsPanelChangeSysDef_Changed" Unchecked="SettingsPanelChangeSysDef_Changed"><StackPanel><TextBlock Text="{Binding [St.PanelChangeSystemDefault], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [St.PanelChangeSystemDefaultHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                </StackPanel>
-                                <CheckBox x:Name="ExpCollapseCheck" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Options}" Checked="ExpCollapse_Changed" Unchecked="ExpCollapse_Changed"><StackPanel><TextBlock Text="{Binding [Exp.Collapse], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock Style="{StaticResource ThemeHint}" Text="{Binding [Exp.CollapseHint], Source={x:Static local:L10n.Instance}}" Margin="0,3,0,0"/></StackPanel></CheckBox>
-                                <CheckBox x:Name="SettingsExperimentalMode" Style="{StaticResource SettingsSwitchRow}" Tag="{x:Static local:AutomationIcons.Experiment}" Visibility="Collapsed" Checked="SettingsExperimentalMode_Changed" Unchecked="SettingsExperimentalMode_Changed">
-                                    <StackPanel><TextBlock Text="{Binding [St.ExperimentalMode], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/><TextBlock x:Name="ExperimentalModeHint" Text="{Binding [St.ExperimentalModeHint], Source={x:Static local:L10n.Instance}}" Style="{StaticResource ThemeHint}" Visibility="Collapsed"/></StackPanel>
-                                </CheckBox>
-                            </StackPanel>
-                        </Border>
-                        <!-- 语言（置于作者名上方）：语言下拉 + 语言文件管理（导出/导入/打开/还原） -->
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <ContentControl Style="{StaticResource SettingsSectionHeader}" Tag="{x:Static local:AutomationIcons.Message}" Content="{Binding [St.Language], Source={x:Static local:L10n.Instance}}"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <ComboBox x:Name="LangCombo" Style="{StaticResource SelCombo}"
-                                              MaxWidth="240" MinWidth="200" VerticalAlignment="Center"
-                                              SelectionChanged="Language_SelectionChanged"/>
-                                    <ToggleButton x:Name="LangMoreToggle" Style="{StaticResource MoreOptionsToggle}" Content="{Binding [Exp.MoreOptions], Source={x:Static local:L10n.Instance}}"
-                                                  Margin="12,0,0,0" VerticalAlignment="Center"
-                                                  Checked="LangMoreToggle_Click" Unchecked="LangMoreToggle_Click"/>
-                                </StackPanel>
-                                <!-- 语言文件管理（折叠）：导出/导入/打开语言文件夹/还原默认语言 -->
-                                <local:AnimatedExpandHost>
-                                    <StackPanel x:Name="LangMorePanel" Margin="0,10,0,0" Visibility="Collapsed">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button x:Name="ExpExportLangButton" Content="{Binding [Exp.ExportLang], Source={x:Static local:L10n.Instance}}"
-                                                    Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
-                                                    Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpExportLang_Click"/>
-                                            <Button x:Name="ExpImportLangButton" Content="{Binding [Exp.ImportLang], Source={x:Static local:L10n.Instance}}"
-                                                    Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
-                                                    Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpImportLang_Click"
-                                                    AllowDrop="True" DragOver="ExpImportLangButton_DragOver" Drop="ExpImportLangButton_Drop"/>
-                                            <Button x:Name="ExpOpenLangDirButton" Content="{Binding [Exp.OpenLangDir], Source={x:Static local:L10n.Instance}}"
-                                                    Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
-                                                    Margin="0,0,8,0" HorizontalAlignment="Left" Click="ExpOpenLangDir_Click"/>
-                                            <Button x:Name="ExpRestoreLangButton" Content="{Binding [Exp.RestoreLang], Source={x:Static local:L10n.Instance}}"
-                                                    Style="{StaticResource GhostButton}" Height="34" Padding="14,0"
-                                                    HorizontalAlignment="Left" Click="ExpRestoreLang_Click"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </local:AnimatedExpandHost>
-                                <!-- 自定义语言管理（方案3）：列出外置目录非内置语言，可改名/删除 -->
-                                <StackPanel x:Name="CustomLangSection" Margin="0,12,0,0" Visibility="Collapsed">
-                                    <TextBlock Text="{Binding [Exp.CustomLang], Source={x:Static local:L10n.Instance}}"
-                                               Style="{StaticResource SectionTitle}" FontSize="12.5"/>
-                                    <ContentControl x:Name="CustomLangList"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- ⑥ 其他 + 关于 -->
-                        <Border Style="{StaticResource Card}">
-                            <StackPanel>
-                                <TextBlock x:Name="AboutAuthorText"
-                                           FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
-                                           Margin="0,16,0,0"
-                                           Cursor="Hand" ToolTip="{Binding [St.ExpAuthorTip], Source={x:Static local:L10n.Instance}}"
-                                           MouseLeftButtonDown="AboutAuthorText_MouseLeftButtonDown">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="[App.About]" Source="{x:Static local:L10n.Instance}"/>
-                                            <Binding Source="{x:Static local:App.DisplayVersion}"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                                <TextBlock Margin="0,12,0,0" FontSize="13"
-                                           Foreground="{DynamicResource Theme.TextSecondary}">
-                                    <Run Text="{Binding [St.AuthorHome], Mode=OneWay, Source={x:Static local:L10n.Instance}}"/>
-                                    <Hyperlink x:Name="BiliLink" Click="BiliLink_Click"
-                                               Foreground="{DynamicResource Theme.Accent}">
-                                        <Run Text="哔哩哔哩"/>
-                                    </Hyperlink>
-                                    <Run Text=" ‖ "/>
-                                    <Hyperlink x:Name="IfdianLink" Click="IfdianLink_Click"
-                                               Foreground="{DynamicResource Theme.Accent}">
-                                        <Run Text="爱发电"/>
-                                    </Hyperlink>
-                                    <Run Text=" ‖ "/>
-                                    <Hyperlink x:Name="GithubLink" Click="GithubLink_Click"
-                                               Foreground="{DynamicResource Theme.Accent}">
-                                        <Run Text="GitHub"/>
-                                    </Hyperlink>
-                                    <Run Text=" ‖ "/>
-                                    <Hyperlink x:Name="CheckUpdateLink" Click="CheckUpdate_Click"
-                                               Foreground="{DynamicResource Theme.Accent}">
-                                        <Run x:Name="CheckUpdateRun"
-                                             Text="{Binding [St.CheckUpdate], Mode=OneWay, Source={x:Static local:L10n.Instance}}"/>
-                                    </Hyperlink>
-                                </TextBlock>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            <Border x:Name="SettingsPageHost" Visibility="Collapsed"/>
 
             <!-- 实验设置（实验模式开启后显示） -->
-            <Grid x:Name="ExperimentalPage" Visibility="Collapsed">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="{Binding [Nav.Experimental], Source={x:Static local:L10n.Instance}}"
-                                   Style="{StaticResource PageTitle}"/>
-
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <CheckBox x:Name="ExpBackgroundPollingCheck" Style="{StaticResource SettingsSwitchRow}"
-                                      Tag="{x:Static local:AutomationIcons.Options}"
-                                      Checked="ExpBackgroundPolling_Changed" Unchecked="ExpBackgroundPolling_Changed">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding [Exp.BackgroundPolling], Source={x:Static local:L10n.Instance}}" TextWrapping="Wrap"/>
-                                    <TextBlock Style="{StaticResource ThemeHint}" Margin="0,3,0,0"
-                                               Text="{Binding [Exp.BackgroundPollingHint], Source={x:Static local:L10n.Instance}}"/>
-                                </StackPanel>
-                            </CheckBox>
-                        </Border>
-
-                        <!-- 一键还原全部应用为默认播放设备 -->
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <TextBlock Text="{Binding [Exp.ResetAll], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
-                                <TextBlock Text="{Binding [Exp.ResetAllHint], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
-                                           Margin="0,-4,0,10" TextWrapping="Wrap"/>
-                                <Button x:Name="ExpResetAllButton" Content="{Binding [Exp.ResetAll], Source={x:Static local:L10n.Instance}}"
-                                        Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
-                                        HorizontalAlignment="Left" Click="ExpResetAll_Click"/>
-                                <TextBlock Text="{Binding [Exp.ResetAllTip], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
-                                           Margin="0,6,0,0" TextWrapping="Wrap"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- 一键清理配置文件 -->
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <TextBlock Text="{Binding [Exp.ClearConfig], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
-                                <TextBlock Text="{Binding [Exp.ClearConfigHint], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
-                                           Margin="0,-4,0,10" TextWrapping="Wrap"/>
-                                <Button x:Name="ExpClearConfigButton" Content="{Binding [Exp.ClearConfig], Source={x:Static local:L10n.Instance}}"
-                                        Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
-                                        HorizontalAlignment="Left" Click="ExpClearConfig_Click"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- 配置文件备份：导出 / 导入 -->
-                        <Border Style="{StaticResource Card}" Margin="0,0,0,14">
-                            <StackPanel>
-                                <TextBlock Text="{Binding [Exp.ConfigBackup], Source={x:Static local:L10n.Instance}}" Style="{StaticResource SectionTitle}"/>
-                                <TextBlock Text="{Binding [Exp.ConfigTransferHint], Source={x:Static local:L10n.Instance}}"
-                                           FontSize="11.5" Foreground="{DynamicResource Theme.TextSecondary}"
-                                           Margin="0,-4,0,10" TextWrapping="Wrap"/>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="ExpExportConfigButton" Content="{Binding [Exp.ExportConfig], Source={x:Static local:L10n.Instance}}"
-                                            Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
-                                            Margin="0,0,10,0" HorizontalAlignment="Left" Click="ExpExportConfig_Click"/>
-                                    <Button x:Name="ExpImportConfigButton" Content="{Binding [Exp.ImportConfig], Source={x:Static local:L10n.Instance}}"
-                                            Style="{StaticResource GhostButton}" Height="34" Padding="16,0"
-                                            HorizontalAlignment="Left" Click="ExpImportConfig_Click"
-                                            AllowDrop="True" DragOver="ExpImportConfigButton_DragOver" Drop="ExpImportConfigButton_Drop"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-            </Grid>
+            <Border x:Name="ExperimentalPageHost" Visibility="Collapsed"/>
             <!-- 自动化（极简规则） -->
             <Border x:Name="AutomationPageHost" Visibility="Collapsed"/>
             </Grid>

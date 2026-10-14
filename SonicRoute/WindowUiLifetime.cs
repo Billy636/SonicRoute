@@ -19,12 +19,21 @@ namespace SonicRoute
         internal CancellationToken Token => _token;
 
         internal Task<T> ReadAsync<T>(Func<T> read) => WaitForReadAsync(Task.Run(read, _token), _token);
+        internal Task<T> ReadAsync<T>(Task<T> sharedRead) => WaitForReadAsync(sharedRead, _token);
 
         internal Task<TResult> ReadAsync<TState, TResult>(TState state, Func<TState, TResult> read) =>
             ReadAsync(() => read(state));
 
         private static async Task<T> WaitForReadAsync<T>(Task<T> work, CancellationToken token)
         {
+            if (work.IsCompleted)
+            {
+                // A completed read needs no cancellation registration or competing task.
+                // Preserve cancellation precedence and observe an already completed failure.
+                if (token.IsCancellationRequested) _ = work.Exception;
+                token.ThrowIfCancellationRequested();
+                return await work.ConfigureAwait(false);
+            }
             var cancelled = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             using (token.Register(() => cancelled.TrySetResult(true)))
             {

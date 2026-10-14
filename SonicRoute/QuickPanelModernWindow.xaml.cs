@@ -342,7 +342,7 @@ namespace SonicRoute
                 await LoadSystemDevicesAsync(devices.Outputs, devices.DefaultId);
                 if (_isClosed) return;
 
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps());
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync());
                 if (_isClosed) return;
                 await BuildAppRowsAsync(apps);
                 if (_isClosed) return;
@@ -500,10 +500,8 @@ namespace SonicRoute
             });
             if (_isClosed || deviceId != _systemDeviceId) return;
             int actual = result.Actual;
-            if (actual >= 0)
-                ApplySystemVolumeReadback(actual);
-            if (result.Applied && actual >= 0) ShowDeviceVolumeOsd(actual);
-            else ShowDeviceOsd(L10n.T("Qp.VolFail"));
+            ((App)Application.Current).ShowSystemVolumeFeedback(deviceId, actual, result.Applied,
+                _systemMutedForOsd, SystemVolumeTitle());
         }
 
         private void ApplySystemVolumeReadback(int actual)
@@ -516,6 +514,25 @@ namespace SonicRoute
                 VolumePercentText.Text = $"{actual}%";
             }
             finally { _systemReady = ready; }
+        }
+
+        internal void ApplySystemVolumeReadback(string? deviceId, int actual, bool muted)
+        {
+            if (_isClosed || !string.Equals(deviceId, _systemDeviceId, StringComparison.OrdinalIgnoreCase)) return;
+            ++_systemVolumeRequest; // 旧初始化/选择读取不能盖过这次实际调整。
+            ApplySystemVolumeReadback(actual);
+            ApplySystemMuteVisual(muted);
+            VolumeSlider.IsEnabled = MuteButton.IsEnabled = true;
+            _systemReady = true;
+        }
+
+        internal void ApplyAppVolumeReadback(int pid, int actual)
+        {
+            if (_isClosed || !_rows.TryGetValue(pid, out var row)) return;
+            bool updating = _updatingRowVolumes;
+            _updatingRowVolumes = true;
+            try { row.Slider.Value = actual; row.Slider.IsEnabled = true; }
+            finally { _updatingRowVolumes = updating; }
         }
 
         private void Volume_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -541,12 +558,8 @@ namespace SonicRoute
         }
 
         private bool _systemMutedForOsd;
-        private void ShowDeviceVolumeOsd(int volume)
-        {
-            string title = (SystemDevCombo.SelectedItem as AudioDeviceInfo)?.DisplayName ?? L10n.T("App.NameFull");
-            ((App)Application.Current).ShowVolumeOsd(title, volume, string.Format(L10n.T("Qp.VolOk"), volume),
-                _systemMutedForOsd, "device:" + _systemDeviceId);
-        }
+        private string SystemVolumeTitle() =>
+            (SystemDevCombo.SelectedItem as AudioDeviceInfo)?.DisplayName ?? L10n.T("App.NameFull");
 
         private async void MuteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -565,15 +578,12 @@ namespace SonicRoute
         {
             if (!_systemReady) return -1;
             string? deviceId = _systemDeviceId;
-            var result = await Task.Run(() => SystemVolumeService.AdjustVolumePercent(deviceId, delta));
+            var result = await Task.Run(() => SystemVolumeService.AdjustVolumeWithState(deviceId, delta));
             int actual = result.Actual;
             if (_isClosed || deviceId != _systemDeviceId) return actual;
-            if (actual >= 0)
-            {
-                ApplySystemVolumeReadback(actual);
-                ShowDeviceVolumeOsd(actual);
-            }
-            return actual >= 0 ? actual : -1;
+            ((App)Application.Current).ShowSystemVolumeFeedback(deviceId, actual, result.Applied,
+                result.Muted, SystemVolumeTitle());
+            return result.Applied && actual >= 0 ? actual : -1;
         }
 
         /// <summary>静音/取消静音顶部选中的系统输出设备（快捷键与面板顶部按钮一致；不修改系统默认设备）。</summary>

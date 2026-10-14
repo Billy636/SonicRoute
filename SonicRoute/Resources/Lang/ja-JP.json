@@ -212,6 +212,8 @@
   "Act.MuteInput": "すべてのマイクのミュートを切り替え",
   "Act.VolUp": "現在のアプリの音量を上げる",
   "Act.VolDown": "現在のアプリの音量を下げる",
+  "Act.SystemVolUp": "既定の出力デバイスの音量を上げる",
+  "Act.SystemVolDown": "既定の出力デバイスの音量を下げる",
   "Act.Panel": "クイックパネルを開く",
   "Act.SwitchInput": "現在のアプリのマイクデバイスを切替",
   "Act.SetDefaultOutput": "既定出力",

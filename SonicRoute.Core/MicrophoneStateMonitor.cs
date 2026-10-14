@@ -178,12 +178,24 @@ namespace SonicRoute.Core
         {
             private readonly Action _changed;
             internal DeviceCallback(Action changed) { _changed = changed; }
-            public int OnDeviceStateChanged(string id, DeviceState state) { _changed(); return 0; }
-            public int OnDeviceAdded(string id) { _changed(); return 0; }
-            public int OnDeviceRemoved(string id) { _changed(); return 0; }
+            private void InvalidateDevices()
+            {
+                AudioService.InvalidateDeviceCache();
+                AudioService.InvalidateAppsCache();
+                _changed();
+            }
+            public int OnDeviceStateChanged(string id, DeviceState state) { InvalidateDevices(); return 0; }
+            public int OnDeviceAdded(string id) { InvalidateDevices(); return 0; }
+            public int OnDeviceRemoved(string id) { InvalidateDevices(); return 0; }
             public int OnDefaultDeviceChanged(EDataFlow flow, ERole role, string? id)
-            { if (flow == EDataFlow.eCapture && role == ERole.eMultimedia) _changed(); return 0; }
-            public int OnPropertyValueChanged(string id, PROPERTYKEY key) => 0;
+            {
+                AudioService.InvalidateDeviceCache(flow);
+                AudioService.InvalidateAppsCache();
+                if (flow == EDataFlow.eCapture && role == ERole.eMultimedia) _changed();
+                return 0;
+            }
+            public int OnPropertyValueChanged(string id, PROPERTYKEY key)
+            { AudioService.InvalidateDeviceCache(); return 0; }
         }
     }
 }

@@ -14,6 +14,8 @@ namespace SonicRoute
         public const string ActMuteInput = "麦克风静音当前应用";
         public const string ActVolUp = "增大当前应用音量";
         public const string ActVolDown = "减小当前应用音量";
+        public const string ActSystemVolUp = "增大系统默认输出音量";
+        public const string ActSystemVolDown = "减小系统默认输出音量";
         public const string ActPanel = "打开快速面板";
         /// <summary>切换全局应用的输出设备（所有有音频会话的应用切到下一个保留设备）。</summary>
         public const string ActSwitchAllOutput = "切换全局应用输出设备";
@@ -32,6 +34,8 @@ namespace SonicRoute
         {
             ActVolUp,
             ActVolDown,
+            ActSystemVolUp,
+            ActSystemVolDown,
             ActSwitchOutput,
             ActMute,
             ActMuteInput,
@@ -47,7 +51,7 @@ namespace SonicRoute
         /// <summary>快捷键分组：L10n 分类键 → 该组动作（用于快捷键设置页分类展示）。</summary>
         public static readonly (string L10nKey, string[] Actions)[] Groups =
         {
-            ("Hk.CatVolume", new[] { ActVolUp, ActVolDown, ActMute, ActMuteInput }),
+            ("Hk.CatVolume", new[] { ActVolUp, ActVolDown, ActSystemVolUp, ActSystemVolDown, ActMute, ActMuteInput }),
             ("Hk.CatApp", new[] { ActSwitchOutput, ActSwitchInput }),
             ("Hk.CatGlobal", new[] { ActSwitchAllOutput, ActSwitchAllInput, ActResetAllApps, ActSetDefaultOutput, ActSetDefaultInput }),
             ("Hk.CatUi", new[] { ActPanel }),
@@ -55,8 +59,10 @@ namespace SonicRoute
 
         public static readonly Dictionary<string, string> Defaults = new()
         {
-            [ActVolUp] = "Ctrl+Alt+Up",
-            [ActVolDown] = "Ctrl+Alt+Down",
+            [ActVolUp] = "Ctrl+Alt+WheelUp",
+            [ActVolDown] = "Ctrl+Alt+WheelDown",
+            [ActSystemVolUp] = "Ctrl+Alt+Shift+WheelUp",
+            [ActSystemVolDown] = "Ctrl+Alt+Shift+WheelDown",
             [ActSwitchOutput] = "Ctrl+Alt+D",
             [ActMute] = "Ctrl+Shift+M",   // Ctrl+Alt+M 常被其他程序注册（本机实测被占用），改用 Ctrl+Shift+M
             [ActMuteInput] = "Ctrl+Shift+N",      // 麦克风静音，与扬声器静音 Ctrl+Shift+M 区分
@@ -77,6 +83,8 @@ namespace SonicRoute
             ActMuteInput => L10n.T("Act.MuteInput"),
             ActVolUp => L10n.T("Act.VolUp"),
             ActVolDown => L10n.T("Act.VolDown"),
+            ActSystemVolUp => L10n.T("Act.SystemVolUp"),
+            ActSystemVolDown => L10n.T("Act.SystemVolDown"),
             ActPanel => L10n.T("Act.Panel"),
             ActResetAllApps => L10n.T("Act.ResetAllApps"),
             ActSwitchAllOutput => L10n.T("Act.SwitchAllOutput"),

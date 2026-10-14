@@ -12,6 +12,7 @@ namespace SonicRoute
     {
         private bool _settingsNamesBuilt;
         private string? _settingsNamesLanguage;
+        private (string Code, string NativeName)[]? _settingsLanguageChoices;
         private List<AudioAppInfo> _candidateSnapshot = new();
         private List<AppItem> _candidateItems = new();
         private List<AutomationActionChoice>? _actionChoices;
@@ -26,7 +27,7 @@ namespace SonicRoute
         // 保留轻量宿主；进入设置且区域展开后才生成设备行。
         private void EnsureSettingsDeviceSections()
         {
-            if (_isClosed || SettingsPage.Visibility != Visibility.Visible) return;
+            if (_isClosed || SettingsPage == null || SettingsPage.Visibility != Visibility.Visible) return;
             string language = L10n.CurrentLanguage;
             if ((!_config.CollapseDeviceSections || KeepDevicesMoreToggle.IsChecked == true)
                 && (!_settingsFilterBuilt || _settingsFilterLanguage != language))

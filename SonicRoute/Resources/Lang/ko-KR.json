@@ -212,6 +212,8 @@
   "Act.MuteInput": "모든 마이크 음소거 상태 전환",
   "Act.VolUp": "현재 앱 볼륨 올리기",
   "Act.VolDown": "현재 앱 볼륨 내리기",
+  "Act.SystemVolUp": "기본 출력 장치 볼륨 올리기",
+  "Act.SystemVolDown": "기본 출력 장치 볼륨 내리기",
   "Act.Panel": "퀵 패널 열기",
   "Act.SwitchInput": "현재 앱 마이크 장치 전환",
   "Act.SetDefaultOutput": "기본 출력",

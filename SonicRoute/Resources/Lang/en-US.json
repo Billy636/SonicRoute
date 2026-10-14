@@ -212,6 +212,8 @@
   "Act.MuteInput": "Toggle mute for all microphones",
   "Act.VolUp": "Increase current app volume",
   "Act.VolDown": "Decrease current app volume",
+  "Act.SystemVolUp": "Increase default output device volume",
+  "Act.SystemVolDown": "Decrease default output device volume",
   "Act.Panel": "Open quick panel",
   "Act.SwitchInput": "Switch current app microphone device",
   "Act.SetDefaultOutput": "Default output",

@@ -262,7 +262,7 @@ namespace SonicRoute
             try
             {
                 var cfg = ConfigService.Load();
-                var apps = await _uiLifetime.ReadAsync(() => AudioService.GetApps());
+                var apps = await _uiLifetime.ReadAsync(AudioService.GetAppsAsync());
                 if (_isClosed) return;
                 // 过滤：完整界面「应用」里关闭"在快速面板显示"的应用
                 var hiddenPanel = cfg.HiddenPanelApps;

@@ -1,7 +1,7 @@
 param(
     [string]$PublishDirectory=(Join-Path $PSScriptRoot '../../dist/publish/win-x64'),
-    [string]$OutputDirectory=(Join-Path $PSScriptRoot '../../dist/msix/v1.22'),
-    [string]$PackageVersion='1.22.0.0',
+    [string]$OutputDirectory=(Join-Path $PSScriptRoot '../../dist/msix/v1.23'),
+    [string]$PackageVersion='1.23.0.0',
     [string]$SdkDirectory
 )
 $ErrorActionPreference='Stop'

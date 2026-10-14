@@ -92,7 +92,13 @@ namespace SonicRoute
                 if (defaults.TryGetValue(kv.Key, out var def)
                     && !string.Equals(def, kv.Value, StringComparison.OrdinalIgnoreCase))
                 {
-                    TryRegister(kv.Key, def); // 配置组合冲突/无效 → 回退默认
+                    // 默认可能是鼠标滚轮，不能交给 RegisterHotKey 的键盘解析。
+                    if (IsMouseCombo(def))
+                    {
+                        mouseBindings.Add(new KeyValuePair<string, string>(def, kv.Key));
+                        RegistrationStatus[kv.Key] = def;
+                    }
+                    else TryRegister(kv.Key, def); // 配置组合冲突/无效 → 回退默认
                 }
                 else if (!RegistrationStatus.ContainsKey(kv.Key))
                 {
@@ -127,6 +133,8 @@ namespace SonicRoute
                 _ => false
             };
         }
+
+        internal bool HandlesMouseWheel(int delta) => _mouseHook.IsInstalled && _mouseHook.HasWheelBinding(delta);
 
         private bool TryRegister(string action, string? combo)
         {

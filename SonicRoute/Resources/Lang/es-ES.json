@@ -212,6 +212,8 @@
   "Act.MuteInput": "Alternar el silencio de todos los micrófonos",
   "Act.VolUp": "Aumentar volumen de la app actual",
   "Act.VolDown": "Disminuir volumen de la app actual",
+  "Act.SystemVolUp": "Aumentar volumen del dispositivo de salida predeterminado",
+  "Act.SystemVolDown": "Disminuir volumen del dispositivo de salida predeterminado",
   "Act.Panel": "Abrir panel rápido",
   "Act.SwitchInput": "Cambiar micrófono de la app actual",
   "Act.SetDefaultOutput": "Salida predeterminada",

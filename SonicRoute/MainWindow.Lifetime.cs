@@ -76,7 +76,13 @@ namespace SonicRoute
             _autoOutputs = _autoInputs = null;
             _autoRows.Clear(); _autoRules = new(); _autoRuleFingerprints.Clear(); _autoRunIds.Clear();
             _nameSaveTimer = _themeSaveTimer = _osdPreviewTimer = null;
-            CustomLangList.Content = null;
+            if (CustomLangList != null) CustomLangList.Content = null;
+            _settingsLanguageChoices = null;
+            _inputDeviceLoad = null;
+            _inputDevicesLoaded = false;
+            _initialDeviceLoadComplete = false;
+            _recordingAction = null;
+            ReleaseDeferredPages();
         }
     }
 }

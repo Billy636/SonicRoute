@@ -73,6 +73,10 @@
     <Style x:Key="ThemeSliderValue" TargetType="TextBlock" BasedOn="{StaticResource ThemeSliderLabel}">
         <Setter Property="Foreground" Value="{DynamicResource Theme.TextSecondary}"/><Setter Property="TextAlignment" Value="Right"/>
     </Style>
+    <Style x:Key="ThemeSwitchLabel" TargetType="TextBlock" BasedOn="{StaticResource ThemeSliderLabel}">
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="Margin" Value="0,0,16,0"/>
+    </Style>
     <!-- 静态矢量示意，直接引用主题画刷；不复制真实窗口，不启动计时器或动画。 -->
     <DataTemplate x:Key="ThemePreview">
         <Border Background="{DynamicResource Theme.SurfaceAlt}" CornerRadius="11" Padding="10" IsHitTestVisible="False">

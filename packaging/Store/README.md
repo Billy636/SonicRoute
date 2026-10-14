@@ -2,7 +2,7 @@
 
 此目录保存公开的商店清单及打包脚本，不包含签名材料。应用标识、发布者标识、应用 ID 和开机启动任务 ID 沿用原商店包。
 
-当前精简主项目版本为 1.22，尚待正式发布。先按项目的 x64 发布配置生成框架依赖单文件（需 .NET 8 Desktop Runtime），默认输出 `dist/publish/win-x64/SonicRoute.exe`，再在仓库根目录运行：
+当前主项目开发版本为 1.23，商店清单及打包脚本默认版本为 1.23.0.0；已发布的 GitHub 1.22 资产保持独立。先按项目的 x64 发布配置生成框架依赖单文件（需 .NET 8 Desktop Runtime），默认输出 `dist/publish/win-x64/SonicRoute.exe`，再在仓库根目录运行：
 
 ```powershell
 dotnet publish SonicRoute/SonicRoute.csproj -c Release -r win-x64 -p:PublishProfile=win-x64

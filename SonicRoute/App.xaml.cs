@@ -598,16 +598,21 @@ namespace SonicRoute
         internal IReadOnlyDictionary<string, string> HotkeyRegistration =>
             _hotkeys?.RegistrationStatus ?? new Dictionary<string, string>();
 
+        internal bool IsHotkeyCaptureActive => _mainWindow is { IsVisible: true } && _mainWindow.IsHotkeyRecording;
+        internal bool ShouldBypassTrayWheel(int delta) => IsHotkeyCaptureActive || _hotkeys?.HandlesMouseWheel(delta) == true;
+
         private readonly SemaphoreSlim _volumeHotkeyGate = new(1, 1);
 
         private async Task ExecuteHotkeyAsync(string action)
         {
-            if (action is not (HotkeyActions.ActVolUp or HotkeyActions.ActVolDown))
+            if (action is not (HotkeyActions.ActVolUp or HotkeyActions.ActVolDown
+                or HotkeyActions.ActSystemVolUp or HotkeyActions.ActSystemVolDown))
             {
                 await ExecuteHotkeyCoreAsync(action);
                 return;
             }
-            int foregroundPid = ForegroundAppService.GetForegroundProcessId();
+            int? foregroundPid = action is HotkeyActions.ActVolUp or HotkeyActions.ActVolDown
+                ? ForegroundAppService.GetForegroundProcessId() : null;
             // 连续增减按输入顺序执行；等待不阻塞 UI，防止多轮读旧值/旧 OSD 覆盖。
             await _volumeHotkeyGate.WaitAsync();
             try { await ExecuteHotkeyCoreAsync(action, foregroundPid); }
@@ -628,6 +633,13 @@ namespace SonicRoute
             if (action == HotkeyActions.ActPanel)
             {
                 ToggleQuickPanel();
+                return;
+            }
+
+            // 系统设备音量不依赖当前应用，也不受面板所选设备影响。
+            if (action is HotkeyActions.ActSystemVolUp or HotkeyActions.ActSystemVolDown)
+            {
+                await AdjustDefaultOutputVolumeAsync(action == HotkeyActions.ActSystemVolUp);
                 return;
             }
 
@@ -671,20 +683,24 @@ namespace SonicRoute
 
                 case HotkeyActions.ActVolUp:
                 case HotkeyActions.ActVolDown:
-                    // 调整面板/概览显示的当前应用音量（每次 ±5%）。面板打开时走面板路径
-                    // （与 ± 按钮一致并同步滑块/状态行）；否则直接对共享当前应用调整并 OSD。
+                    // 经典面板复用当前应用的 ± 路径；现代面板顶部控制设备音量，
+                    // 当前应用直接走会话调整，再用读回值同步对应应用行。
                     {
                         int step = MathEx.Clamp(ConfigService.Load().VolumeStep, 1, 20);
                         int delta = action == HotkeyActions.ActVolUp ? step : -step;
-                        if (_quickPanel is { IsVisible: true })
+                        if (_quickPanel is QuickPanelWindow { IsVisible: true } classic)
                         {
-                            int v = await _quickPanel.AdjustVolumeAsync(delta);
+                            int v = await classic.AdjustVolumeAsync(delta);
                             if (v >= 0) break; // 面板已经按实际目标发出一次音量反馈。
                         }
                         var adjusted = await Task.Run(() => SessionVolumeService.AdjustVolumePercent(pid, delta));
                         if (adjusted.Current < 0) { _trayWheel?.ShowOsd(name, "⚠ " + L10n.T("Ov.NoOutputSession")); break; }
                         if (adjusted.Applied && adjusted.Actual >= 0)
+                        {
+                            if (_quickPanel is QuickPanelModernWindow { IsVisible: true } modern)
+                                modern.ApplyAppVolumeReadback(pid, adjusted.Actual);
                             _trayWheel?.ShowVolumeOsd(name, adjusted.Actual, $"🔉 {adjusted.Actual}%", target: "app:" + pid);
+                        }
                         else _trayWheel?.ShowOsd(name, L10n.T("Ov.VolAdjustFail"));
                         break;
                     }
@@ -735,6 +751,40 @@ namespace SonicRoute
                     _trayWheel?.ShowOsd(L10n.T("Act.SetDefaultInput"), string.IsNullOrEmpty(si) ? L10n.T("Ov.NoMicDevice") : $"🎤 {si}");
                     break;
             }
+        }
+
+        private async Task AdjustDefaultOutputVolumeAsync(bool increase)
+        {
+            string title = L10n.T("Dev.SystemDefaultOut");
+            int step = MathEx.Clamp(ConfigService.Load().VolumeStep, 1, 20);
+            try
+            {
+                var result = await Task.Run(() =>
+                {
+                    // 每次解析默认输出；本次调整、静音读回和 OSD 指向同一个端点。
+                    string? deviceId = AudioService.GetDefaultDeviceId(EDataFlow.eRender);
+                    if (deviceId == null)
+                        return (DeviceId: (string?)null, Current: -1, Actual: -1, Applied: false, Muted: false);
+                    var adjusted = SystemVolumeService.AdjustVolumeWithState(deviceId, increase ? step : -step);
+                    return (DeviceId: deviceId, adjusted.Current, adjusted.Actual, adjusted.Applied, adjusted.Muted);
+                });
+                if (result.Current < 0)
+                {
+                    _trayWheel?.ShowOsd(title, L10n.T("Ov.NoDevice"));
+                    return;
+                }
+                ShowSystemVolumeFeedback(result.DeviceId, result.Actual, result.Applied, result.Muted, title);
+            }
+            catch { _trayWheel?.ShowOsd(title, L10n.T("Ov.VolAdjustFail")); }
+        }
+
+        internal void ShowSystemVolumeFeedback(string? deviceId, int actual, bool applied, bool muted, string title)
+        {
+            if (actual >= 0 && _quickPanel is QuickPanelModernWindow { IsVisible: true } modern)
+                modern.ApplySystemVolumeReadback(deviceId, actual, muted);
+            if (applied && actual >= 0)
+                ShowVolumeOsd(title, actual, string.Format(L10n.T("Qp.VolOk"), actual), muted, "device:" + deviceId);
+            else ShowOsd(title, L10n.T("Ov.VolAdjustFail"));
         }
 
         /// <summary>构建可见设备列表（真实保留设备，按隐藏集合过滤）。</summary>
