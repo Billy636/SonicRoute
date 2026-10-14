@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 
 ## ✨ Qué ofrece SonicRoute
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funciones"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Haz clic en la mascota para descubrir las funciones de SonicRoute"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funciones"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Haz clic en la mascota para descubrir las funciones de SonicRoute"></a>
 
 - **Enrutamiento de audio por aplicación.** Asigna distintos dispositivos de reproducción y grabación a cada aplicación, cambia los de las aplicaciones en ejecución o modifica los dispositivos predeterminados de Windows. Windows conserva la configuración de enrutamiento de las aplicaciones al cerrar SonicRoute.
 - **Controla la aplicación que estás usando.** Identifica la aplicación actual mediante la actividad en primer plano y las sesiones de audio. El modo «Reciente» sigue a la aplicación en primer plano que tenga una sesión de audio; «Última usada» recuerda la última aplicación que controlaste. También puedes elegir una aplicación concreta. Filtra y cambia el nombre de tus dispositivos preferidos y altérnalos con el mismo atajo.
@@ -94,7 +94,7 @@ La Wiki está actualmente en chino simplificado.
 
 ---
 
-<a href="EASTER_EGGS.md" title="Un huevo de Pascua: ayer y mañana"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Descubre un huevo de Pascua"></a>
+<a href="EASTER_EGGS.md" title="Un huevo de Pascua: ayer y mañana"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Descubre un huevo de Pascua"></a>
 
 Gracias por usar SonicRoute. [Leer las guías (en chino)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Informar de un problema](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

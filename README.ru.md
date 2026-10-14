@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (экспериментально) 
 
 ## ✨ Возможности SonicRoute
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Возможности"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Нажмите на маскота, чтобы узнать о возможностях SonicRoute"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Возможности"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Нажмите на маскота, чтобы узнать о возможностях SonicRoute"></a>
 
 - **Маршрутизация звука для каждого приложения.** Назначайте приложениям отдельные устройства воспроизведения и записи, меняйте устройства для запущенных приложений или задавайте устройства Windows по умолчанию. Windows сохраняет настройки маршрутизации приложений после закрытия SonicRoute.
 - **Управление нужным приложением.** Определяйте текущее приложение по активности на переднем плане и аудиосеансам. Режим «Недавно активное приложение» выбирает приложение на переднем плане, в котором есть аудиосеанс; режим «Последнее приложение, которым Вы управляли» выбирает доступное приложение, которым Вы управляли в последний раз. Также можно указать приложение вручную. Отфильтруйте и переименуйте предпочитаемые устройства, а затем переключайтесь между ними одной горячей клавишей.
@@ -94,7 +94,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (экспериментально) 
 
 ---
 
-<a href="EASTER_EGGS.md" title="Пасхалка: вчера и завтра"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Найдите пасхалку"></a>
+<a href="EASTER_EGGS.md" title="Пасхалка: вчера и завтра"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Найдите пасхалку"></a>
 
 Спасибо, что пользуетесь SonicRoute. [Руководства (на китайском)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Сообщить о проблеме](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

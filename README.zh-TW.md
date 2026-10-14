@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（實驗性） · 支援九種介�
 
 ## ✨ SonicRoute 的功能
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="點擊看板娘瀏覽 SonicRoute 功能"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="點擊看板娘瀏覽 SonicRoute 功能"></a>
 
 - **為個別應用程式設定音訊路由。** 為每個應用程式選擇播放與錄音裝置、切換執行中應用程式的裝置，或變更 Windows 預設裝置。結束 SonicRoute 後，Windows 仍會保留應用程式的路由設定。
 - **控制目前使用的應用程式。** 根據前景活動與音訊工作階段判斷目前應用程式。「最近使用」模式會優先選擇位於前景且有音訊工作階段的應用程式；「上次操作」模式會記住最後操作的應用程式，也可指定應用程式。篩選並重新命名偏好的裝置，再用同一組快速鍵輪替切換。
@@ -94,7 +94,7 @@ Lite 需要相符的 [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/downl
 
 ---
 
-<a href="EASTER_EGGS.md" title="昨日與明日的彩蛋"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="發現彩蛋"></a>
+<a href="EASTER_EGGS.md" title="昨日與明日的彩蛋"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="發現彩蛋"></a>
 
 感謝使用 SonicRoute。 [閱讀指南（簡體中文）](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [回報問題](https://github.com/kunkunkunQoQ/SonicRoute/issues)。
 

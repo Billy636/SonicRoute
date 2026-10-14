@@ -72,7 +72,7 @@ function render(language, text) {
     '<br>', `<a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="${attr(text.panelAlt)}"></a>`,
     `<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="${attr(text.themeAlt)}"></a>`, '</div>', '',
     '<sub>' + attr(text.preview) + '</sub>', '', '## ✨ ' + text.featuresTitle, '',
-    `<a href="${wiki(pages.featuresGuide)}" title="${attr(text.featuresGuide)}"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="${attr(text.featuresAlt)}"></a>`, '',
+    `<a href="${wiki(pages.featuresGuide)}" title="${attr(text.featuresGuide)}"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="${attr(text.featuresAlt)}"></a>`, '',
     ...text.features.map(feature => '- ' + fill(feature)), '',
     '## 🎮 ' + text.useCasesTitle, '',
     automationImage + ' ' + text.automationExample + ' ' + link(text.configureAutomation, wiki(pages.automationGuide)) + period, '',
@@ -94,7 +94,7 @@ function render(language, text) {
     '## 🧩 ' + text.otherTitle, '',
     '- **' + link('SilentPlayer', shared.projects.silentPlayer) + '**' + colon + text.silentPlayer + ' ' + link(text.combinationGuide, wiki(pages.guide) + '#' + encodeURIComponent(shared.combinationAnchor)),
     '- **' + link('WinAudioRoute', shared.projects.winAudioRoute) + '**' + colon + text.winAudioRoute, '', '---', '',
-    `<a href="EASTER_EGGS.md" title="${attr(text.footerTitle)}"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="${attr(text.easterEgg)}"></a>`, '',
+    `<a href="EASTER_EGGS.md" title="${attr(text.footerTitle)}"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="${attr(text.easterEgg)}"></a>`, '',
     text.thanks + ' ' + link(text.footerDocs, shared.repository + '/wiki') + ' · ' + link(text.footerIssues, shared.repository + '/issues') + period, '',
     '**' + text.author + colon + [link(text.bilibili, shared.author.bilibili), link(text.afdian, shared.author.afdian), link('GitHub', shared.author.github)].join(' | ') + '**', ''
   ].join('\n');

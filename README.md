@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 
 
 ## ✨ SonicRoute 的特点
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能特性"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="点击看板娘查看功能特性"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能特性"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="点击看板娘查看功能特性"></a>
 
 - **按应用分配声音**：分别设置应用的播放与录音设备，也能切换运行中应用的设备或 Windows 系统默认设备。应用路由由 Windows 保存，退出 SonicRoute 后仍会保留。
 - **围绕当前应用操作**：最近使用模式跟随有音频会话的前台应用；也可选择上次操作的应用或指定应用。常用设备可筛选、改名，用同一组快捷键循环切换。
@@ -92,7 +92,7 @@ Lite 请安装对应架构的 [.NET 8 Desktop Runtime](https://dotnet.microsoft.
 
 ---
 
-<a href="EASTER_EGGS.md" title="关于昨天是否经过明天的讨论"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="点击看板娘发现一个彩蛋"></a>
+<a href="EASTER_EGGS.md" title="关于昨天是否经过明天的讨论"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="点击看板娘发现一个彩蛋"></a>
 
 感谢使用 SonicRoute。 [查看文档](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [反馈问题](https://github.com/kunkunkunQoQ/SonicRoute/issues)。
 

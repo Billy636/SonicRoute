@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (실험적) · 인터페이스 9개
 
 ## ✨ SonicRoute의 주요 기능
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="기능"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="마스코트를 클릭해 SonicRoute 기능 살펴보기"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="기능"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="마스코트를 클릭해 SonicRoute 기능 살펴보기"></a>
 
 - **앱별 오디오 라우팅.** 앱마다 재생 및 녹음 장치를 지정하고, 실행 중인 앱의 장치를 전환하거나 Windows 기본 장치를 변경할 수 있습니다. SonicRoute를 종료해도 앱별 라우팅 설정은 Windows에 유지됩니다.
 - **사용 중인 앱 제어.** ‘최근 사용’ 모드에서는 전경에 있으며 오디오 세션이 있는 앱을 우선합니다. ‘마지막으로 조작한 앱’ 모드에서는 마지막으로 직접 조작한 앱을 기억합니다. 앱을 지정할 수도 있습니다. 선호하는 장치를 필터링하고 이름을 바꾼 뒤 같은 단축키로 차례로 전환할 수 있습니다.
@@ -94,7 +94,7 @@ Lite에는 호환되는 [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/do
 
 ---
 
-<a href="EASTER_EGGS.md" title="어제와 내일의 이스터 에그"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="쉬고 있는 마스코트를 클릭해 이스터 에그 찾기"></a>
+<a href="EASTER_EGGS.md" title="어제와 내일의 이스터 에그"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="쉬고 있는 마스코트를 클릭해 이스터 에그 찾기"></a>
 
 SonicRoute를 사용해 주셔서 감사합니다. [가이드 읽기(중국어 간체)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [문제 제보](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

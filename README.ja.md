@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（実験的） · 9 種類の UI �
 
 ## ✨ SonicRoute の主な機能
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="機能"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="マスコットをクリックして SonicRoute の機能を見る"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="機能"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="マスコットをクリックして SonicRoute の機能を見る"></a>
 
 - **アプリごとの音声ルーティング。** アプリごとに再生・録音デバイスを選び、実行中のアプリのデバイスを切り替えたり、Windows の既定デバイスを変更したりできます。SonicRoute を終了しても、アプリのルーティング設定は Windows に保持されます。
 - **使用中のアプリを操作。** 「最近使用」モードでは、前面にありオーディオセッションがあるアプリを優先します。「最後に操作したアプリ」モードでは、最後に操作したアプリを記憶します。アプリを指定することもできます。好みのデバイスを絞り込んで名前を付け、同じホットキーで順番に切り替えられます。
@@ -94,7 +94,7 @@ Lite には対応する [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/do
 
 ---
 
-<a href="EASTER_EGGS.md" title="昨日と明日のイースターエッグ"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="休んでいるマスコットをクリックしてイースターエッグを見つける"></a>
+<a href="EASTER_EGGS.md" title="昨日と明日のイースターエッグ"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="休んでいるマスコットをクリックしてイースターエッグを見つける"></a>
 
 SonicRoute をご利用いただきありがとうございます。 [ガイドを読む（簡体字中国語）](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [問題を報告](https://github.com/kunkunkunQoQ/SonicRoute/issues)。
 

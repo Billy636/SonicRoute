@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 
 ## ✨ What SonicRoute offers
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Features"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Click the mascot to explore SonicRoute features"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Features"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Click the mascot to explore SonicRoute features"></a>
 
 - **Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.
 - **Control the app you're using.** Recent mode follows the foreground app when it has an audio session. You can also choose the app you last acted on or a specified app. Filter and rename your preferred devices, then cycle through them with the same hotkey.
@@ -94,7 +94,7 @@ The Wiki is currently in Chinese.
 
 ---
 
-<a href="EASTER_EGGS.md" title="An Easter egg: yesterday and tomorrow"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Click the resting mascot to discover an Easter egg"></a>
+<a href="EASTER_EGGS.md" title="An Easter egg: yesterday and tomorrow"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Click the resting mascot to discover an Easter egg"></a>
 
 Thanks for using SonicRoute. [Read the guides (Chinese)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Report an issue](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

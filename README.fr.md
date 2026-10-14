@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 ## ✨ Ce que propose SonicRoute
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Fonctionnalités"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Cliquez sur la mascotte pour découvrir les fonctionnalités de SonicRoute"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Fonctionnalités"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Cliquez sur la mascotte pour découvrir les fonctionnalités de SonicRoute"></a>
 
 - **Routage audio par application.** Attribuez des périphériques de lecture et d’enregistrement différents à chaque application, changez ceux des applications en cours ou modifiez les périphériques par défaut de Windows. Windows conserve les réglages de routage des applications après la fermeture de SonicRoute.
 - **Contrôlez l’application utilisée.** Déterminez l’application active à partir de l’activité au premier plan et des sessions audio. Le mode « Application récente » suit l’application au premier plan qui possède une session audio ; le mode « Dernière utilisée » mémorise la dernière application que vous avez contrôlée. Vous pouvez aussi choisir une application précise. Filtrez et renommez vos périphériques préférés, puis parcourez-les avec le même raccourci.
@@ -94,7 +94,7 @@ Le Wiki est actuellement en chinois simplifié.
 
 ---
 
-<a href="EASTER_EGGS.md" title="Un œuf de Pâques : hier et demain"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Découvrez un œuf de Pâques"></a>
+<a href="EASTER_EGGS.md" title="Un œuf de Pâques : hier et demain"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Découvrez un œuf de Pâques"></a>
 
 Merci d’utiliser SonicRoute. [Lire les guides (en chinois)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Signaler un problème](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 

@@ -24,7 +24,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 ## ✨ Das bietet SonicRoute
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-headphones.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
 
 - **Audio je App weiterleiten.** Weise Apps eigene Wiedergabe- und Aufnahmegeräte zu, wechsle Geräte für laufende Apps oder ändere die Windows-Standardgeräte. Windows behält die App-Zuweisungen auch nach dem Beenden von SonicRoute bei.
 - **Die gerade verwendete App steuern.** Ermittle die aktuelle App anhand der Vordergrundaktivität und der Audiositzungen. Im Modus „Zuletzt aktiv“ folgt SonicRoute der zuletzt im Vordergrund aktiven App mit einer Audiositzung; „Zuletzt gesteuert“ merkt sich die zuletzt von dir bediente App. Auch eine festgelegte App lässt sich auswählen. Filtere und benenne bevorzugte Geräte um und wechsle per Tastenkürzel zwischen ihnen.
@@ -94,7 +94,7 @@ Das Wiki ist derzeit auf vereinfachtem Chinesisch.
 
 ---
 
-<a href="EASTER_EGGS.md" title="Ein Easter Egg: gestern und morgen"><img src="docs/images/mascot-footer.png" width="56" align="right" alt="Entdecke ein Easter Egg"></a>
+<a href="EASTER_EGGS.md" title="Ein Easter Egg: gestern und morgen"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Entdecke ein Easter Egg"></a>
 
 Danke, dass du SonicRoute verwendest. [Anleitungen lesen (Chinesisch)](https://github.com/kunkunkunQoQ/SonicRoute/wiki) · [Problem melden](https://github.com/kunkunkunQoQ/SonicRoute/issues).
 
