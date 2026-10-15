@@ -17,10 +17,10 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (실험적) · 인터페이스 9개
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="사용자 가이드(중국어 간체)"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="마스코트를 클릭해 사용자 가이드 열기"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute 빠른 패널: 위쪽의 출력 장치와 앱별 볼륨 제어"></a>
-<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="SonicRoute 테마 설정: 모양, 강조 색상 및 배경 불투명도"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="SonicRoute v1.23 자동화 규칙 편집기: 앱 실행 조건 및 오디오 작업 선택"></a>
 </div>
 
-<sub>인터페이스 예시: 빠른 패널에서 앱별 볼륨과 라우팅을 제어하고, 테마 설정에서 모양을 바꿀 수 있습니다.</sub>
+<sub>화면 예시: 빠른 패널에서 앱별 볼륨과 장치를 조절하고, 자동화 편집기에서 실행 조건과 작업 단계를 조합할 수 있습니다.</sub>
 
 ## ✨ SonicRoute의 주요 기능
 

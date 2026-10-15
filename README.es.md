@@ -17,10 +17,10 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="Guía de usuario (en chino)"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="Haz clic en la mascota para abrir la guía de usuario"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="Panel rápido de SonicRoute: dispositivo de salida y controles de volumen por aplicación"></a>
-<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="Ajustes de SonicRoute para la apariencia, el color de énfasis y la opacidad del fondo"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="Editor de reglas de automatización de SonicRoute v1.23: activador de aplicación y selección de acciones de audio"></a>
 </div>
 
-<sub>Ejemplos de la interfaz: panel rápido para el volumen y el enrutamiento de audio por aplicación; ajustes de tema y apariencia.</sub>
+<sub>Ejemplos de la interfaz: panel rápido para el volumen y los dispositivos de cada aplicación; editor de automatizaciones para combinar activadores y acciones.</sub>
 
 ## ✨ Qué ofrece SonicRoute
 

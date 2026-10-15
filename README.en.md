@@ -17,10 +17,10 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="User guide (Chinese)"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="Click the mascot to open the user guide"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute Quick panel: output device and per-app volume controls"></a>
-<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="SonicRoute theme settings: appearance, accent color and background opacity"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="SonicRoute v1.23 automation rule editor: app trigger and audio action selection"></a>
 </div>
 
-<sub>Interface examples: Quick panel for app volume and routing; theme settings for appearance.</sub>
+<sub>Interface examples: Quick panel for app volume and devices; automation editor for combining triggers and action steps.</sub>
 
 ## ✨ What SonicRoute offers
 

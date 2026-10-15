@@ -17,10 +17,10 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（實驗性） · 支援九種介�
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="使用指南（簡體中文）"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="點擊看板娘開啟使用指南"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute 快捷面板：頂端輸出裝置與各應用程式音量控制"></a>
-<a href="docs/images/theme-settings.png"><img src="docs/images/theme-settings.png" width="500" align="top" alt="SonicRoute 主題設定：外觀、強調色與背景透明度"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="SonicRoute v1.23 自動化規則編輯器：應用程式觸發條件與音訊操作選擇"></a>
 </div>
 
-<sub>介面範例：快捷面板管理各應用程式音量與路由；主題設定可調整外觀。</sub>
+<sub>介面範例：快捷面板管理各應用程式音量與裝置；自動化編輯器組合觸發條件與操作步驟。</sub>
 
 ## ✨ SonicRoute 的功能
 
