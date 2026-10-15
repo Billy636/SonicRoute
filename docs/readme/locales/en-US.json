@@ -98,13 +98,13 @@
   "featuresCoreTitle": "Core features",
   "featuresMoreTitle": "Additional features",
   "featuresCore": [
-    "**Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.",
-    "**Control the app you're using.** Recent mode follows the foreground app when it has an audio session. You can also choose the app you last acted on or a specified app. Filter and rename your preferred devices, then cycle through them with the same hotkey.",
-    "**Hotkeys and the tray wheel.** Bind keyboard combinations, mouse side buttons and wheel combinations. Scroll over the taskbar's notification area to adjust the current app's volume, and assign a separate shortcut to mute every microphone. The tray menu can directly select the default output device, and control the fixed current app’s volume, mute state and routing. Pause tray-wheel volume changes from the tray menu; this choice is saved across restarts.",
-    "**Two panels with different roles.** The Quick panel manages apps in individual rows and controls the selected output device at the top; the App panel focuses on the current app. OSD feedback, app audio meters and microphone mute indicators make the state easy to see."
+    "**Choose devices per app.** Send music to speakers, games to headphones, and choose a microphone for each app.",
+    "**Control the current app.** Follow the most recently used audio app or pin one to adjust volume, mute, or switch devices.",
+    "**Quick controls.** Use keyboard or mouse shortcuts and the tray wheel; right-click the tray icon to choose a device, adjust volume, or mute all microphones.",
+    "**Two panels.** Manage multiple apps in the Quick panel or focus on one in the App panel, with on-screen prompts to confirm actions."
   ],
   "featuresMore": [
-    "**One trigger, multiple actions.** {triggerCount} triggers and {actionCount} actions cover device switching, volume, mute, program launches, PowerShell and OSD. Add a delay or stop-on-failure setting to each step, or call another rule. `{ruleCommand}` submits a rule only to an already-running SonicRoute instance; before first use, start SonicRoute normally to register the command, then reopen your terminal.",
-    "**Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export."
+    "**Automation rules.** Combine actions such as switching devices, changing volume, and launching programs; run them with a shortcut or when conditions are met.",
+    "**Personalize it.** Adjust the theme, accent color, opacity, and panel position. Supports nine languages and language-file import and export."
   ]
 }

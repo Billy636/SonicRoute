@@ -28,15 +28,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 ### Fonctions principales
 
-- **Routage audio par application.** Attribuez des périphériques de lecture et d’enregistrement différents à chaque application, changez ceux des applications en cours ou modifiez les périphériques par défaut de Windows. Windows conserve les réglages de routage des applications après la fermeture de SonicRoute.
-- **Contrôlez l’application utilisée.** Déterminez l’application active à partir de l’activité au premier plan et des sessions audio. Le mode « Application récente » suit l’application au premier plan qui possède une session audio ; le mode « Dernière utilisée » mémorise la dernière application que vous avez contrôlée. Vous pouvez aussi choisir une application précise. Filtrez et renommez vos périphériques préférés, puis parcourez-les avec le même raccourci.
-- **Raccourcis et molette dans la zone de notification.** Attribuez des combinaisons de touches, les boutons latéraux de la souris et des combinaisons avec la molette. Faites défiler la zone de notification de la barre des tâches pour régler le volume de l’application active, et attribuez un raccourci distinct pour couper tous les microphones. Le menu de la zone de notification permet de choisir directement le périphérique de sortie par défaut de Windows. Vous pouvez épingler l’application active pour régler son volume, la couper ou modifier son routage, et mettre en pause le réglage par molette ; ce choix est conservé après redémarrage.
-- **Deux panneaux aux rôles distincts.** Le panneau rapide gère les applications sur des lignes séparées et permet de contrôler le périphérique de sortie sélectionné en haut ; le panneau d’application se concentre sur l’application active. Les retours OSD, les indicateurs audio par application et l’état de coupure du micro rendent l’état visible.
+- **Choisissez les appareils par application.** Utilisez les haut-parleurs pour la musique et le casque pour les jeux ; choisissez aussi un micro pour chaque application.
+- **Contrôlez l’application actuelle.** Suivez la dernière application audio utilisée ou épinglez-en une pour régler le volume, couper le son ou changer d’appareil.
+- **Commandes rapides.** Utilisez des raccourcis clavier ou souris et la molette de la zone de notification. Faites un clic droit sur l’icône pour choisir un appareil, régler le volume ou couper tous les micros.
+- **Deux panneaux.** Gérez plusieurs applications dans le panneau rapide ou concentrez-vous sur l’application actuelle dans l’autre panneau. Des indications à l’écran confirment les actions.
 
 ### Fonctions secondaires
 
-- **Un déclencheur, plusieurs actions.** 6 déclencheurs et 18 actions couvrent le changement de périphérique, le volume, la coupure du son, le lancement de programmes, PowerShell et l’OSD. Ajoutez un délai ou l’arrêt en cas d’échec à chaque étape, appelez une autre règle ou exécutez une règle dans une instance de SonicRoute déjà ouverte avec `sr "Nom ou ID de la règle"`.
-- **Personnalisez SonicRoute.** Réglez les thèmes clairs ou sombres, les couleurs d’accentuation, l’opacité et la position des panneaux. Les neuf langues intégrées prennent en charge l’import et l’export de fichiers JSON.
+- **Règles d’automatisation.** Combinez changement d’appareil, réglage du volume et lancement de programmes ; exécutez-les par raccourci ou selon des conditions.
+- **Personnalisez l’interface.** Réglez le thème, la couleur d’accentuation, l’opacité et la position des panneaux. Neuf langues et l’import-export des fichiers de langue sont pris en charge.
 
 ## 🎮 Pour le quotidien
 

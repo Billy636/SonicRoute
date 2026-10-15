@@ -28,15 +28,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 
 ### Funciones principales
 
-- **Enrutamiento de audio por aplicación.** Asigna distintos dispositivos de reproducción y grabación a cada aplicación, cambia los de las aplicaciones en ejecución o modifica los dispositivos predeterminados de Windows. Windows conserva la configuración de enrutamiento de las aplicaciones al cerrar SonicRoute.
-- **Controla la aplicación que estás usando.** Identifica la aplicación actual mediante la actividad en primer plano y las sesiones de audio. El modo «Reciente» sigue a la aplicación en primer plano que tenga una sesión de audio; «Última usada» recuerda la última aplicación que controlaste. También puedes elegir una aplicación concreta. Filtra y cambia el nombre de tus dispositivos preferidos y altérnalos con el mismo atajo.
-- **Atajos y rueda en el área de notificación.** Asigna combinaciones de teclas, botones laterales del ratón y combinaciones con la rueda. Desplázate por el área de notificación de la barra de tareas para ajustar el volumen de la aplicación actual y asigna un atajo independiente para silenciar todos los micrófonos. El menú del área de notificación permite elegir directamente el dispositivo de salida predeterminado de Windows. Puedes fijar la aplicación actual para controlar su volumen, silenciarla o cambiar su enrutamiento, y pausar el ajuste con la rueda; la opción se conserva tras reiniciar.
-- **Dos paneles con funciones distintas.** El panel rápido organiza las aplicaciones en filas y permite controlar arriba el dispositivo de salida seleccionado; el panel de aplicación se centra en la aplicación actual. Los avisos OSD, los indicadores de audio por aplicación y el estado de silencio del micrófono muestran lo que ocurre.
+- **Elige dispositivos por aplicación.** Envía la música a los altavoces y los juegos a los auriculares; también puedes elegir un micrófono para cada aplicación.
+- **Controla la aplicación actual.** Sigue la aplicación de audio usada más recientemente o fija una para ajustar el volumen, silenciarla o cambiar de dispositivo.
+- **Controles rápidos.** Usa atajos de teclado y ratón o la rueda del área de notificación. Haz clic derecho en el icono para elegir dispositivo, ajustar volumen o silenciar todos los micrófonos.
+- **Dos paneles.** Gestiona varias aplicaciones en el panel rápido o céntrate en una en el panel de aplicación, con avisos en pantalla para confirmar acciones.
 
 ### Funciones secundarias
 
-- **Un desencadenante, varias acciones.** 6 desencadenantes y 18 acciones cubren el cambio de dispositivo, el volumen, el silencio, el inicio de programas, PowerShell y OSD. Añade una pausa o la detención en caso de error a cada paso, llama a otra regla o ejecuta una regla en una instancia de SonicRoute ya abierta con `sr "Nombre o ID de la regla"`.
-- **Personaliza SonicRoute.** Ajusta los temas claros y oscuros, los colores de énfasis, la opacidad y la posición de los paneles. Los nueve idiomas integrados permiten importar y exportar archivos JSON.
+- **Reglas de automatización.** Combina cambiar de dispositivo, ajustar volumen e iniciar programas; ejecútalas con un atajo o al cumplirse condiciones.
+- **Personaliza la interfaz.** Ajusta tema, color de énfasis, opacidad y posición de los paneles. Admite nueve idiomas y la importación y exportación de archivos de idioma.
 
 ## 🎮 Para el día a día
 

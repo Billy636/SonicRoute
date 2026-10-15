@@ -98,13 +98,13 @@
   "featuresCoreTitle": "Kernfunktionen",
   "featuresMoreTitle": "Weitere Funktionen",
   "featuresCore": [
-    "**Audio je App weiterleiten.** Weise Apps eigene Wiedergabe- und Aufnahmegeräte zu, wechsle Geräte für laufende Apps oder ändere die Windows-Standardgeräte. Windows behält die App-Zuweisungen auch nach dem Beenden von SonicRoute bei.",
-    "**Die gerade verwendete App steuern.** Ermittle die aktuelle App anhand der Vordergrundaktivität und der Audiositzungen. Im Modus „Zuletzt aktiv“ folgt SonicRoute der zuletzt im Vordergrund aktiven App mit einer Audiositzung; „Zuletzt gesteuert“ merkt sich die zuletzt von dir bediente App. Auch eine festgelegte App lässt sich auswählen. Filtere und benenne bevorzugte Geräte um und wechsle per Tastenkürzel zwischen ihnen.",
-    "**Tastenkürzel und Mausrad im Infobereich.** Belege Tastenkombinationen, seitliche Maustasten und Mausrad-Kombinationen. Passe die Lautstärke der aktuellen App durch Scrollen im Infobereich der Taskleiste an oder weise eine separate Tastenkombination zum Stummschalten aller Mikrofone zu. Über das Infobereichsmenü lässt sich das Windows-Standardausgabegerät direkt auswählen. Du kannst die aktuelle App fixieren und Lautstärke, Stummschaltung und Routing steuern sowie die Mausrad-Lautstärkeregelung pausieren; die Einstellung bleibt nach einem Neustart erhalten.",
-    "**Zwei Panels mit unterschiedlichen Aufgaben.** Im Schnellpanel verwaltest du Apps in einzelnen Zeilen und steuerst oben das gewählte Ausgabegerät; das App-Panel konzentriert sich auf die aktuelle App. OSD-Rückmeldungen, Audioanzeigen pro App und Mikrofon-Stummschaltanzeigen machen den Status sichtbar."
+    "**Geräte pro App wählen.** Leite Musik an Lautsprecher und Spiele an Kopfhörer weiter; auch ein Mikrofon lässt sich je App wählen.",
+    "**Aktuelle App steuern.** Folge der zuletzt verwendeten Audio-App oder fixiere eine bestimmte App, um Lautstärke, Stummschaltung und Geräte zu steuern.",
+    "**Schnell bedienen.** Nutze Tastatur- und Mauskürzel oder das Mausrad im Infobereich. Per Rechtsklick auf das Symbol wählst du Geräte, regelst die Lautstärke oder schaltest alle Mikrofone stumm.",
+    "**Zwei Panels.** Verwalte mehrere Apps im Schnellpanel oder konzentriere dich im App-Panel auf eine App. Bildschirmanzeigen bestätigen Aktionen."
   ],
   "featuresMore": [
-    "**Ein Auslöser, mehrere Aktionen.** {triggerCount} Auslöser und {actionCount} Aktionen decken Gerätewechsel, Lautstärke, Stummschaltung, Programmstarts, PowerShell und OSD ab. Lege für jeden Schritt eine Verzögerung oder Abbruch bei Fehlern fest, rufe eine andere Regel auf oder führe mit `{ruleCommand}` eine Regel in einer bereits laufenden SonicRoute-Instanz aus.",
-    "**Gestalte SonicRoute nach deinem Geschmack.** Passe helle und dunkle Designs, Akzentfarben, Deckkraft und Panelposition an. Die neun integrierten Sprachen unterstützen den Import und Export von JSON-Dateien."
+    "**Automatisierungsregeln.** Kombiniere Gerätewechsel, Lautstärkeregelung und Programmstarts; starte sie per Tastenkürzel oder bei erfüllten Bedingungen.",
+    "**Persönlich anpassen.** Ändere Design, Akzentfarbe, Deckkraft und Panelposition. Neun Sprachen sowie Import und Export von Sprachdateien werden unterstützt."
   ]
 }
