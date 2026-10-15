@@ -26,10 +26,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（実験的） · 9 種類の UI �
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="機能"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="マスコットをクリックして SonicRoute の機能を見る"></a>
 
+### 主な機能
+
 - **アプリごとの音声ルーティング。** アプリごとに再生・録音デバイスを選び、実行中のアプリのデバイスを切り替えたり、Windows の既定デバイスを変更したりできます。SonicRoute を終了しても、アプリのルーティング設定は Windows に保持されます。
 - **使用中のアプリを操作。** 「最近使用」モードでは、前面にありオーディオセッションがあるアプリを優先します。「最後に操作したアプリ」モードでは、最後に操作したアプリを記憶します。アプリを指定することもできます。好みのデバイスを絞り込んで名前を付け、同じホットキーで順番に切り替えられます。
-- **ホットキーと通知領域のホイール。** キーの組み合わせ、マウスのサイドボタン、ホイールとの組み合わせを割り当てられます。タスクバーの通知領域でスクロールすると現在のアプリの音量を調整でき、すべてのマイクをミュートする専用ショートカットも設定できます。
+- **ホットキーと通知領域のホイール。** キーの組み合わせ、マウスのサイドボタン、ホイールとの組み合わせを割り当てられます。タスクバーの通知領域でスクロールすると現在のアプリの音量を調整でき、すべてのマイクをミュートする専用ショートカットも設定できます。 通知領域メニューから Windows の既定出力デバイスを直接選択できます。現在のアプリを固定して音量、ミュート、ルーティングを操作したり、通知領域ホイールによる音量調整を一時停止したりできます。停止設定は再起動後も保持されます。
 - **役割の異なる 2 種類のパネル。** クイックパネルではアプリを行ごとに管理し、上部で選択中の出力デバイスを操作できます。アプリパネルは現在のアプリに焦点を当てます。OSD、アプリの音量メーター、マイクのミュート表示で状態を確認できます。
+
+### その他の機能
+
 - **1 つのトリガーで複数の操作。** 6 種類のトリガーと 18 種類の操作で、デバイス切り替え、音量、ミュート、プログラム起動、PowerShell、OSD を組み合わせられます。各ステップに遅延や失敗時に停止する設定を追加したり、別のルールを呼び出したりできます。SonicRoute の実行中は `sr "ルール名または ID"` でルールを呼び出せます。
 - **自分好みにカスタマイズ。** ライト／ダークテーマ、アクセントカラー、透明度、パネル位置を調整できます。内蔵の 9 言語に対応し、言語ファイルを JSON 形式でインポート・エクスポートできます。
 
@@ -47,15 +52,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（実験的） · 9 種類の UI �
 
 ## 🚀 ダウンロードと使い始め方
 
-**現在のリリース：[v1.22](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22)** · 2026-10-11 · [リリースノート（簡体字中国語）](docs/release-v1.22.md)
+**現在のリリース：[v1.23](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.23)** · 2026-10-15 · [リリースノート（簡体字中国語）](docs/release-v1.23.md)
 
-Windows x64 をお使いの方には、インストールが簡単で自動更新にも対応する Microsoft Store 版がおすすめです。単体の実行ファイルなら Lite x64、.NET 8 のインストールが難しい場合は Legacy x64 を選んでください。上のダウンロードリンクは常に最新リリースを示し、下の直接リンクは v1.22 用です。
+Windows x64 をお使いの方には、インストールが簡単で自動更新にも対応する Microsoft Store 版がおすすめです。単体の実行ファイルなら Lite x64、.NET 8 のインストールが難しい場合は Legacy x64 を選んでください。上のダウンロードリンクは常に最新リリースを示し、下の直接リンクは v1.23 用です。
 
 | エディション | ダウンロード | 要件 |
 |---|---|---|
-| Lite x64 | [単体 EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) | x64 .NET 8 Desktop Runtime |
-| Lite ARM64（実験的） | [単体 EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) | ARM64 .NET 8 Desktop Runtime |
-| Legacy x64 | [完全版 ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) | .NET Framework 4.8。実行前に ZIP 全体を展開してください |
+| Lite x64 | [単体 EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-x64.exe) | x64 .NET 8 Desktop Runtime |
+| Lite ARM64（実験的） | [単体 EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-arm64.exe) | ARM64 .NET 8 Desktop Runtime |
+| Legacy x64 | [完全版 ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Legacy-x64.zip) | .NET Framework 4.8。実行前に ZIP 全体を展開してください |
 | Microsoft Store | [Store からインストール](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | x64；自動更新；Store に現在提供中のバージョンが表示されます |
 
 Lite には対応する [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) が必要です。Legacy に .NET 8 は必要ありません。
@@ -66,7 +71,7 @@ Lite には対応する [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/do
 
 `sr` を初めて使う前に、SonicRoute を通常起動してコマンドを登録し、ターミナルを開き直してください。デバイス切り替えが想定どおりに動作しない場合は [よくある質問](https://github.com/kunkunkunQoQ/SonicRoute/wiki/06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98) をご覧ください。
 
-1.22 ではスタートアップ状態の同期を改善し、Store 版と通常版のスタートアップ設定を独立させました。また、自動化のオンデマンド読み込み、メニューのスタイル統一、コマンドのコピー改善、9 言語の文言調整を行いました。過去の変更は [バージョン履歴](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) をご覧ください。
+1.23 では通知領域から既定の出力デバイスを直接選べるようになり、固定した現在のアプリの音量・ミュート・ルーティング操作、全マイクのミュート、再起動後も保持される通知領域ホイールの一時停止設定を追加しました。システム既定音量のデフォルトのホットキーは Ctrl+Alt+Shift+ホイールで、現在のアプリ用のデフォルトの Ctrl+Alt+ホイールと区別されます。設定スイッチの配置を調整し、ページを必要に応じて読み込むようにしました。以前の変更は [バージョン履歴](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) をご覧ください。
 
 ## 📚 ドキュメント
 
@@ -82,7 +87,7 @@ Lite には対応する [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/do
 
 ## 📌 ロードマップ
 
-- **v1.23 · パフォーマンスと安定性：** バックグラウンドのリソース使用量、応答性、互換性を改善します。
+- **v1.24 · パフォーマンスと安定性：** バックグラウンドのリソース使用量、応答性、互換性を改善します。
 - **今後の段階：** フィードバックをもとに既存機能を継続的に改善します。計画はフィードバックに応じて変更される場合があります。
 
 [アイデアの共有・問題の報告](https://github.com/kunkunkunQoQ/SonicRoute/issues/new/choose)。

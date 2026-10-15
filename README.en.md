@@ -26,10 +26,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Features"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Click the mascot to explore SonicRoute features"></a>
 
+### Core features
+
 - **Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.
 - **Control the app you're using.** Recent mode follows the foreground app when it has an audio session. You can also choose the app you last acted on or a specified app. Filter and rename your preferred devices, then cycle through them with the same hotkey.
-- **Hotkeys and the tray wheel.** Bind keyboard combinations, mouse side buttons and wheel combinations. Scroll over the taskbar's notification area to adjust the current app's volume, and assign a separate shortcut to mute every microphone.
+- **Hotkeys and the tray wheel.** Bind keyboard combinations, mouse side buttons and wheel combinations. Scroll over the taskbar's notification area to adjust the current app's volume, and assign a separate shortcut to mute every microphone. The tray menu can directly select the default output device, and control the fixed current app’s volume, mute state and routing. Pause tray-wheel volume changes from the tray menu; this choice is saved across restarts.
 - **Two panels with different roles.** The Quick panel manages apps in individual rows and controls the selected output device at the top; the App panel focuses on the current app. OSD feedback, app audio meters and microphone mute indicators make the state easy to see.
+
+### Additional features
+
 - **One trigger, multiple actions.** 6 triggers and 18 actions cover device switching, volume, mute, program launches, PowerShell and OSD. Add a delay or stop-on-failure setting to each step, or call another rule. `sr "Rule name or ID"` submits a rule only to an already-running SonicRoute instance; before first use, start SonicRoute normally to register the command, then reopen your terminal.
 - **Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export.
 
@@ -47,15 +52,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 
 ## 🚀 Download and get started
 
-**Current release: [v1.22](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22)** · 2026-10-11 · [Release notes (Chinese)](docs/release-v1.22.md)
+**Current release: [v1.23](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.23)** · 2026-10-15 · [Release notes (Chinese)](docs/release-v1.23.md)
 
-For most Windows x64 users, the Microsoft Store build offers convenient installation and automatic updates. Choose Lite x64 for a single executable, or Legacy x64 if installing .NET 8 is not convenient. The download link above always points to the latest release; Lite and Legacy links below are for v1.22, while the Store page shows the version currently available there.
+For most Windows x64 users, the Microsoft Store build offers convenient installation and automatic updates. Choose Lite x64 for a single executable, or Legacy x64 if installing .NET 8 is not convenient. The download link above always points to the latest release; Lite and Legacy links below are for v1.23, while the Store page shows the version currently available there.
 
 | Version | Download | Requirements |
 |---|---|---|
-| Lite x64 | [Single EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) | Matching x64 .NET 8 Desktop Runtime |
-| Lite ARM64 (experimental) | [Single EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) | Matching ARM64 .NET 8 Desktop Runtime |
-| Legacy x64 | [Complete ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) | .NET Framework 4.8; extract the entire archive |
+| Lite x64 | [Single EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-x64.exe) | Matching x64 .NET 8 Desktop Runtime |
+| Lite ARM64 (experimental) | [Single EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-arm64.exe) | Matching ARM64 .NET 8 Desktop Runtime |
+| Legacy x64 | [Complete ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Legacy-x64.zip) | .NET Framework 4.8; extract the entire archive |
 | Microsoft Store | [Install from the Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | x64; automatic updates; the available version is shown on the Store |
 
 Lite requires the matching [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0). Legacy does not require .NET 8.
@@ -66,7 +71,7 @@ Lite requires the matching [.NET 8 Desktop Runtime](https://dotnet.microsoft.com
 
 `sr` connects only to an already-running SonicRoute instance; it does not start the app. Before first use, start SonicRoute normally to register the command, then close and reopen your terminal. See the [FAQ](https://github.com/kunkunkunQoQ/SonicRoute/wiki/06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98) if device switching does not work as expected.
 
-Version 1.22 improves login auto-start state handling and separates Store and regular-edition auto-start controls. Lite x64, Lite ARM64 and Legacy x64 share the regular-edition setting. It also loads automation on demand, unifies menu styling, improves command copying and refines wording in nine languages. The Store page shows the version currently available there. See [Version history](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) for earlier changes.
+Version 1.23 adds direct default-output selection from the tray, controls for the pinned current app’s volume, mute and routing, mute-all-microphones control, and a tray-wheel pause setting saved across restarts. The default hotkey for system-default volume is Ctrl+Alt+Shift+Wheel, distinct from the default Ctrl+Alt+Wheel hotkey for the current app. Settings toggles have been rearranged and pages now load on demand. The Store page shows the version currently available there. See [Version history](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) for earlier changes.
 
 ## 📚 Documentation
 
@@ -82,7 +87,7 @@ The Wiki is currently in Chinese.
 
 ## 📌 Roadmap
 
-- **v1.23 · Performance and stability:** Improve background resource usage, responsiveness and compatibility.
+- **v1.24 · Performance and stability:** Improve background resource usage, responsiveness and compatibility.
 - **Later stages:** Keep refining existing features based on feedback. Plans may change as feedback comes in.
 
 [Share an idea or report an issue](https://github.com/kunkunkunQoQ/SonicRoute/issues/new/choose).

@@ -13,14 +13,6 @@
   "themeAlt": "Ajustes de SonicRoute para la apariencia, el color de énfasis y la opacidad del fondo",
   "mascotAlt": "Haz clic en la mascota para abrir la guía de usuario",
   "featuresTitle": "Qué ofrece SonicRoute",
-  "features": [
-    "**Enrutamiento de audio por aplicación.** Asigna distintos dispositivos de reproducción y grabación a cada aplicación, cambia los de las aplicaciones en ejecución o modifica los dispositivos predeterminados de Windows. Windows conserva la configuración de enrutamiento de las aplicaciones al cerrar SonicRoute.",
-    "**Controla la aplicación que estás usando.** Identifica la aplicación actual mediante la actividad en primer plano y las sesiones de audio. El modo «Reciente» sigue a la aplicación en primer plano que tenga una sesión de audio; «Última usada» recuerda la última aplicación que controlaste. También puedes elegir una aplicación concreta. Filtra y cambia el nombre de tus dispositivos preferidos y altérnalos con el mismo atajo.",
-    "**Atajos y rueda en el área de notificación.** Asigna combinaciones de teclas, botones laterales del ratón y combinaciones con la rueda. Desplázate por el área de notificación de la barra de tareas para ajustar el volumen de la aplicación actual y asigna un atajo independiente para silenciar todos los micrófonos.",
-    "**Dos paneles con funciones distintas.** El panel rápido organiza las aplicaciones en filas y permite controlar arriba el dispositivo de salida seleccionado; el panel de aplicación se centra en la aplicación actual. Los avisos OSD, los indicadores de audio por aplicación y el estado de silencio del micrófono muestran lo que ocurre.",
-    "**Un desencadenante, varias acciones.** {triggerCount} desencadenantes y {actionCount} acciones cubren el cambio de dispositivo, el volumen, el silencio, el inicio de programas, PowerShell y OSD. Añade una pausa o la detención en caso de error a cada paso, llama a otra regla o ejecuta una regla en una instancia de SonicRoute ya abierta con `{ruleCommand}`.",
-    "**Personaliza SonicRoute.** Ajusta los temas claros y oscuros, los colores de énfasis, la opacidad y la posición de los paneles. Los nueve idiomas integrados permiten importar y exportar archivos JSON."
-  ],
   "downloadTitle": "Descarga y primeros pasos",
   "releaseNotes": "Notas de la versión (en chino)",
   "downloadIntro": "Para la mayoría de equipos Windows x64, la versión de Microsoft Store ofrece una instalación cómoda y actualizaciones automáticas. Elige Lite x64 si quieres un único ejecutable o Legacy x64 si no te resulta práctico instalar .NET 8. El enlace de descarga superior siempre lleva a la última versión; los enlaces directos de abajo corresponden a {release}.",
@@ -76,7 +68,7 @@
     "Crear una regla y ejecutarla con `{ruleCommand}` en una instancia de SonicRoute que ya esté abierta"
   ],
   "currentRelease": "Versión actual",
-  "releaseSummary": "La versión {version} sincroniza mejor el estado del inicio automático de Windows y mantiene separados sus ajustes para las versiones de Store y portátil. También carga la automatización bajo demanda, unifica el estilo de los menús, mejora la copia de comandos y revisa los textos en nueve idiomas. Consulta el {history} para ver los cambios anteriores.",
+  "releaseSummary": "La versión {version} permite elegir la salida predeterminada desde el área de notificación, controlar el volumen, el silencio y el enrutamiento de la aplicación actual fijada, silenciar todos los micrófonos y pausar la rueda con una opción que se conserva tras reiniciar. El atajo predeterminado para el volumen predeterminado del sistema es Ctrl+Alt+Mayús+rueda, distinto del atajo predeterminado Ctrl+Alt+rueda para la aplicación actual. Se ha reorganizado la disposición de los ajustes y las páginas se cargan bajo demanda. Consulta el {history} para ver cambios anteriores.",
   "docTopic": "Tema",
   "docGuides": "Guías",
   "docTopics": [
@@ -102,5 +94,17 @@
   "footerTitle": "Un huevo de Pascua: ayer y mañana",
   "guideTitle": "Guía de usuario (en chino)",
   "downloadColumn": "Descargar",
-  "license": "Licencia MIT"
+  "license": "Licencia MIT",
+  "featuresCoreTitle": "Funciones principales",
+  "featuresMoreTitle": "Funciones secundarias",
+  "featuresCore": [
+    "**Enrutamiento de audio por aplicación.** Asigna distintos dispositivos de reproducción y grabación a cada aplicación, cambia los de las aplicaciones en ejecución o modifica los dispositivos predeterminados de Windows. Windows conserva la configuración de enrutamiento de las aplicaciones al cerrar SonicRoute.",
+    "**Controla la aplicación que estás usando.** Identifica la aplicación actual mediante la actividad en primer plano y las sesiones de audio. El modo «Reciente» sigue a la aplicación en primer plano que tenga una sesión de audio; «Última usada» recuerda la última aplicación que controlaste. También puedes elegir una aplicación concreta. Filtra y cambia el nombre de tus dispositivos preferidos y altérnalos con el mismo atajo.",
+    "**Atajos y rueda en el área de notificación.** Asigna combinaciones de teclas, botones laterales del ratón y combinaciones con la rueda. Desplázate por el área de notificación de la barra de tareas para ajustar el volumen de la aplicación actual y asigna un atajo independiente para silenciar todos los micrófonos. El menú del área de notificación permite elegir directamente el dispositivo de salida predeterminado de Windows. Puedes fijar la aplicación actual para controlar su volumen, silenciarla o cambiar su enrutamiento, y pausar el ajuste con la rueda; la opción se conserva tras reiniciar.",
+    "**Dos paneles con funciones distintas.** El panel rápido organiza las aplicaciones en filas y permite controlar arriba el dispositivo de salida seleccionado; el panel de aplicación se centra en la aplicación actual. Los avisos OSD, los indicadores de audio por aplicación y el estado de silencio del micrófono muestran lo que ocurre."
+  ],
+  "featuresMore": [
+    "**Un desencadenante, varias acciones.** {triggerCount} desencadenantes y {actionCount} acciones cubren el cambio de dispositivo, el volumen, el silencio, el inicio de programas, PowerShell y OSD. Añade una pausa o la detención en caso de error a cada paso, llama a otra regla o ejecuta una regla en una instancia de SonicRoute ya abierta con `{ruleCommand}`.",
+    "**Personaliza SonicRoute.** Ajusta los temas claros y oscuros, los colores de énfasis, la opacidad y la posición de los paneles. Los nueve idiomas integrados permiten importar y exportar archivos JSON."
+  ]
 }

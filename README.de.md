@@ -26,10 +26,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
 
+### Kernfunktionen
+
 - **Audio je App weiterleiten.** Weise Apps eigene Wiedergabe- und Aufnahmegeräte zu, wechsle Geräte für laufende Apps oder ändere die Windows-Standardgeräte. Windows behält die App-Zuweisungen auch nach dem Beenden von SonicRoute bei.
 - **Die gerade verwendete App steuern.** Ermittle die aktuelle App anhand der Vordergrundaktivität und der Audiositzungen. Im Modus „Zuletzt aktiv“ folgt SonicRoute der zuletzt im Vordergrund aktiven App mit einer Audiositzung; „Zuletzt gesteuert“ merkt sich die zuletzt von dir bediente App. Auch eine festgelegte App lässt sich auswählen. Filtere und benenne bevorzugte Geräte um und wechsle per Tastenkürzel zwischen ihnen.
-- **Tastenkürzel und Mausrad im Infobereich.** Belege Tastenkombinationen, seitliche Maustasten und Mausrad-Kombinationen. Passe die Lautstärke der aktuellen App durch Scrollen im Infobereich der Taskleiste an oder weise eine separate Tastenkombination zum Stummschalten aller Mikrofone zu.
+- **Tastenkürzel und Mausrad im Infobereich.** Belege Tastenkombinationen, seitliche Maustasten und Mausrad-Kombinationen. Passe die Lautstärke der aktuellen App durch Scrollen im Infobereich der Taskleiste an oder weise eine separate Tastenkombination zum Stummschalten aller Mikrofone zu. Über das Infobereichsmenü lässt sich das Windows-Standardausgabegerät direkt auswählen. Du kannst die aktuelle App fixieren und Lautstärke, Stummschaltung und Routing steuern sowie die Mausrad-Lautstärkeregelung pausieren; die Einstellung bleibt nach einem Neustart erhalten.
 - **Zwei Panels mit unterschiedlichen Aufgaben.** Im Schnellpanel verwaltest du Apps in einzelnen Zeilen und steuerst oben das gewählte Ausgabegerät; das App-Panel konzentriert sich auf die aktuelle App. OSD-Rückmeldungen, Audioanzeigen pro App und Mikrofon-Stummschaltanzeigen machen den Status sichtbar.
+
+### Weitere Funktionen
+
 - **Ein Auslöser, mehrere Aktionen.** 6 Auslöser und 18 Aktionen decken Gerätewechsel, Lautstärke, Stummschaltung, Programmstarts, PowerShell und OSD ab. Lege für jeden Schritt eine Verzögerung oder Abbruch bei Fehlern fest, rufe eine andere Regel auf oder führe mit `sr "Regelname oder ID"` eine Regel in einer bereits laufenden SonicRoute-Instanz aus.
 - **Gestalte SonicRoute nach deinem Geschmack.** Passe helle und dunkle Designs, Akzentfarben, Deckkraft und Panelposition an. Die neun integrierten Sprachen unterstützen den Import und Export von JSON-Dateien.
 
@@ -47,15 +52,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 ## 🚀 Herunterladen und loslegen
 
-**Aktuelle Version: [v1.22](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22)** · 2026-10-11 · [Versionshinweise (Chinesisch)](docs/release-v1.22.md)
+**Aktuelle Version: [v1.23](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.23)** · 2026-10-15 · [Versionshinweise (Chinesisch)](docs/release-v1.23.md)
 
-Für die meisten Windows-x64-Systeme bietet die Version aus dem Microsoft Store eine bequeme Installation mit automatischen Updates. Wähle Lite x64 für eine einzelne ausführbare Datei oder Legacy x64, wenn .NET 8 nicht infrage kommt. Der Download oben führt immer zur neuesten Version; die direkten Links unten beziehen sich auf v1.22.
+Für die meisten Windows-x64-Systeme bietet die Version aus dem Microsoft Store eine bequeme Installation mit automatischen Updates. Wähle Lite x64 für eine einzelne ausführbare Datei oder Legacy x64, wenn .NET 8 nicht infrage kommt. Der Download oben führt immer zur neuesten Version; die direkten Links unten beziehen sich auf v1.23.
 
 | Version | Herunterladen | Voraussetzungen |
 |---|---|---|
-| Lite x64 | [Einzelne EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) | .NET 8 Desktop Runtime für x64 |
-| Lite ARM64 (experimentell) | [Einzelne EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) | .NET 8 Desktop Runtime für ARM64 |
-| Legacy x64 | [Vollständiges ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) | .NET Framework 4.8; ZIP vor dem Start vollständig entpacken |
+| Lite x64 | [Einzelne EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-x64.exe) | .NET 8 Desktop Runtime für x64 |
+| Lite ARM64 (experimentell) | [Einzelne EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-arm64.exe) | .NET 8 Desktop Runtime für ARM64 |
+| Legacy x64 | [Vollständiges ZIP](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Legacy-x64.zip) | .NET Framework 4.8; ZIP vor dem Start vollständig entpacken |
 | Microsoft Store | [Aus dem Store installieren](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | x64; automatische Updates; verfügbare Version im Store angezeigt |
 
 Lite benötigt die passende [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0). Legacy benötigt .NET 8 nicht.
@@ -66,7 +71,7 @@ Lite benötigt die passende [.NET 8 Desktop Runtime](https://dotnet.microsoft.co
 
 Bevor du `sr` zum ersten Mal verwendest, starte SonicRoute normal, damit der Befehl registriert wird, und öffne anschließend dein Terminal erneut. Wenn der Gerätewechsel nicht wie erwartet funktioniert, findest du Hilfe in den [Häufige Fragen](https://github.com/kunkunkunQoQ/SonicRoute/wiki/06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98).
 
-Version 1.22 synchronisiert den Status des automatischen Windows-Starts zuverlässiger und trennt die Autostart-Einstellungen der Store- und portablen Version. Außerdem wird die Automatisierung nun bei Bedarf geladen, Menüs sind einheitlicher gestaltet, das Kopieren von Befehlen wurde verbessert und Formulierungen in neun Sprachen wurden überarbeitet. Frühere Änderungen findest du im [Versionsverlauf](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2).
+Version 1.23 bietet die direkte Auswahl des Windows-Standardausgabegeräts im Infobereich, Steuerelemente für Lautstärke, Stummschaltung und Routing der fixierten aktuellen App, eine Stummschaltung aller Mikrofone sowie eine nach Neustarts gespeicherte Pause für die Mausradsteuerung. Die Standard-Tastenkombination für die Windows-Standardlautstärke lautet Strg+Alt+Umschalt+Mausrad und unterscheidet sich von der Standardkombination Strg+Alt+Mausrad für die aktuelle App. Die Anordnung der Einstellungsschalter wurde überarbeitet und Seiten werden bei Bedarf geladen. Frühere Änderungen findest du im [Versionsverlauf](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2).
 
 ## 📚 Dokumentation
 
@@ -82,7 +87,7 @@ Das Wiki ist derzeit auf vereinfachtem Chinesisch.
 
 ## 📌 Roadmap
 
-- **v1.23 · Leistung und Stabilität:** Ressourcenverbrauch im Hintergrund, Reaktionsfähigkeit und Kompatibilität verbessern.
+- **v1.24 · Leistung und Stabilität:** Ressourcenverbrauch im Hintergrund, Reaktionsfähigkeit und Kompatibilität verbessern.
 - **Weitere Schritte:** Bestehende Funktionen anhand von Rückmeldungen weiterentwickeln. Die Pläne können sich mit dem Feedback ändern.
 
 [Idee teilen oder Problem melden](https://github.com/kunkunkunQoQ/SonicRoute/issues/new/choose).

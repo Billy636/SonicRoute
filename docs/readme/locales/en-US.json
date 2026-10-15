@@ -13,14 +13,6 @@
   "themeAlt": "SonicRoute theme settings: appearance, accent color and background opacity",
   "mascotAlt": "Click the mascot to open the user guide",
   "featuresTitle": "What SonicRoute offers",
-  "features": [
-    "**Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.",
-    "**Control the app you're using.** Recent mode follows the foreground app when it has an audio session. You can also choose the app you last acted on or a specified app. Filter and rename your preferred devices, then cycle through them with the same hotkey.",
-    "**Hotkeys and the tray wheel.** Bind keyboard combinations, mouse side buttons and wheel combinations. Scroll over the taskbar's notification area to adjust the current app's volume, and assign a separate shortcut to mute every microphone.",
-    "**Two panels with different roles.** The Quick panel manages apps in individual rows and controls the selected output device at the top; the App panel focuses on the current app. OSD feedback, app audio meters and microphone mute indicators make the state easy to see.",
-    "**One trigger, multiple actions.** {triggerCount} triggers and {actionCount} actions cover device switching, volume, mute, program launches, PowerShell and OSD. Add a delay or stop-on-failure setting to each step, or call another rule. `{ruleCommand}` submits a rule only to an already-running SonicRoute instance; before first use, start SonicRoute normally to register the command, then reopen your terminal.",
-    "**Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export."
-  ],
   "downloadTitle": "Download and get started",
   "releaseNotes": "Release notes (Chinese)",
   "downloadIntro": "For most Windows x64 users, the Microsoft Store build offers convenient installation and automatic updates. Choose Lite x64 for a single executable, or Legacy x64 if installing .NET 8 is not convenient. The download link above always points to the latest release; Lite and Legacy links below are for {release}, while the Store page shows the version currently available there.",
@@ -76,7 +68,7 @@
     "Create a rule and invoke it with `{ruleCommand}`"
   ],
   "currentRelease": "Current release",
-  "releaseSummary": "Version {version} improves login auto-start state handling and separates Store and regular-edition auto-start controls. Lite x64, Lite ARM64 and Legacy x64 share the regular-edition setting. It also loads automation on demand, unifies menu styling, improves command copying and refines wording in nine languages. The Store page shows the version currently available there. See {history} for earlier changes.",
+  "releaseSummary": "Version {version} adds direct default-output selection from the tray, controls for the pinned current app’s volume, mute and routing, mute-all-microphones control, and a tray-wheel pause setting saved across restarts. The default hotkey for system-default volume is Ctrl+Alt+Shift+Wheel, distinct from the default Ctrl+Alt+Wheel hotkey for the current app. Settings toggles have been rearranged and pages now load on demand. The Store page shows the version currently available there. See {history} for earlier changes.",
   "docTopic": "Topic",
   "docGuides": "Guides",
   "docTopics": [
@@ -102,5 +94,17 @@
   "footerTitle": "An Easter egg: yesterday and tomorrow",
   "guideTitle": "User guide (Chinese)",
   "downloadColumn": "Download",
-  "license": "MIT licensed"
+  "license": "MIT licensed",
+  "featuresCoreTitle": "Core features",
+  "featuresMoreTitle": "Additional features",
+  "featuresCore": [
+    "**Route audio for individual apps.** Choose each app's playback and recording devices, switch devices for running apps, or change the Windows defaults. Windows keeps app routing settings after SonicRoute exits.",
+    "**Control the app you're using.** Recent mode follows the foreground app when it has an audio session. You can also choose the app you last acted on or a specified app. Filter and rename your preferred devices, then cycle through them with the same hotkey.",
+    "**Hotkeys and the tray wheel.** Bind keyboard combinations, mouse side buttons and wheel combinations. Scroll over the taskbar's notification area to adjust the current app's volume, and assign a separate shortcut to mute every microphone. The tray menu can directly select the default output device, and control the fixed current app’s volume, mute state and routing. Pause tray-wheel volume changes from the tray menu; this choice is saved across restarts.",
+    "**Two panels with different roles.** The Quick panel manages apps in individual rows and controls the selected output device at the top; the App panel focuses on the current app. OSD feedback, app audio meters and microphone mute indicators make the state easy to see."
+  ],
+  "featuresMore": [
+    "**One trigger, multiple actions.** {triggerCount} triggers and {actionCount} actions cover device switching, volume, mute, program launches, PowerShell and OSD. Add a delay or stop-on-failure setting to each step, or call another rule. `{ruleCommand}` submits a rule only to an already-running SonicRoute instance; before first use, start SonicRoute normally to register the command, then reopen your terminal.",
+    "**Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export."
+  ]
 }

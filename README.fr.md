@@ -26,10 +26,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Fonctionnalités"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Cliquez sur la mascotte pour découvrir les fonctionnalités de SonicRoute"></a>
 
+### Fonctions principales
+
 - **Routage audio par application.** Attribuez des périphériques de lecture et d’enregistrement différents à chaque application, changez ceux des applications en cours ou modifiez les périphériques par défaut de Windows. Windows conserve les réglages de routage des applications après la fermeture de SonicRoute.
 - **Contrôlez l’application utilisée.** Déterminez l’application active à partir de l’activité au premier plan et des sessions audio. Le mode « Application récente » suit l’application au premier plan qui possède une session audio ; le mode « Dernière utilisée » mémorise la dernière application que vous avez contrôlée. Vous pouvez aussi choisir une application précise. Filtrez et renommez vos périphériques préférés, puis parcourez-les avec le même raccourci.
-- **Raccourcis et molette dans la zone de notification.** Attribuez des combinaisons de touches, les boutons latéraux de la souris et des combinaisons avec la molette. Faites défiler la zone de notification de la barre des tâches pour régler le volume de l’application active, et attribuez un raccourci distinct pour couper tous les microphones.
+- **Raccourcis et molette dans la zone de notification.** Attribuez des combinaisons de touches, les boutons latéraux de la souris et des combinaisons avec la molette. Faites défiler la zone de notification de la barre des tâches pour régler le volume de l’application active, et attribuez un raccourci distinct pour couper tous les microphones. Le menu de la zone de notification permet de choisir directement le périphérique de sortie par défaut de Windows. Vous pouvez épingler l’application active pour régler son volume, la couper ou modifier son routage, et mettre en pause le réglage par molette ; ce choix est conservé après redémarrage.
 - **Deux panneaux aux rôles distincts.** Le panneau rapide gère les applications sur des lignes séparées et permet de contrôler le périphérique de sortie sélectionné en haut ; le panneau d’application se concentre sur l’application active. Les retours OSD, les indicateurs audio par application et l’état de coupure du micro rendent l’état visible.
+
+### Fonctions secondaires
+
 - **Un déclencheur, plusieurs actions.** 6 déclencheurs et 18 actions couvrent le changement de périphérique, le volume, la coupure du son, le lancement de programmes, PowerShell et l’OSD. Ajoutez un délai ou l’arrêt en cas d’échec à chaque étape, appelez une autre règle ou exécutez une règle dans une instance de SonicRoute déjà ouverte avec `sr "Nom ou ID de la règle"`.
 - **Personnalisez SonicRoute.** Réglez les thèmes clairs ou sombres, les couleurs d’accentuation, l’opacité et la position des panneaux. Les neuf langues intégrées prennent en charge l’import et l’export de fichiers JSON.
 
@@ -47,15 +52,15 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 ## 🚀 Télécharger et commencer
 
-**Version actuelle : [v1.22](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.22)** · 2026-10-11 · [Notes de version (en chinois)](docs/release-v1.22.md)
+**Version actuelle : [v1.23](https://github.com/kunkunkunQoQ/SonicRoute/releases/tag/v1.23)** · 2026-10-15 · [Notes de version (en chinois)](docs/release-v1.23.md)
 
-Pour la plupart des PC Windows x64, la version du Microsoft Store offre une installation pratique et des mises à jour automatiques. Choisissez Lite x64 pour un exécutable unique, ou Legacy x64 si l’installation de .NET 8 n’est pas pratique. Le lien de téléchargement ci-dessus mène toujours à la dernière version ; les liens directs ci-dessous correspondent à v1.22.
+Pour la plupart des PC Windows x64, la version du Microsoft Store offre une installation pratique et des mises à jour automatiques. Choisissez Lite x64 pour un exécutable unique, ou Legacy x64 si l’installation de .NET 8 n’est pas pratique. Le lien de téléchargement ci-dessus mène toujours à la dernière version ; les liens directs ci-dessous correspondent à v1.23.
 
 | Édition | Télécharger | Configuration requise |
 |---|---|---|
-| Lite x64 | [Un seul EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-x64.exe) | .NET 8 Desktop Runtime pour x64 |
-| Lite ARM64 (expérimental) | [Un seul EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Lite-arm64.exe) | .NET 8 Desktop Runtime pour ARM64 |
-| Legacy x64 | [Archive ZIP complète](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.22/SonicRoute-v1.22-Legacy-x64.zip) | .NET Framework 4.8 ; extrayez toute l’archive ZIP avant de lancer l’application |
+| Lite x64 | [Un seul EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-x64.exe) | .NET 8 Desktop Runtime pour x64 |
+| Lite ARM64 (expérimental) | [Un seul EXE](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Lite-arm64.exe) | .NET 8 Desktop Runtime pour ARM64 |
+| Legacy x64 | [Archive ZIP complète](https://github.com/kunkunkunQoQ/SonicRoute/releases/download/v1.23/SonicRoute-v1.23-Legacy-x64.zip) | .NET Framework 4.8 ; extrayez toute l’archive ZIP avant de lancer l’application |
 | Microsoft Store | [Installer depuis le Store](https://apps.microsoft.com/detail/9NQZGRTPM1NT) | x64 ; mises à jour automatiques ; la version disponible est indiquée dans le Store |
 
 Lite nécessite le [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) correspondant. Legacy ne nécessite pas .NET 8.
@@ -66,7 +71,7 @@ Lite nécessite le [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/downloa
 
 Avant d’utiliser `sr` pour la première fois, lancez SonicRoute normalement pour enregistrer la commande, puis ouvrez de nouveau votre terminal. Si le changement de périphérique ne fonctionne pas comme prévu, consultez la [FAQ](https://github.com/kunkunkunQoQ/SonicRoute/wiki/06-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98).
 
-La version 1.22 synchronise mieux l’état du démarrage automatique de Windows et sépare ses réglages pour les versions Store et portable. Elle charge aussi l’automatisation à la demande, harmonise les menus, améliore la copie des commandes et affine les formulations dans neuf langues. Consultez l’[Historique des versions](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) pour les changements précédents.
+La version 1.23 permet de choisir directement la sortie par défaut depuis la zone de notification, de régler le volume, la coupure et le routage de l’application active épinglée, de couper tous les microphones et de mettre en pause la molette avec un réglage conservé après redémarrage. Le raccourci par défaut du volume système est Ctrl+Alt+Maj+molette, distinct du raccourci par défaut Ctrl+Alt+molette pour l’application active. La disposition des options a été revue et les pages se chargent à la demande. Consultez l’[Historique des versions](https://github.com/kunkunkunQoQ/SonicRoute/wiki/09-%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2) pour les changements précédents.
 
 ## 📚 Documentation
 
@@ -82,7 +87,7 @@ Le Wiki est actuellement en chinois simplifié.
 
 ## 📌 Feuille de route
 
-- **v1.23 · Performances et stabilité :** améliorer l’utilisation des ressources en arrière-plan, la réactivité et la compatibilité.
+- **v1.24 · Performances et stabilité :** améliorer l’utilisation des ressources en arrière-plan, la réactivité et la compatibilité.
 - **Étapes suivantes :** continuer à améliorer les fonctions existantes selon vos retours. Les projets peuvent évoluer en fonction des commentaires reçus.
 
 [Partager une idée ou signaler un problème](https://github.com/kunkunkunQoQ/SonicRoute/issues/new/choose).

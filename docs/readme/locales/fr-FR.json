@@ -13,14 +13,6 @@
   "themeAlt": "Réglages SonicRoute de l’apparence, de la couleur d’accentuation et de l’opacité de l’arrière-plan",
   "mascotAlt": "Cliquez sur la mascotte pour ouvrir le guide d’utilisation",
   "featuresTitle": "Ce que propose SonicRoute",
-  "features": [
-    "**Routage audio par application.** Attribuez des périphériques de lecture et d’enregistrement différents à chaque application, changez ceux des applications en cours ou modifiez les périphériques par défaut de Windows. Windows conserve les réglages de routage des applications après la fermeture de SonicRoute.",
-    "**Contrôlez l’application utilisée.** Déterminez l’application active à partir de l’activité au premier plan et des sessions audio. Le mode « Application récente » suit l’application au premier plan qui possède une session audio ; le mode « Dernière utilisée » mémorise la dernière application que vous avez contrôlée. Vous pouvez aussi choisir une application précise. Filtrez et renommez vos périphériques préférés, puis parcourez-les avec le même raccourci.",
-    "**Raccourcis et molette dans la zone de notification.** Attribuez des combinaisons de touches, les boutons latéraux de la souris et des combinaisons avec la molette. Faites défiler la zone de notification de la barre des tâches pour régler le volume de l’application active, et attribuez un raccourci distinct pour couper tous les microphones.",
-    "**Deux panneaux aux rôles distincts.** Le panneau rapide gère les applications sur des lignes séparées et permet de contrôler le périphérique de sortie sélectionné en haut ; le panneau d’application se concentre sur l’application active. Les retours OSD, les indicateurs audio par application et l’état de coupure du micro rendent l’état visible.",
-    "**Un déclencheur, plusieurs actions.** {triggerCount} déclencheurs et {actionCount} actions couvrent le changement de périphérique, le volume, la coupure du son, le lancement de programmes, PowerShell et l’OSD. Ajoutez un délai ou l’arrêt en cas d’échec à chaque étape, appelez une autre règle ou exécutez une règle dans une instance de SonicRoute déjà ouverte avec `{ruleCommand}`.",
-    "**Personnalisez SonicRoute.** Réglez les thèmes clairs ou sombres, les couleurs d’accentuation, l’opacité et la position des panneaux. Les neuf langues intégrées prennent en charge l’import et l’export de fichiers JSON."
-  ],
   "downloadTitle": "Télécharger et commencer",
   "releaseNotes": "Notes de version (en chinois)",
   "downloadIntro": "Pour la plupart des PC Windows x64, la version du Microsoft Store offre une installation pratique et des mises à jour automatiques. Choisissez Lite x64 pour un exécutable unique, ou Legacy x64 si l’installation de .NET 8 n’est pas pratique. Le lien de téléchargement ci-dessus mène toujours à la dernière version ; les liens directs ci-dessous correspondent à {release}.",
@@ -76,7 +68,7 @@
     "Créer une règle et l’appeler avec `{ruleCommand}` dans une instance SonicRoute en cours d’exécution"
   ],
   "currentRelease": "Version actuelle",
-  "releaseSummary": "La version {version} synchronise mieux l’état du démarrage automatique de Windows et sépare ses réglages pour les versions Store et portable. Elle charge aussi l’automatisation à la demande, harmonise les menus, améliore la copie des commandes et affine les formulations dans neuf langues. Consultez l’{history} pour les changements précédents.",
+  "releaseSummary": "La version {version} permet de choisir directement la sortie par défaut depuis la zone de notification, de régler le volume, la coupure et le routage de l’application active épinglée, de couper tous les microphones et de mettre en pause la molette avec un réglage conservé après redémarrage. Le raccourci par défaut du volume système est Ctrl+Alt+Maj+molette, distinct du raccourci par défaut Ctrl+Alt+molette pour l’application active. La disposition des options a été revue et les pages se chargent à la demande. Consultez l’{history} pour les changements précédents.",
   "docTopic": "Sujet",
   "docGuides": "Guides",
   "docTopics": [
@@ -102,5 +94,17 @@
   "footerTitle": "Un œuf de Pâques : hier et demain",
   "guideTitle": "Guide d’utilisation (en chinois)",
   "downloadColumn": "Télécharger",
-  "license": "Licence MIT"
+  "license": "Licence MIT",
+  "featuresCoreTitle": "Fonctions principales",
+  "featuresMoreTitle": "Fonctions secondaires",
+  "featuresCore": [
+    "**Routage audio par application.** Attribuez des périphériques de lecture et d’enregistrement différents à chaque application, changez ceux des applications en cours ou modifiez les périphériques par défaut de Windows. Windows conserve les réglages de routage des applications après la fermeture de SonicRoute.",
+    "**Contrôlez l’application utilisée.** Déterminez l’application active à partir de l’activité au premier plan et des sessions audio. Le mode « Application récente » suit l’application au premier plan qui possède une session audio ; le mode « Dernière utilisée » mémorise la dernière application que vous avez contrôlée. Vous pouvez aussi choisir une application précise. Filtrez et renommez vos périphériques préférés, puis parcourez-les avec le même raccourci.",
+    "**Raccourcis et molette dans la zone de notification.** Attribuez des combinaisons de touches, les boutons latéraux de la souris et des combinaisons avec la molette. Faites défiler la zone de notification de la barre des tâches pour régler le volume de l’application active, et attribuez un raccourci distinct pour couper tous les microphones. Le menu de la zone de notification permet de choisir directement le périphérique de sortie par défaut de Windows. Vous pouvez épingler l’application active pour régler son volume, la couper ou modifier son routage, et mettre en pause le réglage par molette ; ce choix est conservé après redémarrage.",
+    "**Deux panneaux aux rôles distincts.** Le panneau rapide gère les applications sur des lignes séparées et permet de contrôler le périphérique de sortie sélectionné en haut ; le panneau d’application se concentre sur l’application active. Les retours OSD, les indicateurs audio par application et l’état de coupure du micro rendent l’état visible."
+  ],
+  "featuresMore": [
+    "**Un déclencheur, plusieurs actions.** {triggerCount} déclencheurs et {actionCount} actions couvrent le changement de périphérique, le volume, la coupure du son, le lancement de programmes, PowerShell et l’OSD. Ajoutez un délai ou l’arrêt en cas d’échec à chaque étape, appelez une autre règle ou exécutez une règle dans une instance de SonicRoute déjà ouverte avec `{ruleCommand}`.",
+    "**Personnalisez SonicRoute.** Réglez les thèmes clairs ou sombres, les couleurs d’accentuation, l’opacité et la position des panneaux. Les neuf langues intégrées prennent en charge l’import et l’export de fichiers JSON."
+  ]
 }

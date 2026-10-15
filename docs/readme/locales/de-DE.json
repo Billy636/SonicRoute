@@ -13,14 +13,6 @@
   "themeAlt": "SonicRoute-Designeinstellungen für Erscheinungsbild, Akzentfarbe und Hintergrunddeckkraft",
   "mascotAlt": "Klicke auf das Maskottchen, um das Benutzerhandbuch zu öffnen",
   "featuresTitle": "Das bietet SonicRoute",
-  "features": [
-    "**Audio je App weiterleiten.** Weise Apps eigene Wiedergabe- und Aufnahmegeräte zu, wechsle Geräte für laufende Apps oder ändere die Windows-Standardgeräte. Windows behält die App-Zuweisungen auch nach dem Beenden von SonicRoute bei.",
-    "**Die gerade verwendete App steuern.** Ermittle die aktuelle App anhand der Vordergrundaktivität und der Audiositzungen. Im Modus „Zuletzt aktiv“ folgt SonicRoute der zuletzt im Vordergrund aktiven App mit einer Audiositzung; „Zuletzt gesteuert“ merkt sich die zuletzt von dir bediente App. Auch eine festgelegte App lässt sich auswählen. Filtere und benenne bevorzugte Geräte um und wechsle per Tastenkürzel zwischen ihnen.",
-    "**Tastenkürzel und Mausrad im Infobereich.** Belege Tastenkombinationen, seitliche Maustasten und Mausrad-Kombinationen. Passe die Lautstärke der aktuellen App durch Scrollen im Infobereich der Taskleiste an oder weise eine separate Tastenkombination zum Stummschalten aller Mikrofone zu.",
-    "**Zwei Panels mit unterschiedlichen Aufgaben.** Im Schnellpanel verwaltest du Apps in einzelnen Zeilen und steuerst oben das gewählte Ausgabegerät; das App-Panel konzentriert sich auf die aktuelle App. OSD-Rückmeldungen, Audioanzeigen pro App und Mikrofon-Stummschaltanzeigen machen den Status sichtbar.",
-    "**Ein Auslöser, mehrere Aktionen.** {triggerCount} Auslöser und {actionCount} Aktionen decken Gerätewechsel, Lautstärke, Stummschaltung, Programmstarts, PowerShell und OSD ab. Lege für jeden Schritt eine Verzögerung oder Abbruch bei Fehlern fest, rufe eine andere Regel auf oder führe mit `{ruleCommand}` eine Regel in einer bereits laufenden SonicRoute-Instanz aus.",
-    "**Gestalte SonicRoute nach deinem Geschmack.** Passe helle und dunkle Designs, Akzentfarben, Deckkraft und Panelposition an. Die neun integrierten Sprachen unterstützen den Import und Export von JSON-Dateien."
-  ],
   "downloadTitle": "Herunterladen und loslegen",
   "releaseNotes": "Versionshinweise (Chinesisch)",
   "downloadIntro": "Für die meisten Windows-x64-Systeme bietet die Version aus dem Microsoft Store eine bequeme Installation mit automatischen Updates. Wähle Lite x64 für eine einzelne ausführbare Datei oder Legacy x64, wenn .NET 8 nicht infrage kommt. Der Download oben führt immer zur neuesten Version; die direkten Links unten beziehen sich auf {release}.",
@@ -76,7 +68,7 @@
     "Eine Regel erstellen und mit `{ruleCommand}` in einer laufenden SonicRoute-Instanz aufrufen"
   ],
   "currentRelease": "Aktuelle Version",
-  "releaseSummary": "Version {version} synchronisiert den Status des automatischen Windows-Starts zuverlässiger und trennt die Autostart-Einstellungen der Store- und portablen Version. Außerdem wird die Automatisierung nun bei Bedarf geladen, Menüs sind einheitlicher gestaltet, das Kopieren von Befehlen wurde verbessert und Formulierungen in neun Sprachen wurden überarbeitet. Frühere Änderungen findest du im {history}.",
+  "releaseSummary": "Version {version} bietet die direkte Auswahl des Windows-Standardausgabegeräts im Infobereich, Steuerelemente für Lautstärke, Stummschaltung und Routing der fixierten aktuellen App, eine Stummschaltung aller Mikrofone sowie eine nach Neustarts gespeicherte Pause für die Mausradsteuerung. Die Standard-Tastenkombination für die Windows-Standardlautstärke lautet Strg+Alt+Umschalt+Mausrad und unterscheidet sich von der Standardkombination Strg+Alt+Mausrad für die aktuelle App. Die Anordnung der Einstellungsschalter wurde überarbeitet und Seiten werden bei Bedarf geladen. Frühere Änderungen findest du im {history}.",
   "docTopic": "Thema",
   "docGuides": "Anleitungen",
   "docTopics": [
@@ -102,5 +94,17 @@
   "footerTitle": "Ein Easter Egg: gestern und morgen",
   "guideTitle": "Benutzerhandbuch (Chinesisch)",
   "downloadColumn": "Herunterladen",
-  "license": "MIT-Lizenz"
+  "license": "MIT-Lizenz",
+  "featuresCoreTitle": "Kernfunktionen",
+  "featuresMoreTitle": "Weitere Funktionen",
+  "featuresCore": [
+    "**Audio je App weiterleiten.** Weise Apps eigene Wiedergabe- und Aufnahmegeräte zu, wechsle Geräte für laufende Apps oder ändere die Windows-Standardgeräte. Windows behält die App-Zuweisungen auch nach dem Beenden von SonicRoute bei.",
+    "**Die gerade verwendete App steuern.** Ermittle die aktuelle App anhand der Vordergrundaktivität und der Audiositzungen. Im Modus „Zuletzt aktiv“ folgt SonicRoute der zuletzt im Vordergrund aktiven App mit einer Audiositzung; „Zuletzt gesteuert“ merkt sich die zuletzt von dir bediente App. Auch eine festgelegte App lässt sich auswählen. Filtere und benenne bevorzugte Geräte um und wechsle per Tastenkürzel zwischen ihnen.",
+    "**Tastenkürzel und Mausrad im Infobereich.** Belege Tastenkombinationen, seitliche Maustasten und Mausrad-Kombinationen. Passe die Lautstärke der aktuellen App durch Scrollen im Infobereich der Taskleiste an oder weise eine separate Tastenkombination zum Stummschalten aller Mikrofone zu. Über das Infobereichsmenü lässt sich das Windows-Standardausgabegerät direkt auswählen. Du kannst die aktuelle App fixieren und Lautstärke, Stummschaltung und Routing steuern sowie die Mausrad-Lautstärkeregelung pausieren; die Einstellung bleibt nach einem Neustart erhalten.",
+    "**Zwei Panels mit unterschiedlichen Aufgaben.** Im Schnellpanel verwaltest du Apps in einzelnen Zeilen und steuerst oben das gewählte Ausgabegerät; das App-Panel konzentriert sich auf die aktuelle App. OSD-Rückmeldungen, Audioanzeigen pro App und Mikrofon-Stummschaltanzeigen machen den Status sichtbar."
+  ],
+  "featuresMore": [
+    "**Ein Auslöser, mehrere Aktionen.** {triggerCount} Auslöser und {actionCount} Aktionen decken Gerätewechsel, Lautstärke, Stummschaltung, Programmstarts, PowerShell und OSD ab. Lege für jeden Schritt eine Verzögerung oder Abbruch bei Fehlern fest, rufe eine andere Regel auf oder führe mit `{ruleCommand}` eine Regel in einer bereits laufenden SonicRoute-Instanz aus.",
+    "**Gestalte SonicRoute nach deinem Geschmack.** Passe helle und dunkle Designs, Akzentfarben, Deckkraft und Panelposition an. Die neun integrierten Sprachen unterstützen den Import und Export von JSON-Dateien."
+  ]
 }
