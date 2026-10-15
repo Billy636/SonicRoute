@@ -50,8 +50,8 @@
   "easterEgg": "Entdecke ein Easter Egg",
   "useCasesTitle": "Für den Alltag",
   "configureAutomation": "Automatisierung einrichten",
-  "automationExample": "Speichere eine Regel „Spiel“: zum Headset wechseln → Lautstärke einstellen → Sprachchat-App öffnen. Beim Spielstart wird sie automatisch ausgeführt.",
-  "useCaseExample": "Sind die Stimmen der Mitspieler zu laut? Senke die Lautstärke der Sprachchat-App im Schnellpanel, während Spiel und Musik gleich laut bleiben.",
+  "automationExample": "Lege zum Beispiel für den Spielstart fest: Spielton auf Kopfhörer → Spiellautstärke auf 50% → Sprachchat öffnen. Aktiviere anschließend die Regel.",
+  "useCaseExample": "Sind deine Mitspieler zu laut? Senke nur den Regler der Sprachchat-App; die Spiellautstärke bleibt unverändert.",
   "currentRelease": "Aktuelle Version",
   "releaseSummary": "Version {version} bietet die direkte Auswahl des Windows-Standardausgabegeräts im Infobereich, Steuerelemente für Lautstärke, Stummschaltung und Routing der fixierten aktuellen App, eine Stummschaltung aller Mikrofone sowie eine nach Neustarts gespeicherte Pause für die Mausradsteuerung. Die Standard-Tastenkombination für die Windows-Standardlautstärke lautet Strg+Alt+Umschalt+Mausrad und unterscheidet sich von der Standardkombination Strg+Alt+Mausrad für die aktuelle App. Die Anordnung der Einstellungsschalter wurde überarbeitet und Seiten werden bei Bedarf geladen. Frühere Änderungen findest du im {history}.",
   "docTopic": "Thema",
@@ -81,9 +81,9 @@
   "downloadColumn": "Herunterladen",
   "license": "MIT-Lizenz",
   "features": [
-    "**Dieselben Tastenkürzel für die aktuelle App:** Wenn das Panel geschlossen ist, steuere Lautstärke, Stummschaltung und Gerät der gerade verwendeten Audio-App, ohne sie erst im Mixer suchen zu müssen.",
-    "**Musik, Spiele und Gespräche mit eigenen Geräten:** Musik über die Lautsprecher, Spiele über das Headset; auch für jede App lässt sich ein eigenes Mikrofon wählen. Windows speichert die Einstellungen.",
-    "**Die wichtigsten Bedienelemente griffbereit:** Ändere mit dem Mausrad im Infobereich die Lautstärke der aktuellen App, verwalte Apps im Schnellpanel und wähle per Rechtsklick auf das Infobereichssymbol ein Gerät aus oder schalte alle Mikrofone stumm.",
-    "**Eine Regel für den ganzen Ablauf:** Nacheinander zum Headset wechseln, die Lautstärke einstellen und die Sprachchat-App öffnen; mit Verzögerung, per Tastenkürzel oder beim Spielstart auslösen."
+    "**Lautstärke für jede App einzeln regeln.** Klicke auf das SonicRoute-Symbol unten rechts, um das Schnellpanel zu öffnen. Ziehe den Regler einer App für die Lautstärke oder klicke auf ihr Symbol, um sie stummzuschalten.",
+    "**Musik auf Lautsprechern, Spiele auf Kopfhörern.** Klappe im Schnellpanel den Gerätebereich einer App auf und wähle Lautsprecher oder Kopfhörer. Nach Aktivierung der Mikrofonoption kannst du im Hauptfenster unter „Apps“ auch das Mikrofon wählen.",
+    "**Die aktuelle App per Tastenkürzel steuern.** Bei geschlossenem Panel regelst du standardmäßig mit `Ctrl+Alt` und dem Mausrad die Lautstärke; `Ctrl+Shift+M` schaltet stumm. Unter „Tastenkürzel“ kannst du die Belegung ändern.",
+    "**Mehrere Schritte automatisch ausführen.** Doppelklicke auf das Symbol im Infobereich und erstelle unter „Automatisierung“ eine Regel. Wähle den Auslöser und füge Gerätewechsel, Lautstärkeregelung oder Programmstarts hinzu. Speichere und aktiviere die Regel."
   ]
 }

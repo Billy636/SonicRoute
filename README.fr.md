@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Fonctionnalités"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Cliquez sur la mascotte pour découvrir les fonctionnalités de SonicRoute"></a>
 
-- **Les mêmes raccourcis pour l’application en cours :** Lorsque le panneau est fermé, réglez le volume de l’application audio en cours, coupez le son ou changez d’appareil sans ouvrir le mixeur pour la chercher.
-- **Un appareil différent pour la musique, les jeux et les appels :** Écoutez la musique sur les haut-parleurs et jouez au casque ; vous pouvez aussi choisir un micro différent pour chaque application. Windows enregistre ces réglages.
-- **Les commandes courantes à portée de main :** Faites défiler la molette dans la zone de notification pour régler le volume de l’application en cours, gérez les applications dans le panneau rapide ou faites un clic droit sur l’icône pour choisir un appareil ou couper tous les micros.
-- **Une règle pour tout préparer :** Passez au casque, réglez le volume, puis ouvrez l’application de chat vocal. Ajoutez un délai et lancez la séquence avec un raccourci ou au démarrage d’un jeu.
+- **Réglez le volume de chaque application.** Cliquez sur l’icône SonicRoute en bas à droite pour ouvrir le panneau rapide. Faites glisser le curseur d’une application pour régler son volume ou cliquez sur son icône pour couper le son.
+- **La musique sur les haut-parleurs, le jeu au casque.** Dépliez la section des appareils d’une application dans le panneau rapide pour choisir sa sortie. Après avoir activé l’option microphone, choisissez aussi son micro dans la page « Applications » de la fenêtre principale.
+- **Contrôlez l’application actuelle avec des raccourcis.** Par défaut, lorsque le panneau est fermé, maintenez `Ctrl+Alt` et tournez la molette pour régler le volume ; `Ctrl+Shift+M` coupe le son. Modifiez ces touches dans « Raccourcis ».
+- **Exécutez plusieurs étapes automatiquement.** Double-cliquez sur l’icône de la zone de notification et créez une règle dans « Automatisation ». Choisissez quand l’exécuter, ajoutez les changements d’appareil, réglages de volume ou lancements de programmes, puis enregistrez-la et activez-la.
 
 ## 🎮 Pour le quotidien
 
-Les voix de vos coéquipiers sont trop fortes ? Baissez uniquement le volume de l’application de chat vocal dans le panneau rapide, sans changer celui du jeu ni de la musique.
+Vos coéquipiers parlent trop fort ? Baissez uniquement le curseur de l’application de chat vocal, sans changer le volume du jeu.
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Enregistrez une règle « Jeu » : passer au casque → régler le volume → ouvrir l’application de chat vocal. Elle s’exécutera au lancement du jeu. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Par exemple, configurez au lancement du jeu : envoyer le son du jeu au casque → régler son volume à 50 % → ouvrir le chat vocal. Activez ensuite la règle. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Télécharger et commencer
 

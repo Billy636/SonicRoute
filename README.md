@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能特性"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="点击看板娘查看功能特性"></a>
 
-- **一套按键，跟着当前应用走**：面板关闭时，直接调当前音频应用的音量、静音和设备，不用打开合成器找它。
-- **音乐、游戏、通话各用各的设备**：音箱放音乐、耳机听游戏，各应用也能选不同麦克风；设置由 Windows 保存。
-- **常用控制，留在手边**：托盘区域滚轮调当前应用音量，快速面板集中管理应用，右键托盘选设备或静音全部麦克风。
-- **一条规则，完成整套准备**：切耳机、调音量、开语音软件按顺序执行，可加延时，按快捷键或游戏启动时触发。
+- **给应用单独调音量**：单击右下角的 SonicRoute 图标打开快速面板，拖动应用的滑块调音量，点应用图标静音。
+- **音乐走音箱，游戏走耳机**：展开快速面板的应用设备栏，分别选音箱或耳机；开启麦克风选项后，可在完整界面的“应用”页指定麦克风。
+- **用快捷键调当前应用**：面板关闭时，默认按住 `Ctrl+Alt` 滚动鼠标滚轮调音量，按 `Ctrl+Shift+M` 静音；按键可在快捷键页修改。
+- **自动完成一串操作**：双击托盘图标，在“自动化”页新建规则，选择执行时机，再添加切设备、调音量、启动程序等步骤，保存并启用。
 
 ## 🎮 这样使用
 
-队友声音太大？在快速面板单独调低语音软件，游戏和音乐保持原音量。
+队友声音太大时，在快速面板调低语音软件的音量，游戏音量不变。
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自动化规则"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="点击小机器人查看自动化规则"></a> 保存一条“游戏”规则：切到耳机 → 设置音量 → 打开语音软件，游戏启动后自动执行。 [配置自动化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自动化规则"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="点击小机器人查看自动化规则"></a> 例如，设置游戏启动时依次执行“游戏声音切到耳机 → 游戏音量设为 50% → 打开语音软件”，并启用规则。 [配置自动化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 下载与开始使用
 

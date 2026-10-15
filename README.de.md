@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
 
-- **Dieselben Tastenkürzel für die aktuelle App:** Wenn das Panel geschlossen ist, steuere Lautstärke, Stummschaltung und Gerät der gerade verwendeten Audio-App, ohne sie erst im Mixer suchen zu müssen.
-- **Musik, Spiele und Gespräche mit eigenen Geräten:** Musik über die Lautsprecher, Spiele über das Headset; auch für jede App lässt sich ein eigenes Mikrofon wählen. Windows speichert die Einstellungen.
-- **Die wichtigsten Bedienelemente griffbereit:** Ändere mit dem Mausrad im Infobereich die Lautstärke der aktuellen App, verwalte Apps im Schnellpanel und wähle per Rechtsklick auf das Infobereichssymbol ein Gerät aus oder schalte alle Mikrofone stumm.
-- **Eine Regel für den ganzen Ablauf:** Nacheinander zum Headset wechseln, die Lautstärke einstellen und die Sprachchat-App öffnen; mit Verzögerung, per Tastenkürzel oder beim Spielstart auslösen.
+- **Lautstärke für jede App einzeln regeln.** Klicke auf das SonicRoute-Symbol unten rechts, um das Schnellpanel zu öffnen. Ziehe den Regler einer App für die Lautstärke oder klicke auf ihr Symbol, um sie stummzuschalten.
+- **Musik auf Lautsprechern, Spiele auf Kopfhörern.** Klappe im Schnellpanel den Gerätebereich einer App auf und wähle Lautsprecher oder Kopfhörer. Nach Aktivierung der Mikrofonoption kannst du im Hauptfenster unter „Apps“ auch das Mikrofon wählen.
+- **Die aktuelle App per Tastenkürzel steuern.** Bei geschlossenem Panel regelst du standardmäßig mit `Ctrl+Alt` und dem Mausrad die Lautstärke; `Ctrl+Shift+M` schaltet stumm. Unter „Tastenkürzel“ kannst du die Belegung ändern.
+- **Mehrere Schritte automatisch ausführen.** Doppelklicke auf das Symbol im Infobereich und erstelle unter „Automatisierung“ eine Regel. Wähle den Auslöser und füge Gerätewechsel, Lautstärkeregelung oder Programmstarts hinzu. Speichere und aktiviere die Regel.
 
 ## 🎮 Für den Alltag
 
-Sind die Stimmen der Mitspieler zu laut? Senke die Lautstärke der Sprachchat-App im Schnellpanel, während Spiel und Musik gleich laut bleiben.
+Sind deine Mitspieler zu laut? Senke nur den Regler der Sprachchat-App; die Spiellautstärke bleibt unverändert.
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation-de.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Speichere eine Regel „Spiel“: zum Headset wechseln → Lautstärke einstellen → Sprachchat-App öffnen. Beim Spielstart wird sie automatisch ausgeführt. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation-de.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Lege zum Beispiel für den Spielstart fest: Spielton auf Kopfhörer → Spiellautstärke auf 50% → Sprachchat öffnen. Aktiviere anschließend die Regel. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Herunterladen und loslegen
 

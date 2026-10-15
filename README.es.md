@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funciones"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Haz clic en la mascota para descubrir las funciones de SonicRoute"></a>
 
-- **Los mismos atajos para la aplicación en uso:** Con el panel cerrado, ajusta el volumen de la aplicación de audio actual, silénciala o cambia el dispositivo sin abrir el mezclador para buscarla.
-- **Dispositivos distintos para música, juegos y llamadas:** Escucha música por los altavoces y juega con auriculares; también puedes elegir un micrófono distinto para cada aplicación. Windows guarda estos ajustes.
-- **Los controles habituales, a mano:** Desplázate con la rueda sobre el área de notificación para ajustar el volumen de la aplicación actual; gestiona las aplicaciones en el panel rápido o haz clic derecho en el icono para elegir dispositivo o silenciar todos los micrófonos.
-- **Una regla para preparar todo:** Cambia a los auriculares, ajusta el volumen y abre la aplicación de chat de voz en ese orden. Añade una espera y actívala con un atajo o al iniciar un juego.
+- **Ajusta el volumen de cada aplicación.** Haz clic en el icono de SonicRoute de la esquina inferior derecha para abrir el panel rápido. Arrastra el control de una aplicación para ajustar su volumen o haz clic en su icono para silenciarla.
+- **Música por los altavoces y juegos por los auriculares.** Despliega la sección de dispositivos de una aplicación en el panel rápido y elige su salida. Tras activar la opción de micrófono, también puedes elegirlo en «Aplicaciones» de la ventana principal.
+- **Controla la aplicación actual con atajos.** Con el panel cerrado, los atajos predeterminados son `Ctrl+Alt` + rueda para ajustar el volumen y `Ctrl+Shift+M` para silenciar. Puedes cambiarlos en «Atajos».
+- **Ejecuta varios pasos automáticamente.** Haz doble clic en el icono del área de notificación y crea una regla en «Automatización». Elige cuándo ejecutarla, añade cambios de dispositivo, ajustes de volumen o apertura de programas, guarda y activa la regla.
 
 ## 🎮 Para el día a día
 
-¿Se oye demasiado alto a tus compañeros? Baja solo el volumen de la aplicación de chat de voz en el panel rápido y deja igual el del juego y la música.
+¿Se oye demasiado alto a tus compañeros? Baja solo el control de volumen del chat de voz, sin cambiar el del juego.
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatización"><img src="docs/images/mascot-automation-es.png" width="48" align="middle" alt="Haz clic en el pequeño robot para conocer las reglas de automatización"></a> Guarda una regla «Juego»: cambiar a los auriculares → ajustar el volumen → abrir la aplicación de chat de voz. Se ejecutará automáticamente al iniciar el juego. [Configurar automatización](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatización"><img src="docs/images/mascot-automation-es.png" width="48" align="middle" alt="Haz clic en el pequeño robot para conocer las reglas de automatización"></a> Por ejemplo, configura al iniciar un juego: enviar el sonido del juego a los auriculares → poner su volumen al 50 % → abrir el chat de voz. Después, activa la regla. [Configurar automatización](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Descarga y primeros pasos
 
