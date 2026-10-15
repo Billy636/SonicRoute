@@ -13,6 +13,7 @@
   "themeAlt": "SonicRoute-Designeinstellungen für Erscheinungsbild, Akzentfarbe und Hintergrunddeckkraft",
   "mascotAlt": "Klicke auf das Maskottchen, um das Benutzerhandbuch zu öffnen",
   "featuresTitle": "Das bietet SonicRoute",
+  "comparison": "Funktionsvergleich mit ähnlichen Apps",
   "downloadTitle": "Herunterladen und loslegen",
   "releaseNotes": "Versionshinweise (Chinesisch)",
   "downloadIntro": "Für die meisten Windows-x64-Systeme bietet die Version aus dem Microsoft Store eine bequeme Installation mit automatischen Updates. Wähle Lite x64 für eine einzelne ausführbare Datei oder Legacy x64, wenn .NET 8 nicht infrage kommt. Der Download oben führt immer zur neuesten Version; die direkten Links unten beziehen sich auf {release}.",

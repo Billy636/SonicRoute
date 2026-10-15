@@ -38,6 +38,8 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（実験的） · 9 種類の UI �
 - **1 つのトリガーで複数の操作。** 6 種類のトリガーと 18 種類の操作で、デバイス切り替え、音量、ミュート、プログラム起動、PowerShell、OSD を組み合わせられます。各ステップに遅延や失敗時に停止する設定を追加したり、別のルールを呼び出したりできます。SonicRoute の実行中は `sr "ルール名または ID"` でルールを呼び出せます。
 - **自分好みにカスタマイズ。** ライト／ダークテーマ、アクセントカラー、透明度、パネル位置を調整できます。内蔵の 9 言語に対応し、言語ファイルを JSON 形式でインポート・エクスポートできます。
 
+→ [類似アプリとの機能比較](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
+
 ## 🎮 日常での使い方
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自動化"><img src="docs/images/mascot-automation-jp.png" width="48" align="middle" alt="ロボットをクリックして自動化ルールを確認する"></a> ゲームの起動時にヘッドセットへ切り替えたり、複数の操作を 1 つのルールに保存したりできます。 [自動化を設定](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)。

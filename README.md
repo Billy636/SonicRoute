@@ -38,6 +38,8 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（实验） · 九种语言 · MIT 
 - **一次触发，多步完成**：6种触发、18种操作，可组合设备切换、音量、静音、程序启动、PowerShell 和 OSD；每步可设延时及失败后停止，也能调用另一条规则。`sr "规则名称或ID"` 只向已运行的 SonicRoute 实例提交规则；首次正常启动登记命令后，需重新打开终端。
 - **按你的习惯设置**：深浅主题、强调色、透明度与面板位置可调；内置九种语言，支持语言 JSON 导入与导出。
 
+→ [同类应用功能对比](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
+
 ## 🎮 这样使用
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自动化规则"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="点击小机器人查看自动化规则"></a> 打开游戏时自动切到耳机，或把几步常用操作保存成一条规则。 [配置自动化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)。

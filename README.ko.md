@@ -38,6 +38,8 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (실험적) · 인터페이스 9개
 - **한 번의 트리거로 여러 작업 실행.** 6개 트리거와 18개 작업으로 장치 전환, 볼륨, 음소거, 프로그램 실행, PowerShell, OSD를 조합할 수 있습니다. 각 단계에 지연이나 실패 시 중지 설정을 추가하고 다른 규칙을 호출할 수 있습니다. SonicRoute 실행 중에는 `sr "규칙 이름 또는 ID"`로 규칙을 호출할 수 있습니다.
 - **원하는 방식으로 설정.** 라이트/다크 테마, 강조 색상, 불투명도와 패널 위치를 조정할 수 있습니다. 기본 제공 9개 언어를 지원하며 언어 파일을 JSON으로 가져오거나 내보낼 수 있습니다.
 
+→ [유사 앱 기능 비교](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
+
 ## 🎮 일상적인 활용
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="자동화"><img src="docs/images/mascot-automation-kr.png" width="48" align="middle" alt="작은 로봇을 클릭해 자동화 규칙 알아보기"></a> 게임을 시작할 때 헤드셋으로 자동 전환하거나, 여러 작업을 하나의 규칙으로 저장할 수 있습니다. [자동화 설정](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).

@@ -38,6 +38,8 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 - **One trigger, multiple actions.** 6 triggers and 18 actions cover device switching, volume, mute, program launches, PowerShell and OSD. Add a delay or stop-on-failure setting to each step, or call another rule. `sr "Rule name or ID"` submits a rule only to an already-running SonicRoute instance; before first use, start SonicRoute normally to register the command, then reopen your terminal.
 - **Make it your own.** Adjust light/dark themes, accent colors, opacity and panel position. Nine built-in languages support JSON import and export.
 
+→ [Compare similar apps](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
+
 ## 🎮 Everyday uses
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automation"><img src="docs/images/mascot-automation-gb.png" width="48" align="middle" alt="Click the little robot to learn about automation rules"></a> Set a game to use your headset when it starts, or save several actions as one rule. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).

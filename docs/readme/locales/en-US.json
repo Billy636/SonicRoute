@@ -13,6 +13,7 @@
   "themeAlt": "SonicRoute theme settings: appearance, accent color and background opacity",
   "mascotAlt": "Click the mascot to open the user guide",
   "featuresTitle": "What SonicRoute offers",
+  "comparison": "Compare similar apps",
   "downloadTitle": "Download and get started",
   "releaseNotes": "Release notes (Chinese)",
   "downloadIntro": "For most Windows x64 users, the Microsoft Store build offers convenient installation and automatic updates. Choose Lite x64 for a single executable, or Legacy x64 if installing .NET 8 is not convenient. The download link above always points to the latest release; Lite and Legacy links below are for {release}, while the Store page shows the version currently available there.",

@@ -13,6 +13,7 @@
   "themeAlt": "SonicRoute 主題設定：外觀、強調色與背景透明度",
   "mascotAlt": "點擊看板娘開啟使用指南",
   "featuresTitle": "SonicRoute 的功能",
+  "comparison": "同類應用功能比較",
   "downloadTitle": "下載與快速入門",
   "releaseNotes": "發布說明（簡體中文）",
   "downloadIntro": "大多數 Windows x64 使用者可優先選擇 Microsoft Store 版本，安裝方便並支援自動更新。需要單一執行檔可選 Lite x64；不方便安裝 .NET 8 則可選 Legacy x64。上方下載連結一律指向最新版本；下方的直連下載對應 {release}。",

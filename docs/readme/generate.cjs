@@ -77,6 +77,7 @@ function render(language, text) {
     ...text.featuresCore.map(feature => '- ' + fill(feature)), '',
     '### ' + text.featuresMoreTitle, '',
     ...text.featuresMore.map(feature => '- ' + fill(feature)), '',
+    '→ ' + link(text.comparison, wiki(pages.comparison)), '',
     '## 🎮 ' + text.useCasesTitle, '',
     automationImage + ' ' + text.automationExample + ' ' + link(text.configureAutomation, wiki(pages.automationGuide)) + period, '',
     '| ' + [text.scenario, text.whatYouCanDo].join(' | ') + ' |', '|---|---|',
