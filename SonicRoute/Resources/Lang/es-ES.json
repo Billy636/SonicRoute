@@ -461,5 +461,16 @@
   "Color.Saturation": "Saturación",
   "Color.Lightness": "Luminosidad",
   "Auto.DefaultNamePrefix": "Regla",
-  "Auto.DefaultNameHint": "Dejar vacío para Regla1, Regla2…"
+  "Auto.DefaultNameHint": "Dejar vacío para Regla1, Regla2…",
+  "Tray.VolumePresets": "Preajustes de volumen",
+  "Tray.Loading": "Cargando…",
+  "Tray.AudioUnavailable": "Estado de audio no disponible",
+  "Tray.AudioActionFailed": "La acción no se ha aplicado por completo. Inténtalo de nuevo.",
+  "Tray.MuteAllMicrophones": "Silenciar todos los micrófonos",
+  "Tray.MicrophonesMixed": "Algunos micrófonos están silenciados",
+  "Tray.PauseWheel": "Pausar el desplazamiento en la bandeja",
+  "Tray.PauseWheelHint": "El estado de pausa se guarda y sigue activo tras reiniciar. Los atajos globales siguen funcionando.",
+  "Tray.SaveFailed": "No se puede guardar; no se han cambiado los ajustes.",
+  "Tray.AppUnavailable": "La aplicación de destino se ha cerrado o su sesión de audio no está disponible.",
+  "Tray.SystemOutput": "Salida predeterminada del sistema: {0}"
 }

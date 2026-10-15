@@ -2752,7 +2752,12 @@ namespace SonicRoute
         }
 
         private bool _checkingUpdate;
-        private static readonly HttpClient _updateHttp = CreateUpdateHttp();
+        private static class UpdateHttpClient
+        {
+            internal static readonly HttpClient Instance = CreateUpdateHttp();
+            // Opening the window must not initialize the optional networking client.
+            static UpdateHttpClient() { }
+        }
 
         private static HttpClient CreateUpdateHttp()
         {
@@ -2776,7 +2781,7 @@ namespace SonicRoute
             string? remoteTag = null;
             try
             {
-                using var resp = await _updateHttp.GetAsync("https://api.github.com/repos/kunkunkunQoQ/SonicRoute/releases/latest", _uiLifetime.Token);
+                using var resp = await UpdateHttpClient.Instance.GetAsync("https://api.github.com/repos/kunkunkunQoQ/SonicRoute/releases/latest", _uiLifetime.Token);
                 if (!resp.IsSuccessStatusCode) { FinishCheck(null); return; }
                 using var doc = JsonDocument.Parse(await resp.Content.ReadAsStringAsync());
                 if (doc.RootElement.TryGetProperty("tag_name", out var tag)) remoteTag = tag.GetString();

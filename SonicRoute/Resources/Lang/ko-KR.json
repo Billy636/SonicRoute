@@ -461,5 +461,16 @@
   "Color.Saturation": "채도",
   "Color.Lightness": "명도",
   "Auto.DefaultNamePrefix": "규칙",
-  "Auto.DefaultNameHint": "비워 두면 규칙1, 규칙2…"
+  "Auto.DefaultNameHint": "비워 두면 규칙1, 규칙2…",
+  "Tray.VolumePresets": "볼륨 프리셋",
+  "Tray.Loading": "읽는 중…",
+  "Tray.AudioUnavailable": "오디오 상태를 읽을 수 없음",
+  "Tray.AudioActionFailed": "작업이 완전히 적용되지 않았습니다. 다시 시도하세요.",
+  "Tray.MuteAllMicrophones": "모든 마이크 음소거",
+  "Tray.MicrophonesMixed": "일부 마이크가 음소거됨",
+  "Tray.PauseWheel": "트레이 스크롤 일시 중지",
+  "Tray.PauseWheelHint": "일시 중지 상태는 저장되어 재시작 후에도 유지됩니다. 전역 단축키는 계속 사용할 수 있습니다.",
+  "Tray.SaveFailed": "저장할 수 없습니다. 설정이 변경되지 않았습니다.",
+  "Tray.AppUnavailable": "대상 앱이 종료되었거나 오디오 세션을 사용할 수 없습니다.",
+  "Tray.SystemOutput": "시스템 기본 출력: {0}"
 }

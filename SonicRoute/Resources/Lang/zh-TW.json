@@ -461,5 +461,16 @@
   "Color.Saturation": "飽和度",
   "Color.Lightness": "亮度",
   "Auto.DefaultNamePrefix": "規則",
-  "Auto.DefaultNameHint": "留空自動命名為規則1、規則2…"
+  "Auto.DefaultNameHint": "留空自動命名為規則1、規則2…",
+  "Tray.VolumePresets": "音量預設",
+  "Tray.Loading": "讀取中…",
+  "Tray.AudioUnavailable": "無法讀取音訊狀態",
+  "Tray.AudioActionFailed": "操作未完全生效，請重試",
+  "Tray.MuteAllMicrophones": "全部麥克風靜音",
+  "Tray.MicrophonesMixed": "部分麥克風已靜音",
+  "Tray.PauseWheel": "暫停系統匣滾輪",
+  "Tray.PauseWheelHint": "暫停狀態會儲存，重新啟動後仍會生效；全域快速鍵仍可使用。",
+  "Tray.SaveFailed": "無法儲存，設定未變更",
+  "Tray.AppUnavailable": "目標應用程式已結束或音訊工作階段無法使用",
+  "Tray.SystemOutput": "系統預設輸出：{0}"
 }

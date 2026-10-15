@@ -526,13 +526,28 @@ namespace SonicRoute
             _systemReady = true;
         }
 
-        internal void ApplyAppVolumeReadback(int pid, int actual)
+        internal void ApplyAppVolumeReadback(int pid, int actual, bool? muted = null)
         {
             if (_isClosed || !_rows.TryGetValue(pid, out var row)) return;
             bool updating = _updatingRowVolumes;
             _updatingRowVolumes = true;
             try { row.Slider.Value = actual; row.Slider.IsEnabled = true; }
             finally { _updatingRowVolumes = updating; }
+            if (muted.HasValue) ApplyRowMutedVisual(row, muted.Value);
+        }
+
+        internal void ApplyMicMuteReadback(bool muted)
+        {
+            if (_isClosed) return;
+            ++_micMuteVersion;
+            ApplyMicMuteVisual(muted);
+            MicMuteButton.IsEnabled = true;
+        }
+
+        internal void RefreshAppRouteReadback(int pid)
+        {
+            if (!_isClosed && _rows.TryGetValue(pid, out var row) && row.Expanded)
+                _ = BuildRowDevicesAsync(row);
         }
 
         private void Volume_MouseWheel(object sender, MouseWheelEventArgs e)

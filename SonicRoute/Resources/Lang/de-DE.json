@@ -461,5 +461,16 @@
   "Color.Saturation": "Sättigung",
   "Color.Lightness": "Helligkeit",
   "Auto.DefaultNamePrefix": "Regel",
-  "Auto.DefaultNameHint": "Leer lassen für Regel1, Regel2…"
+  "Auto.DefaultNameHint": "Leer lassen für Regel1, Regel2…",
+  "Tray.VolumePresets": "Lautstärkevorgaben",
+  "Tray.Loading": "Wird geladen…",
+  "Tray.AudioUnavailable": "Audiostatus nicht verfügbar",
+  "Tray.AudioActionFailed": "Aktion wurde nicht vollständig ausgeführt. Bitte erneut versuchen.",
+  "Tray.MuteAllMicrophones": "Alle Mikrofone stummschalten",
+  "Tray.MicrophonesMixed": "Einige Mikrofone sind stummgeschaltet",
+  "Tray.PauseWheel": "Scrollen im Infobereich pausieren",
+  "Tray.PauseWheelHint": "Der Pausenzustand wird gespeichert und bleibt nach dem Neustart aktiv. Globale Tastenkürzel funktionieren weiterhin.",
+  "Tray.SaveFailed": "Speichern nicht möglich; die Einstellungen wurden nicht geändert.",
+  "Tray.AppUnavailable": "Die Ziel-App wurde beendet oder ihre Audiositzung ist nicht verfügbar.",
+  "Tray.SystemOutput": "Systemstandardausgabe: {0}"
 }

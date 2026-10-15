@@ -88,6 +88,8 @@ namespace SonicRoute.Core
 
         /// <summary>托盘滚轮调音量区域：true=整个托盘通知区滚轮均可调当前应用音量（默认）；false=仅音跃托盘图标上滚轮可调。</summary>
         public bool TrayWheelEverywhere { get; set; } = true;
+        /// <summary>暂停托盘区域滚轮调音量，保存后跨重启生效；不影响全局快捷键。</summary>
+        public bool TrayWheelPaused { get; set; } = false;
         /// <summary>窗口/面板背景透明度（60–100，默认 85：适当通透、保持可读）。</summary>
         public int BackgroundOpacity { get; set; } = 85;
 
@@ -197,16 +199,25 @@ namespace SonicRoute.Core
 
         public static void Save(AppConfig config)
         {
+            TrySave(config);
+        }
+
+        /// <summary>保存并报告是否成功落盘；保留原有内存缓存更新行为。</summary>
+        public static bool TrySave(AppConfig config)
+        {
             lock (_lock)
             {
+                bool saved = false;
                 try
                 {
                     var dir = Path.GetDirectoryName(ConfigPath);
                     if (dir != null) Directory.CreateDirectory(dir);
                     AtomicFile.WriteAllText(ConfigPath, JsonSerializer.Serialize(config, SaveOptions));
+                    saved = true;
                 }
                 catch { /* 保存失败保留原文件，不阻断运行。 */ }
                 _cache = config;
+                return saved;
             }
         }
 

@@ -461,5 +461,16 @@
   "Color.Saturation": "Saturation",
   "Color.Lightness": "Luminosité",
   "Auto.DefaultNamePrefix": "Règle",
-  "Auto.DefaultNameHint": "Laisser vide pour Règle1, Règle2…"
+  "Auto.DefaultNameHint": "Laisser vide pour Règle1, Règle2…",
+  "Tray.VolumePresets": "Préréglages de volume",
+  "Tray.Loading": "Chargement…",
+  "Tray.AudioUnavailable": "État audio indisponible",
+  "Tray.AudioActionFailed": "Action non appliquée entièrement. Réessayez.",
+  "Tray.MuteAllMicrophones": "Couper tous les microphones",
+  "Tray.MicrophonesMixed": "Certains microphones sont coupés",
+  "Tray.PauseWheel": "Suspendre le défilement dans la zone de notification",
+  "Tray.PauseWheelHint": "La pause est enregistrée et reste active après le redémarrage. Les raccourcis globaux restent disponibles.",
+  "Tray.SaveFailed": "Enregistrement impossible ; paramètres inchangés.",
+  "Tray.AppUnavailable": "Application cible fermée ou session audio indisponible.",
+  "Tray.SystemOutput": "Sortie système par défaut : {0}"
 }

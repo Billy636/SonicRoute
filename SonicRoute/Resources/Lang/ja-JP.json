@@ -461,5 +461,16 @@
   "Color.Saturation": "彩度",
   "Color.Lightness": "明度",
   "Auto.DefaultNamePrefix": "ルール",
-  "Auto.DefaultNameHint": "空欄でルール1、ルール2…"
+  "Auto.DefaultNameHint": "空欄でルール1、ルール2…",
+  "Tray.VolumePresets": "音量プリセット",
+  "Tray.Loading": "読み込み中…",
+  "Tray.AudioUnavailable": "オーディオ状態を取得できません",
+  "Tray.AudioActionFailed": "操作が完全に反映されませんでした。再試行してください。",
+  "Tray.MuteAllMicrophones": "すべてのマイクをミュート",
+  "Tray.MicrophonesMixed": "一部のマイクがミュートされています",
+  "Tray.PauseWheel": "トレイのスクロールを一時停止",
+  "Tray.PauseWheelHint": "一時停止状態は保存され、再起動後も有効です。グローバルホットキーは引き続き使用できます。",
+  "Tray.SaveFailed": "保存できません。設定は変更されていません。",
+  "Tray.AppUnavailable": "対象アプリは終了したか、オーディオセッションを利用できません。",
+  "Tray.SystemOutput": "システム既定の出力：{0}"
 }

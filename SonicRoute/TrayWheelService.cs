@@ -115,6 +115,8 @@ namespace SonicRoute
         {
             if (!_disposed && nCode >= 0 && (int)wParam == WM_MOUSEWHEEL)
             {
+                if (ConfigService.Load().TrayWheelPaused)
+                    return CallNextHookEx(_hook, nCode, wParam, lParam);
                 var data = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
                 int delta = (short)((data.mouseData >> 16) & 0xFFFF);
                 // 托盘钩子可能先收到事件；已匹配全局滚轮快捷键时只交给下一钩子。
@@ -135,12 +137,15 @@ namespace SonicRoute
             return CallNextHookEx(_hook, nCode, wParam, lParam);
         }
 
+        internal void DiscardPendingWheel() => System.Threading.Interlocked.Exchange(ref _pendingDelta, 0);
+
         private async void ProcessPendingWheel()
         {
             try
             {
                 while (!_disposed)
                 {
+                    if (ConfigService.Load().TrayWheelPaused) { DiscardPendingWheel(); break; }
                     int delta = System.Threading.Interlocked.Exchange(ref _pendingDelta, 0);
                     if (delta == 0) break;
                     // 记录此次输入时的前台，后台查询期间焦点变化不改本轮目标。

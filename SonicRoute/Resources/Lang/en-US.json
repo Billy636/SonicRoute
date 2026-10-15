@@ -461,5 +461,16 @@
   "Color.Saturation": "Saturation",
   "Color.Lightness": "Lightness",
   "Auto.DefaultNamePrefix": "Rule",
-  "Auto.DefaultNameHint": "Leave blank for Rule1, Rule2…"
+  "Auto.DefaultNameHint": "Leave blank for Rule1, Rule2…",
+  "Tray.VolumePresets": "Volume presets",
+  "Tray.Loading": "Loading…",
+  "Tray.AudioUnavailable": "Audio status unavailable",
+  "Tray.AudioActionFailed": "Action did not fully apply. Please try again.",
+  "Tray.MuteAllMicrophones": "Mute all microphones",
+  "Tray.MicrophonesMixed": "Some microphones are muted",
+  "Tray.PauseWheel": "Pause tray scrolling",
+  "Tray.PauseWheelHint": "The paused state is saved and remains active after restart. Global hotkeys still work.",
+  "Tray.SaveFailed": "Could not save; settings were not changed.",
+  "Tray.AppUnavailable": "The target app has exited or its audio session is unavailable.",
+  "Tray.SystemOutput": "System default output: {0}"
 }

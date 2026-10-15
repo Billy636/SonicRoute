@@ -28,7 +28,7 @@ namespace SonicRoute
             };
             _ruleProbeTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
             _ruleProbeTimer.Tick += (_, _) => { _ = ProbeRuleDirectoryAsync(); };
-            _ruleProbeTimer.Start();
+            RefreshRuleDirectoryProbePolicy();
             SystemEvents.PowerModeChanged += BackgroundPowerModeChanged;
             SystemEvents.SessionSwitch += BackgroundSessionSwitch;
             _ = UpdateMicStateAsync(); // 首次只建立基线；启动后立即具备变化检测能力。
@@ -98,6 +98,8 @@ namespace SonicRoute
                 if (_backgroundStopped) return;
                 CurrentAppService.RecoverForegroundWatcher();
                 MicMonitor?.RequestRebuild();
+                AutoRuleStore.RecoverMonitoring();
+                RefreshRuleDirectoryProbePolicy();
             }), DispatcherPriority.Background);
         }
 
@@ -108,6 +110,15 @@ namespace SonicRoute
             if (_backgroundStopped) return;
             CurrentAppService.RefreshMonitoringPolicy();
             RefreshMicMonitoringState();
+            RefreshRuleDirectoryProbePolicy();
+        }
+
+        private void RefreshRuleDirectoryProbePolicy()
+        {
+            if (_backgroundStopped) return;
+            if (ConfigService.Load().BackgroundPollingFallbackEnabled || AutoRuleStore.NeedsExternalChangeProbe)
+                _ruleProbeTimer?.Start();
+            else _ruleProbeTimer?.Stop();
         }
 
         private async Task ProbeRuleDirectoryAsync()
@@ -116,7 +127,7 @@ namespace SonicRoute
             _ruleProbeRunning = true;
             try { await Task.Run(AutoRuleStore.CheckForExternalChanges); }
             catch { }
-            finally { _ruleProbeRunning = false; }
+            finally { _ruleProbeRunning = false; RefreshRuleDirectoryProbePolicy(); }
         }
 
         private void RulesChanged()
@@ -135,6 +146,7 @@ namespace SonicRoute
                         _ruleReloadTimer.Stop();
                         if (_backgroundStopped) return;
                         try { ReloadHotkeys(); } catch { }
+                        finally { RefreshRuleDirectoryProbePolicy(); }
                     };
                 }
                 _ruleReloadTimer.Stop(); _ruleReloadTimer.Start();

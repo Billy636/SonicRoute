@@ -461,5 +461,16 @@
   "Color.Saturation": "饱和度",
   "Color.Lightness": "亮度",
   "Auto.DefaultNamePrefix": "规则",
-  "Auto.DefaultNameHint": "留空自动命名为规则1、规则2…"
+  "Auto.DefaultNameHint": "留空自动命名为规则1、规则2…",
+  "Tray.VolumePresets": "音量预设",
+  "Tray.Loading": "正在读取…",
+  "Tray.AudioUnavailable": "无法读取音频状态",
+  "Tray.AudioActionFailed": "操作未完全生效，请重试",
+  "Tray.MuteAllMicrophones": "全部麦克风静音",
+  "Tray.MicrophonesMixed": "部分麦克风已静音",
+  "Tray.PauseWheel": "暂停托盘滚轮",
+  "Tray.PauseWheelHint": "暂停状态会保存，重启后继续生效；全局快捷键仍可使用。",
+  "Tray.SaveFailed": "无法保存，设置未更改",
+  "Tray.AppUnavailable": "目标应用已退出或音频会话不可用",
+  "Tray.SystemOutput": "系统默认输出：{0}"
 }

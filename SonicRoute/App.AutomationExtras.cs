@@ -15,6 +15,7 @@ namespace SonicRoute
 
         private MenuItem BuildFavoriteRulesMenu(ContextMenu owner)
         {
+            var lifetime = _trayMenuLifetime!;
             var favorites = ConvenienceMenus.Item(L10n.T("Auto.Favorites"));
             var empty = ConvenienceMenus.Item(L10n.T("Auto.FavoritesEmpty"));
             empty.IsEnabled = false;
@@ -25,7 +26,7 @@ namespace SonicRoute
                 try
                 {
                     var ids = new List<string>(ConfigService.Load().FavoriteRuleIds ?? new List<string>());
-                    var rules = await Task.Run(() => ids.Distinct(StringComparer.Ordinal).Select(AutoRuleStore.Find)
+                    var rules = await lifetime.ReadAsync(() => ids.Distinct(StringComparer.Ordinal).Select(AutoRuleStore.Find)
                         .Where(rule => rule != null).Select(rule => rule!).ToList());
                     if (request != _favoriteMenuRequest || !owner.IsOpen || _trayMenu != owner || Dispatcher.HasShutdownStarted) return;
                     var byId = rules.ToDictionary(rule => rule.Id, StringComparer.Ordinal);

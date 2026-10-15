@@ -16,6 +16,70 @@ namespace SonicRoute.Core
     {
         private static readonly Guid IID_IAudioEndpointVolume = new("5CDF2C82-841E-4546-9722-0CF74078229A");
 
+        public readonly struct MuteState
+        {
+            public MuteState(int count, int mutedCount, int unavailableCount)
+            { Count = count; MutedCount = mutedCount; UnavailableCount = unavailableCount; }
+            public int Count { get; }
+            public int MutedCount { get; }
+            public int UnavailableCount { get; }
+            public bool Known => Count > 0 && UnavailableCount == 0;
+            public bool AllMuted => Known && MutedCount == Count;
+        }
+
+        /// <summary>包含无设备/读取失败/部分静音的状态，不能将读取失败当作未静音。</summary>
+        public static MuteState ReadState()
+        {
+            List<IAudioEndpointVolume>? volumes = null;
+            try
+            {
+                volumes = GetEndpointVolumes(out int count);
+                return ReadState(volumes, count);
+            }
+            catch { return new MuteState(0, 0, 1); }
+            finally { ReleaseVolumes(volumes); }
+        }
+
+        /// <summary>本轮接口内写入全部麦克风并读回；任一失败或未到目标均不报告全部成功。</summary>
+        public static (MuteState State, bool Applied) SetMuteChecked(bool mute)
+        {
+            List<IAudioEndpointVolume>? volumes = null;
+            try
+            {
+                volumes = GetEndpointVolumes(out int count);
+                bool writesOk = count > 0 && volumes.Count == count;
+                var context = Guid.Empty;
+                foreach (var volume in volumes)
+                    try { if (volume.SetMute(mute ? 1 : 0, ref context) < 0) writesOk = false; }
+                    catch { writesOk = false; }
+                var state = ReadState(volumes, count);
+                bool matches = state.Known && state.MutedCount == (mute ? state.Count : 0);
+                return (state, writesOk && matches);
+            }
+            catch { return (new MuteState(0, 0, 1), false); }
+            finally { ReleaseVolumes(volumes); }
+        }
+
+        private static MuteState ReadState(List<IAudioEndpointVolume> volumes, int count)
+        {
+            int muted = 0, unavailable = count < 0 ? 1 : Math.Max(0, count - volumes.Count);
+            foreach (var volume in volumes)
+                try
+                {
+                    if (volume.GetMute(out int state) < 0) unavailable++;
+                    else if (state != 0) muted++;
+                }
+                catch { unavailable++; }
+            return new MuteState(Math.Max(count, 0), muted, unavailable);
+        }
+
+        private static void ReleaseVolumes(List<IAudioEndpointVolume>? volumes)
+        {
+            if (volumes == null) return;
+            foreach (var volume in volumes)
+                try { Marshal.ReleaseComObject(volume); } catch { }
+        }
+
         /// <summary>是否所有录音设备都已静音（没有任何录音设备时视为未静音）。</summary>
         public static bool IsMuted()
         {
@@ -115,17 +179,24 @@ namespace SonicRoute.Core
         }
 
         private static List<IAudioEndpointVolume> GetEndpointVolumes()
+            => GetEndpointVolumes(out _);
+
+        private static List<IAudioEndpointVolume> GetEndpointVolumes(out int count)
         {
             var enumerator = (IMMDeviceEnumerator)new MMDeviceEnumeratorComObject();
             try
             {
-                return GetEndpointVolumes(enumerator);
+                return GetEndpointVolumes(enumerator, out count);
             }
             finally { Marshal.ReleaseComObject(enumerator); }
         }
 
         private static List<IAudioEndpointVolume> GetEndpointVolumes(IMMDeviceEnumerator enumerator)
+            => GetEndpointVolumes(enumerator, out _);
+
+        private static List<IAudioEndpointVolume> GetEndpointVolumes(IMMDeviceEnumerator enumerator, out int total)
         {
+            total = -1;
             var list = new List<IAudioEndpointVolume>();
             try
             {
@@ -133,7 +204,8 @@ namespace SonicRoute.Core
                     return list;
                 try
                 {
-                    collection.GetCount(out uint count);
+                    if (collection.GetCount(out uint count) < 0) return list;
+                    total = (int)count;
                     for (uint i = 0; i < count; i++)
                     {
                         if (collection.Item(i, out var device) < 0 || device == null) continue;

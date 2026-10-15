@@ -35,10 +35,30 @@ namespace SonicRoute.Core
         private static readonly Dictionary<string, Entry> _files = new(StringComparer.OrdinalIgnoreCase);
         private static readonly Dictionary<string, string> _byId = new(StringComparer.Ordinal);
         private static FileSystemWatcher? _watcher;
+        private static FileSystemWatcher? _directoryWatcher;
+        private static bool _rulesDirectoryExists;
         private static long _revision;
         private static long _directoryWritten;
         private static int _notificationQueued;
         public static event Action? Changed;
+
+        /// <summary>通知未能覆盖规则目录时才需要轮询；读取本属性不访问磁盘。</summary>
+        public static bool NeedsExternalChangeProbe
+        {
+            get { lock (_lock) return _directoryWatcher == null || (_rulesDirectoryExists && _watcher == null); }
+        }
+
+        /// <summary>系统恢复后重新建立通知句柄，失败时由应用保留轮询兜底。</summary>
+        public static void RecoverMonitoring()
+        {
+            lock (_lock)
+            {
+                StopWatcher();
+                StopDirectoryWatcher();
+                _cache = null;
+                NotifyChanged();
+            }
+        }
 
         private static void NotifyChanged()
         {
@@ -56,6 +76,8 @@ namespace SonicRoute.Core
             lock (_lock)
             {
                 bool exists = Directory.Exists(RulesDir);
+                _rulesDirectoryExists = exists;
+                EnsureDirectoryWatcher();
                 long written = exists ? Directory.GetLastWriteTimeUtc(RulesDir).Ticks : 0;
                 if (written != _directoryWritten || (exists && _watcher == null))
                 {
@@ -67,7 +89,7 @@ namespace SonicRoute.Core
         }
 
         public static void Shutdown()
-        { lock (_lock) { StopWatcher(); Changed = null; } }
+        { lock (_lock) { StopWatcher(); StopDirectoryWatcher(); Changed = null; } }
 
         /// <summary>相同修订号不复制列表，供 UI 跳过未变化的规则数据。</summary>
         public static (long Revision, List<AutoRule>? Rules) ReadSnapshot(long knownRevision = -1)
@@ -81,8 +103,10 @@ namespace SonicRoute.Core
 
         private static void EnsureLoaded()
         {
+            EnsureDirectoryWatcher();
             if (_cache != null) return;
             bool exists = Directory.Exists(RulesDir);
+            _rulesDirectoryExists = exists;
             long directoryWritten = exists ? Directory.GetLastWriteTimeUtc(RulesDir).Ticks : 0;
             // 目录删掉再创建会使旧监听句柄失效；目录元数据同时提供事件丢失的兜底。
             if (_watcher != null && directoryWritten != _directoryWritten)
@@ -138,6 +162,56 @@ namespace SonicRoute.Core
         {
             var watcher = _watcher;
             _watcher = null;
+            watcher?.Dispose();
+        }
+
+        private static void EnsureDirectoryWatcher()
+        {
+            if (_directoryWatcher != null) return;
+            try
+            {
+                // Only watch our data directory. A missing root uses recovery polling without creating it.
+                if (!Directory.Exists(AppDataRoot.DirectoryPath)) return;
+                var watcher = new FileSystemWatcher(AppDataRoot.DirectoryPath)
+                { NotifyFilter = NotifyFilters.DirectoryName };
+                watcher.Created += RulesDirectoryChanged;
+                watcher.Deleted += RulesDirectoryChanged;
+                watcher.Renamed += RulesDirectoryChanged;
+                watcher.Error += (_, _) =>
+                {
+                    lock (_lock)
+                    {
+                        if (!ReferenceEquals(_directoryWatcher, watcher)) return;
+                        StopDirectoryWatcher();
+                        _cache = null;
+                        NotifyChanged();
+                    }
+                };
+                _directoryWatcher = watcher;
+                try { watcher.EnableRaisingEvents = true; }
+                catch { StopDirectoryWatcher(); }
+            }
+            catch { /* Application keeps the existing recovery probe when notifications are unavailable. */ }
+        }
+
+        private static void RulesDirectoryChanged(object sender, FileSystemEventArgs args)
+        {
+            bool matches = string.Equals(args.FullPath, RulesDir, StringComparison.OrdinalIgnoreCase)
+                || args is RenamedEventArgs renamed && string.Equals(renamed.OldFullPath, RulesDir, StringComparison.OrdinalIgnoreCase);
+            if (!matches) return;
+            lock (_lock)
+            {
+                if (!ReferenceEquals(sender, _directoryWatcher)) return;
+                StopWatcher();
+                _cache = null;
+                NotifyChanged();
+            }
+        }
+
+        private static void StopDirectoryWatcher()
+        {
+            var watcher = _directoryWatcher;
+            _directoryWatcher = null;
             watcher?.Dispose();
         }
 

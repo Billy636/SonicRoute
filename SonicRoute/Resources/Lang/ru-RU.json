@@ -461,5 +461,16 @@
   "Color.Saturation": "Насыщенность",
   "Color.Lightness": "Светлота",
   "Auto.DefaultNamePrefix": "Правило",
-  "Auto.DefaultNameHint": "Оставьте пустым: Правило1, Правило2…"
+  "Auto.DefaultNameHint": "Оставьте пустым: Правило1, Правило2…",
+  "Tray.VolumePresets": "Предустановки громкости",
+  "Tray.Loading": "Загрузка…",
+  "Tray.AudioUnavailable": "Состояние аудио недоступно",
+  "Tray.AudioActionFailed": "Действие выполнено не полностью. Повторите попытку.",
+  "Tray.MuteAllMicrophones": "Отключить звук всех микрофонов",
+  "Tray.MicrophonesMixed": "Некоторые микрофоны отключены",
+  "Tray.PauseWheel": "Приостановить прокрутку в области уведомлений",
+  "Tray.PauseWheelHint": "Состояние паузы сохраняется и действует после перезапуска. Глобальные горячие клавиши продолжают работать.",
+  "Tray.SaveFailed": "Не удалось сохранить; настройки не изменены.",
+  "Tray.AppUnavailable": "Целевое приложение закрыто или его аудиосеанс недоступен.",
+  "Tray.SystemOutput": "Системный вывод по умолчанию: {0}"
 }

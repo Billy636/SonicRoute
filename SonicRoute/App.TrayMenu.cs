@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
 using ContextMenu = System.Windows.Controls.ContextMenu;
+using MenuItem = System.Windows.Controls.MenuItem;
+using SonicRoute.Core;
 
 namespace SonicRoute
 {
@@ -12,24 +14,18 @@ namespace SonicRoute
     {
         private ContextMenu? _trayMenu;
         private HwndSource? _trayMenuHost;
+        private WindowUiLifetime? _trayMenuLifetime;
 
         private void ShowTrayMenu()
         {
             if (_trayIcon == null || Dispatcher.HasShutdownStarted) return;
+            int foregroundPid = ForegroundAppService.GetForegroundProcessId();
             CloseTrayMenu();
             CancelUiReclaim();
             _uiWorkingSetDirty = true;
             try
             {
-                var menu = ConvenienceMenus.Create();
-                _trayMenu = menu;
-                AddTrayAction(menu, L10n.T("St.Settings"), ShowMainWindow);
-                AddTrayAction(menu, L10n.T("Tray.OpenPanel"), ToggleQuickPanel);
-                menu.Items.Add(BuildFavoriteRulesMenu(menu));
-                var separator = new Separator();
-                separator.SetResourceReference(Separator.StyleProperty, "ConvenienceMenuSeparator");
-                menu.Items.Add(separator);
-                AddTrayAction(menu, L10n.T("Tray.Exit"), Quit);
+                var menu = CreateTrayMenu(foregroundPid);
 
                 // 托盘菜单需要前台宿主才能正常失焦关闭。仅在菜单打开时创建原生零尺寸窗口，
                 // 不创建隐藏 WPF Window，不保留常驻视觉树或轮询。
@@ -48,7 +44,7 @@ namespace SonicRoute
                 {
                     // 原生宿主没有 WPF Window；明确保留 Esc 的逐级关闭行为。
                     if (args.Key != System.Windows.Input.Key.Escape) return;
-                    var submenu = menu.Items.OfType<System.Windows.Controls.MenuItem>().FirstOrDefault(item => item.IsSubmenuOpen);
+                    var submenu = DeepestOpenSubmenu(menu);
                     if (submenu != null) submenu.IsSubmenuOpen = false;
                     else menu.IsOpen = false;
                     args.Handled = true;
@@ -60,6 +56,40 @@ namespace SonicRoute
                 menu.IsOpen = true;
             }
             catch { CloseTrayMenu(); }
+        }
+
+        private ContextMenu CreateTrayMenu(int foregroundPid)
+        {
+            if (_trayMenu != null || _trayMenuLifetime != null) CloseTrayMenu();
+            var menu = ConvenienceMenus.Create();
+            _trayMenuLifetime = new WindowUiLifetime();
+            _trayMenu = menu;
+            AddTrayAction(menu, L10n.T("Tray.OpenPanel"), () =>
+            {
+                if (_quickPanel is System.Windows.Window { IsVisible: true } panel) panel.Activate();
+                else ToggleQuickPanel();
+            });
+            AddTrayAction(menu, L10n.T("Tray.OpenMain"), ShowMainWindow);
+            AddTraySeparator(menu.Items);
+            AddTrayAudioItems(menu, foregroundPid);
+            menu.Items.Add(BuildFavoriteRulesMenu(menu));
+            AddTraySeparator(menu.Items);
+            AddTrayWheelPause(menu);
+            AddTrayAction(menu, L10n.T("Tray.Exit"), Quit);
+            return menu;
+        }
+
+        private static MenuItem? DeepestOpenSubmenu(ItemsControl parent)
+        {
+            var open = parent.Items.OfType<MenuItem>().FirstOrDefault(item => item.IsSubmenuOpen);
+            return open == null ? null : DeepestOpenSubmenu(open) ?? open;
+        }
+
+        private static void AddTraySeparator(ItemCollection items)
+        {
+            var separator = new Separator();
+            separator.SetResourceReference(Separator.StyleProperty, "ConvenienceMenuSeparator");
+            items.Add(separator);
         }
 
         private static void AddTrayAction(ContextMenu menu, string text, Action action)
@@ -89,7 +119,11 @@ namespace SonicRoute
             var host = _trayMenuHost;
             _trayMenu = null;
             _trayMenuHost = null;
+            var lifetime = _trayMenuLifetime;
+            _trayMenuLifetime = null;
             ++_favoriteMenuRequest; // 丢弃已关闭菜单的异步规则读取结果。
+            ++_trayAudioRequest;
+            lifetime?.Dispose();
             if (menu != null) menu.IsOpen = false;
             if (host != null)
             {
