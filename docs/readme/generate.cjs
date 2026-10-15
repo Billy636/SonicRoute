@@ -56,7 +56,7 @@ function render(language, text) {
   const navigation = shared.languages.map(item => item.locale === language.locale ? `**${item.name}**` : link(item.name, item.file)).join(' | ');
   const sponsorBadge = language.locale === 'zh-CN' ? '赞助-爱发电' : 'Support-Afdian';
   const sponsor = `[![${text.support}](https://img.shields.io/badge/${sponsorBadge}-946CE6?logo=afdian&logoColor=white)](${shared.author.afdian})`;
-  const automationImage = `<a href="${wiki(pages.automationGuide)}" title="${attr(text.automationGuide)}"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="${attr(text.automationAlt)}"></a>`;
+  const automationImage = `<a href="${wiki(pages.automationGuide)}" title="${attr(text.automationGuide)}"><img src="docs/images/${attr(language.automationMascot)}" width="48" align="middle" alt="${attr(text.automationAlt)}"></a>`;
   const docGroups = [ ['guide', 'featuresGuide'], ['hotkeysGuide'], ['automationGuide', 'commandGuide'], ['faq'], ['technical', 'releaseInfo', 'history'] ];
   const documentLink = key => link(text[key], wiki(key === 'releaseInfo' ? pages.roadmap : pages[key]));
   return [
@@ -102,6 +102,7 @@ function render(language, text) {
 // Validate and render every locale before writing any output.
 const outputs = shared.languages.map(language => {
   if (!/^README(?:\.[a-zA-Z-]+)?\.md$/.test(language.file) || !/^[a-z]{2}-[A-Z]{2}$/.test(language.locale)) throw new Error('Invalid README filename or locale');
+  if (!/^mascot-automation(?:-[a-z]{2})?\.png$/.test(language.automationMascot)) throw new Error('Invalid automation mascot filename for ' + language.locale);
   const text = JSON.parse(fs.readFileSync(path.join(__dirname, 'locales', language.locale + '.json'), 'utf8'));
   validate(language.locale, text);
   return { file: language.file, body: render(language, text) };

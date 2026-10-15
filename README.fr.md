@@ -35,7 +35,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 ## 🎮 Pour le quotidien
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Configurez un jeu pour qu’il utilise votre casque à son lancement, ou regroupez plusieurs actions dans une règle. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Configurez un jeu pour qu’il utilise votre casque à son lancement, ou regroupez plusieurs actions dans une règle. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | Votre situation | Ce que vous pouvez faire |
 |---|---|

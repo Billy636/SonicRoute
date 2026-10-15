@@ -35,7 +35,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 ## 🎮 Für den Alltag
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Stelle ein Spiel beim Start auf dein Headset um oder speichere mehrere Aktionen als eine Regel. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation-de.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Stelle ein Spiel beim Start auf dein Headset um oder speichere mehrere Aktionen als eine Regel. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | Deine Situation | Das kannst du tun |
 |---|---|

@@ -35,7 +35,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 
 ## 🎮 Everyday uses
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automation"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="Click the little robot to learn about automation rules"></a> Set a game to use your headset when it starts, or save several actions as one rule. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automation"><img src="docs/images/mascot-automation-gb.png" width="48" align="middle" alt="Click the little robot to learn about automation rules"></a> Set a game to use your headset when it starts, or save several actions as one rule. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | Your situation | What you can do |
 |---|---|

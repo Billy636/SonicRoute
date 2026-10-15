@@ -15,47 +15,56 @@
     {
       "locale": "zh-CN",
       "name": "简体中文",
-      "file": "README.md"
+      "file": "README.md",
+      "automationMascot": "mascot-automation.png"
     },
     {
       "locale": "en-US",
       "name": "English",
-      "file": "README.en.md"
+      "file": "README.en.md",
+      "automationMascot": "mascot-automation-gb.png"
     },
     {
       "locale": "zh-TW",
       "name": "繁體中文",
-      "file": "README.zh-TW.md"
+      "file": "README.zh-TW.md",
+      "automationMascot": "mascot-automation.png"
     },
     {
       "locale": "ja-JP",
       "name": "日本語",
-      "file": "README.ja.md"
+      "file": "README.ja.md",
+      "automationMascot": "mascot-automation-jp.png"
     },
     {
       "locale": "ko-KR",
       "name": "한국어",
-      "file": "README.ko.md"
+      "file": "README.ko.md",
+      "automationMascot": "mascot-automation-kr.png"
     },
     {
       "locale": "de-DE",
       "name": "Deutsch",
-      "file": "README.de.md"
+      "file": "README.de.md",
+      "automationMascot": "mascot-automation-de.png"
     },
     {
       "locale": "fr-FR",
       "name": "Français",
-      "file": "README.fr.md"
+      "file": "README.fr.md",
+      "automationMascot": "mascot-automation-fr.png"
     },
     {
       "locale": "es-ES",
       "name": "Español",
-      "file": "README.es.md"
+      "file": "README.es.md",
+      "automationMascot": "mascot-automation-es.png"
     },
     {
       "locale": "ru-RU",
       "name": "Русский",
-      "file": "README.ru.md"
+      "file": "README.ru.md",
+      "automationMascot": "mascot-automation-ru.png"
     }
   ],
   "nextRelease": "v1.23",

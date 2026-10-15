@@ -35,7 +35,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (экспериментально) 
 
 ## 🎮 На каждый день
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Автоматизация"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="Нажмите на маленького робота, чтобы узнать о правилах автоматизации"></a> Настройте игру так, чтобы при запуске она переключалась на наушники, или сохраните несколько действий в одном правиле. [Настроить автоматизацию](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Автоматизация"><img src="docs/images/mascot-automation-ru.png" width="48" align="middle" alt="Нажмите на маленького робота, чтобы узнать о правилах автоматизации"></a> Настройте игру так, чтобы при запуске она переключалась на наушники, или сохраните несколько действий в одном правиле. [Настроить автоматизацию](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | Ваша ситуация | Что можно сделать |
 |---|---|

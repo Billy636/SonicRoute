@@ -35,7 +35,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (실험적) · 인터페이스 9개
 
 ## 🎮 일상적인 활용
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="자동화"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="작은 로봇을 클릭해 자동화 규칙 알아보기"></a> 게임을 시작할 때 헤드셋으로 자동 전환하거나, 여러 작업을 하나의 규칙으로 저장할 수 있습니다. [자동화 설정](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="자동화"><img src="docs/images/mascot-automation-kr.png" width="48" align="middle" alt="작은 로봇을 클릭해 자동화 규칙 알아보기"></a> 게임을 시작할 때 헤드셋으로 자동 전환하거나, 여러 작업을 하나의 규칙으로 저장할 수 있습니다. [자동화 설정](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
 
 | 사용 상황 | 할 수 있는 작업 |
 |---|---|
