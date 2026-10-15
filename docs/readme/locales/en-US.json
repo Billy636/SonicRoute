@@ -50,8 +50,8 @@
   "easterEgg": "Click the resting mascot to discover an Easter egg",
   "useCasesTitle": "Everyday uses",
   "configureAutomation": "Set up automation",
-  "automationExample": "When a game starts, automatically switch to your headset and open your voice chat app.",
-  "useCaseExample": "Is the music too loud while you game? Turn down the music app without changing the game's volume.",
+  "automationExample": "Save a “Game” rule: switch to the headset → set the volume → open the voice chat app. It runs automatically when the game starts.",
+  "useCaseExample": "Teammates too loud? Turn down the voice chat app in the Quick panel while leaving game and music volumes as they are.",
   "currentRelease": "Current release",
   "releaseSummary": "Version {version} adds direct default-output selection from the tray, controls for the pinned current app’s volume, mute and routing, mute-all-microphones control, and a tray-wheel pause setting saved across restarts. The default hotkey for system-default volume is Ctrl+Alt+Shift+Wheel, distinct from the default Ctrl+Alt+Wheel hotkey for the current app. Settings toggles have been rearranged and pages now load on demand. The Store page shows the version currently available there. See {history} for earlier changes.",
   "docTopic": "Topic",
@@ -81,9 +81,9 @@
   "downloadColumn": "Download",
   "license": "MIT licensed",
   "features": [
-    "**Control the app you're using.** Adjust the current audio app's volume, mute it, or change devices without finding it in a list.",
-    "**Assign devices per app.** Use speakers for music, headphones for games, and choose microphones separately.",
-    "**Open Settings less often.** Handle common tasks with hotkeys, the tray wheel, and the Quick panel without repeatedly opening Windows Settings.",
-    "**Repeat fewer steps.** Combine device switching, volume changes, and program launches in automation rules."
+    "**The same hotkeys for the app you're using:** With the panel closed, adjust the current audio app’s volume, mute it, or change its device without opening the mixer to find it.",
+    "**Separate devices for music, games, and calls:** Play music on speakers and games on a headset, and choose a different microphone for each app. Windows saves these settings.",
+    "**Everyday controls close at hand:** Scroll over the system tray to adjust the current app’s volume, manage apps in the Quick panel, or right-click the tray icon to choose a device or mute all microphones.",
+    "**One rule for the whole setup:** Switch to a headset, set the volume, and open your voice chat app in order. Add a delay and trigger it with a hotkey or when a game starts."
   ]
 }

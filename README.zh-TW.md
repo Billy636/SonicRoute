@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（實驗性） · 支援九種介�
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="功能"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="點擊看板娘瀏覽 SonicRoute 功能"></a>
 
-- **少找應用程式。** 直接調整目前音訊應用程式的音量、靜音與裝置。
-- **依應用程式分配裝置。** 音樂使用喇叭、遊戲使用耳機，麥克風也能分別選擇。
-- **少開啟設定。** 透過快速鍵、系統匣滾輪與快捷面板完成常用操作，不必反覆進入 Windows 設定。
-- **少做重複操作。** 將切換裝置、調整音量、啟動程式等步驟組合成自動化規則。
+- **一組按鍵，跟著目前使用的應用程式操作：** 面板關閉時，不必開啟混音器尋找，就能調整目前音訊應用程式的音量、靜音或切換裝置。
+- **音樂、遊戲、通話各用不同裝置：** 音樂從喇叭播放、遊戲使用耳機，也能為各應用程式選擇不同麥克風。設定由 Windows 儲存。
+- **常用控制就在手邊：** 在系統匣區域滾動滑鼠滾輪，調整目前應用程式的音量；在快速面板管理應用程式，也可按右鍵選擇裝置或靜音所有麥克風。
+- **一條規則，依序完成整套準備：** 切換至耳機、調整音量、開啟語音聊天軟體。可加入延遲，並用快速鍵或在遊戲啟動時觸發。
 
 ## 🎮 日常使用情境
 
-玩遊戲時音樂太大聲？調低音樂應用程式的音量，遊戲音量維持不變。
+隊友聲音太大？在快速面板單獨調低語音聊天軟體的音量，遊戲和音樂維持原音量。
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自動化"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="點擊小機器人了解自動化規則"></a> 遊戲啟動時，自動切換至耳機並開啟語音軟體。 [設定自動化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="自動化"><img src="docs/images/mascot-automation.png" width="48" align="middle" alt="點擊小機器人了解自動化規則"></a> 儲存一條「遊戲」規則：切換至耳機 → 設定音量 → 開啟語音聊天軟體。遊戲啟動後便會自動執行。 [設定自動化](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 下載與快速入門
 

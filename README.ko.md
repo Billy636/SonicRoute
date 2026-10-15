@@ -26,16 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (실험적) · 인터페이스 9개
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="기능"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="마스코트를 클릭해 SonicRoute 기능 살펴보기"></a>
 
-- **앱을 찾는 시간을 줄입니다.** 현재 오디오 앱의 볼륨과 음소거를 조절하고 장치를 바꿀 수 있습니다.
-- **앱별로 장치를 지정합니다.** 음악은 스피커로, 게임은 헤드폰으로 보내고 마이크도 각각 선택할 수 있습니다.
-- **설정을 여는 횟수를 줄입니다.** 단축키, 알림 영역 휠, 빠른 패널로 자주 쓰는 작업을 처리해 Windows 설정을 반복해서 열지 않아도 됩니다.
-- **반복 작업을 줄입니다.** 장치 전환, 볼륨 조절, 프로그램 실행을 자동화 규칙으로 묶을 수 있습니다.
+- **같은 단축키로 현재 앱 조작:** 패널이 닫혀 있을 때 믹서를 열어 앱을 찾지 않아도 현재 오디오 앱의 볼륨, 음소거, 장치를 바꿀 수 있습니다.
+- **음악·게임·통화마다 다른 장치 사용:** 음악은 스피커로, 게임은 헤드셋으로 듣고 앱마다 마이크도 다르게 선택할 수 있습니다. 설정은 Windows에 저장됩니다.
+- **자주 쓰는 조작을 손쉽게:** 시스템 트레이 영역에서 휠을 굴려 현재 앱의 볼륨을 조절하고 빠른 패널에서 앱을 관리하세요. 트레이 아이콘을 우클릭하면 장치를 선택하거나 모든 마이크를 음소거할 수 있습니다.
+- **규칙 하나로 준비 과정을 실행:** 헤드셋 전환, 볼륨 조절, 음성 채팅 앱 열기를 순서대로 실행합니다. 지연 시간을 추가하고 단축키나 게임 시작 시 실행하도록 설정할 수 있습니다.
 
 ## 🎮 일상적인 활용
 
-게임 중 음악이 너무 큰가요? 게임 볼륨은 그대로 두고 음악 앱의 볼륨만 낮추세요.
+팀원 목소리가 너무 큰가요? 빠른 패널에서 음성 채팅 앱만 낮추면 게임과 음악 볼륨은 그대로 유지됩니다.
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="자동화"><img src="docs/images/mascot-automation-kr.png" width="48" align="middle" alt="작은 로봇을 클릭해 자동화 규칙 알아보기"></a> 게임이 시작되면 헤드셋으로 자동 전환하고 음성 채팅 앱을 엽니다. [자동화 설정](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="자동화"><img src="docs/images/mascot-automation-kr.png" width="48" align="middle" alt="작은 로봇을 클릭해 자동화 규칙 알아보기"></a> “게임” 규칙 저장: 헤드셋으로 전환 → 볼륨 설정 → 음성 채팅 앱 열기. 게임을 시작하면 자동으로 실행됩니다. [자동화 설정](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 다운로드 및 시작하기
 

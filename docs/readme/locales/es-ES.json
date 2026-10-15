@@ -50,8 +50,8 @@
   "easterEgg": "Descubre un huevo de Pascua",
   "useCasesTitle": "Para el día a día",
   "configureAutomation": "Configurar automatización",
-  "automationExample": "Al iniciar un juego, cambia automáticamente a los auriculares y abre la aplicación de chat de voz.",
-  "useCaseExample": "¿La música suena demasiado alta mientras juegas? Baja el volumen de la aplicación de música sin cambiar el del juego.",
+  "automationExample": "Guarda una regla «Juego»: cambiar a los auriculares → ajustar el volumen → abrir la aplicación de chat de voz. Se ejecutará automáticamente al iniciar el juego.",
+  "useCaseExample": "¿Se oye demasiado alto a tus compañeros? Baja solo el volumen de la aplicación de chat de voz en el panel rápido y deja igual el del juego y la música.",
   "currentRelease": "Versión actual",
   "releaseSummary": "La versión {version} permite elegir la salida predeterminada desde el área de notificación, controlar el volumen, el silencio y el enrutamiento de la aplicación actual fijada, silenciar todos los micrófonos y pausar la rueda con una opción que se conserva tras reiniciar. El atajo predeterminado para el volumen predeterminado del sistema es Ctrl+Alt+Mayús+rueda, distinto del atajo predeterminado Ctrl+Alt+rueda para la aplicación actual. Se ha reorganizado la disposición de los ajustes y las páginas se cargan bajo demanda. Consulta el {history} para ver cambios anteriores.",
   "docTopic": "Tema",
@@ -81,9 +81,9 @@
   "downloadColumn": "Descargar",
   "license": "Licencia MIT",
   "features": [
-    "**Controla la aplicación que usas.** Ajusta el volumen de la aplicación de audio actual, silénciala o cambia de dispositivo sin buscarla en la lista.",
-    "**Asigna dispositivos por aplicación.** Usa los altavoces para la música y los auriculares para los juegos; elige los micrófonos por separado.",
-    "**Abre menos veces Configuración.** Realiza tareas habituales con atajos, la rueda del área de notificación y el panel rápido, sin entrar repetidamente en Configuración de Windows.",
-    "**Repite menos pasos.** Combina cambios de dispositivo, ajustes de volumen e inicio de programas en reglas de automatización."
+    "**Los mismos atajos para la aplicación en uso:** Con el panel cerrado, ajusta el volumen de la aplicación de audio actual, silénciala o cambia el dispositivo sin abrir el mezclador para buscarla.",
+    "**Dispositivos distintos para música, juegos y llamadas:** Escucha música por los altavoces y juega con auriculares; también puedes elegir un micrófono distinto para cada aplicación. Windows guarda estos ajustes.",
+    "**Los controles habituales, a mano:** Desplázate con la rueda sobre el área de notificación para ajustar el volumen de la aplicación actual; gestiona las aplicaciones en el panel rápido o haz clic derecho en el icono para elegir dispositivo o silenciar todos los micrófonos.",
+    "**Una regla para preparar todo:** Cambia a los auriculares, ajusta el volumen y abre la aplicación de chat de voz en ese orden. Añade una espera y actívala con un atajo o al iniciar un juego."
   ]
 }
