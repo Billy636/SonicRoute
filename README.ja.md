@@ -17,7 +17,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64（実験的） · 9 種類の UI �
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="ユーザーガイド（簡体字中国語）"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="マスコットをクリックしてユーザーガイドを開く"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute クイックパネル：上部の出力デバイスとアプリごとの音量操作"></a>
-<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="SonicRoute v1.23 自動化ルールエディター：アプリのトリガーと音声操作の選択"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="395" align="top" alt="SonicRoute v1.23 自動化ルールエディター：アプリのトリガーと音声操作の選択"></a>
 </div>
 
 <sub>画面例：クイックパネルでアプリごとの音量とデバイスを操作し、自動化エディターでトリガーと操作手順を組み合わせられます。</sub>

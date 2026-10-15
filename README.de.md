@@ -17,7 +17,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="Benutzerhandbuch (Chinesisch)"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="Klicke auf das Maskottchen, um das Benutzerhandbuch zu öffnen"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="SonicRoute-Schnellpanel mit Ausgabegerät und Lautstärkereglern pro App"></a>
-<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="SonicRoute v1.23: Automatisierungseditor mit App-Auslöser und Auswahl der Audioaktionen"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="395" align="top" alt="SonicRoute v1.23: Automatisierungseditor mit App-Auslöser und Auswahl der Audioaktionen"></a>
 </div>
 
 <sub>Oberflächenbeispiele: Schnellpanel für App-Lautstärke und Geräte; Automatisierungseditor zum Kombinieren von Auslösern und Aktionsschritten.</sub>

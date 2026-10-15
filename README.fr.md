@@ -17,7 +17,7 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97" title="Guide d’utilisation (en chinois)"><img src="docs/images/mascot-panel-peek.png" width="104" align="middle" alt="Cliquez sur la mascotte pour ouvrir le guide d’utilisation"></a>
 <br>
 <a href="docs/images/quick-panel.png"><img src="docs/images/quick-panel.png" width="275" align="top" alt="Panneau rapide SonicRoute : périphérique de sortie et commandes de volume par application"></a>
-<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="500" align="top" alt="Éditeur de règles d’automatisation de SonicRoute v1.23 : déclencheur lié à une application et choix des actions audio"></a>
+<a href="docs/images/automation-editor.png"><img src="docs/images/automation-editor.png" width="395" align="top" alt="Éditeur de règles d’automatisation de SonicRoute v1.23 : déclencheur lié à une application et choix des actions audio"></a>
 </div>
 
 <sub>Exemples d’interface : panneau rapide pour le volume et les périphériques de chaque application ; éditeur d’automatisation pour combiner déclencheurs et actions.</sub>
