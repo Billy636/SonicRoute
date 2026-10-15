@@ -84,5 +84,9 @@
     "**Vordergrund-App automatisch erkennen.** Standardmäßig folgt die Steuerung der gerade verwendeten Audio-App. Bei geschlossenem Panel regelst du mit denselben Tastenkürzeln ihre Lautstärke, Stummschaltung und Geräte. Auch das Mausrad im Infobereich regelt ihre Lautstärke, ohne die App erst suchen zu müssen.",
     "**Schnellpanel.** Ein Klick auf das Symbol im Infobereich zeigt die App-Lautstärken an einem Ort. Klicke auf ein App-Symbol zum Stummschalten oder klappe den Gerätebereich auf, um Kopfhörer oder Lautsprecher zu wählen. Musikplayer, Spiele und Sprachchat-Apps lassen sich getrennt steuern.",
     "**Automatisierungsregeln.** Ordne unter „Automatisierung“ Gerätewechsel, Lautstärkeanpassungen und Programmstarts in der gewünschten Reihenfolge an, bei Bedarf mit Verzögerungen. Speichere und aktiviere die Regel: Tastenkürzel, App-Start, Wechsel zur App oder Zeitplan übernehmen dann die wiederkehrenden Schritte."
-  ]
+  ],
+  "comicTitle": "XiaoYue Comics",
+  "comicDescription": "Eine absurde Comedy über ein magisches Mädchen, das aus einem Ei schlüpft und mit jedem Hilfsversuch neues Chaos anrichtet.",
+  "comicRead": "Comic lesen (Chinesisch)",
+  "comicAlt": "Klicke auf XiaoYue mit Comicbuch in der Eierschale, um die Reihe zu lesen"
 }

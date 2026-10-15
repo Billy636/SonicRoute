@@ -83,6 +83,12 @@ Das Wiki ist derzeit auf vereinfachtem Chinesisch.
 - **[SilentPlayer](https://github.com/kunkunkunQoQ/SilentPlayer)**: Ein Audioplayer für Windows. Kombiniere ihn mit der Programmstart-Aktion der Automatisierung, um Soundeffekte per Tastenkürzel abzuspielen. [Einrichtungsanleitung (Chinesisch)](https://github.com/kunkunkunQoQ/SonicRoute/wiki/01-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97#52-%E7%BB%84%E5%90%88%E5%9C%BA%E6%99%AFsilentplayer-%E9%9F%B3%E6%95%88%E6%9D%BF%E7%B1%BB%E4%BC%BC-soundpad)
 - **[WinAudioRoute](https://github.com/kunkunkunQoQ/WinAudioRoute)**: Eine .NET-Bibliothek für Windows-Audiogeräte, Sitzungen, App-Audiozuweisung, Ereignisse und CLI-Zugriff.
 
+<a href="https://github.com/kunkunkunQoQ/XiaoYue-Comics" title="XiaoYue Comics"><img src="docs/images/mascot-comics.png" width="84" align="right" alt="Klicke auf XiaoYue mit Comicbuch in der Eierschale, um die Reihe zu lesen"></a>
+
+**[XiaoYue Comics](https://github.com/kunkunkunQoQ/XiaoYue-Comics)**
+
+Eine absurde Comedy über ein magisches Mädchen, das aus einem Ei schlüpft und mit jedem Hilfsversuch neues Chaos anrichtet. [Comic lesen (Chinesisch)](https://github.com/kunkunkunQoQ/XiaoYue-Comics)
+
 ---
 
 <a href="EASTER_EGGS.md" title="Ein Easter Egg: gestern und morgen"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="Entdecke ein Easter Egg"></a>
