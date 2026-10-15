@@ -81,9 +81,8 @@
   "downloadColumn": "Télécharger",
   "license": "Licence MIT",
   "features": [
-    "**Réglez le volume de chaque application.** Cliquez sur l’icône SonicRoute en bas à droite pour ouvrir le panneau rapide. Faites glisser le curseur d’une application pour régler son volume ou cliquez sur son icône pour couper le son.",
-    "**La musique sur les haut-parleurs, le jeu au casque.** Dépliez la section des appareils d’une application dans le panneau rapide pour choisir sa sortie. Après avoir activé l’option microphone, choisissez aussi son micro dans la page « Applications » de la fenêtre principale.",
-    "**Contrôlez l’application actuelle avec des raccourcis.** Par défaut, lorsque le panneau est fermé, maintenez `Ctrl+Alt` et tournez la molette pour régler le volume ; `Ctrl+Shift+M` coupe le son. Modifiez ces touches dans « Raccourcis ».",
-    "**Exécutez plusieurs étapes automatiquement.** Double-cliquez sur l’icône de la zone de notification et créez une règle dans « Automatisation ». Choisissez quand l’exécuter, ajoutez les changements d’appareil, réglages de volume ou lancements de programmes, puis enregistrez-la et activez-la."
+    "**Détection automatique de l’application au premier plan.** Par défaut, les commandes suivent l’application audio utilisée. Lorsque le panneau est fermé, les mêmes raccourcis règlent son volume, coupent le son ou changent d’appareil. La molette dans la zone de notification règle aussi son volume, sans avoir à chercher l’application.",
+    "**Panneau rapide.** Un clic sur l’icône de notification permet de régler les volumes des applications au même endroit. Cliquez sur l’icône d’une application pour couper le son ou dépliez ses appareils pour choisir un casque ou des haut-parleurs. Lecteur de musique, jeu et application de chat vocal se règlent séparément.",
+    "**Règles d’automatisation.** Dans « Automatisation », ordonnez les changements d’appareil, réglages de volume et lancements de programmes, avec des délais si nécessaire. Enregistrez et activez la règle pour l’exécuter par raccourci, au lancement ou à l’activation d’une application, ou à l’heure prévue, sans refaire les mêmes étapes."
   ]
 }

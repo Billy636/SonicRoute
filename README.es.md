@@ -26,10 +26,9 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funciones"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Haz clic en la mascota para descubrir las funciones de SonicRoute"></a>
 
-- **Ajusta el volumen de cada aplicación.** Haz clic en el icono de SonicRoute de la esquina inferior derecha para abrir el panel rápido. Arrastra el control de una aplicación para ajustar su volumen o haz clic en su icono para silenciarla.
-- **Música por los altavoces y juegos por los auriculares.** Despliega la sección de dispositivos de una aplicación en el panel rápido y elige su salida. Tras activar la opción de micrófono, también puedes elegirlo en «Aplicaciones» de la ventana principal.
-- **Controla la aplicación actual con atajos.** Con el panel cerrado, los atajos predeterminados son `Ctrl+Alt` + rueda para ajustar el volumen y `Ctrl+Shift+M` para silenciar. Puedes cambiarlos en «Atajos».
-- **Ejecuta varios pasos automáticamente.** Haz doble clic en el icono del área de notificación y crea una regla en «Automatización». Elige cuándo ejecutarla, añade cambios de dispositivo, ajustes de volumen o apertura de programas, guarda y activa la regla.
+- **Detección automática de la aplicación en primer plano.** Por defecto, los controles siguen a la aplicación de audio que usas. Con el panel cerrado, los mismos atajos ajustan su volumen, la silencian o cambian de dispositivo. La rueda sobre el área de notificación también ajusta su volumen, sin buscar antes la aplicación.
+- **Panel rápido.** Haz clic en el icono del área de notificación para gestionar los volúmenes de las aplicaciones en un solo lugar. Pulsa el icono de una aplicación para silenciarla o despliega sus dispositivos para elegir auriculares o altavoces. Controla reproductores de música, juegos y aplicaciones de chat de voz por separado.
+- **Reglas de automatización.** En «Automatización», ordena cambios de dispositivo, ajustes de volumen y apertura de programas, con esperas si las necesitas. Guarda y activa la regla para ejecutarla con un atajo, al abrir una aplicación o cambiar a ella, o según un horario, sin repetir los pasos a mano.
 
 ## 🎮 Para el día a día
 

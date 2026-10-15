@@ -26,10 +26,9 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
 
-- **Lautstärke für jede App einzeln regeln.** Klicke auf das SonicRoute-Symbol unten rechts, um das Schnellpanel zu öffnen. Ziehe den Regler einer App für die Lautstärke oder klicke auf ihr Symbol, um sie stummzuschalten.
-- **Musik auf Lautsprechern, Spiele auf Kopfhörern.** Klappe im Schnellpanel den Gerätebereich einer App auf und wähle Lautsprecher oder Kopfhörer. Nach Aktivierung der Mikrofonoption kannst du im Hauptfenster unter „Apps“ auch das Mikrofon wählen.
-- **Die aktuelle App per Tastenkürzel steuern.** Bei geschlossenem Panel regelst du standardmäßig mit `Ctrl+Alt` und dem Mausrad die Lautstärke; `Ctrl+Shift+M` schaltet stumm. Unter „Tastenkürzel“ kannst du die Belegung ändern.
-- **Mehrere Schritte automatisch ausführen.** Doppelklicke auf das Symbol im Infobereich und erstelle unter „Automatisierung“ eine Regel. Wähle den Auslöser und füge Gerätewechsel, Lautstärkeregelung oder Programmstarts hinzu. Speichere und aktiviere die Regel.
+- **Vordergrund-App automatisch erkennen.** Standardmäßig folgt die Steuerung der gerade verwendeten Audio-App. Bei geschlossenem Panel regelst du mit denselben Tastenkürzeln ihre Lautstärke, Stummschaltung und Geräte. Auch das Mausrad im Infobereich regelt ihre Lautstärke, ohne die App erst suchen zu müssen.
+- **Schnellpanel.** Ein Klick auf das Symbol im Infobereich zeigt die App-Lautstärken an einem Ort. Klicke auf ein App-Symbol zum Stummschalten oder klappe den Gerätebereich auf, um Kopfhörer oder Lautsprecher zu wählen. Musikplayer, Spiele und Sprachchat-Apps lassen sich getrennt steuern.
+- **Automatisierungsregeln.** Ordne unter „Automatisierung“ Gerätewechsel, Lautstärkeanpassungen und Programmstarts in der gewünschten Reihenfolge an, bei Bedarf mit Verzögerungen. Speichere und aktiviere die Regel: Tastenkürzel, App-Start, Wechsel zur App oder Zeitplan übernehmen dann die wiederkehrenden Schritte.
 
 ## 🎮 Für den Alltag
 

@@ -81,9 +81,8 @@
   "downloadColumn": "Download",
   "license": "MIT licensed",
   "features": [
-    "**Adjust each app separately.** Click the SonicRoute icon at the bottom right to open the Quick panel. Drag an app’s slider to change its volume, or click its icon to mute it.",
-    "**Music on speakers, games on headphones.** Expand an app’s device section in the Quick panel and choose speakers or headphones. After enabling the microphone option, choose its microphone on the full window’s Apps page.",
-    "**Control the current app with hotkeys.** With the panel closed, hold `Ctrl+Alt` and scroll to change volume, or press `Ctrl+Shift+M` to mute. Change these defaults on the Hotkeys page.",
-    "**Run several steps automatically.** Double-click the tray icon and create a rule on the Automation page. Choose when it runs, add steps such as switching devices, changing volume, or opening programs, then save and enable it."
+    "**Automatic foreground-app detection.** By default, controls follow the audio app you’re using. With the panel closed, use the same hotkeys to change its volume, mute it, or switch devices, or scroll over the system tray to adjust volume—no need to find the app first.",
+    "**Quick panel.** Click the tray icon to manage app volumes in one place. Click an app’s icon to mute it or expand its device section to choose headphones or speakers. Control music players, games, and voice chat apps separately.",
+    "**Automation rules.** On the Automation page, arrange device switches, volume changes, and program launches in order, with delays if needed. Save and enable the rule, then run it with a hotkey, when an app starts or gains focus, or on a schedule instead of repeating the steps yourself."
   ]
 }
