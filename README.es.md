@@ -38,8 +38,6 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 - **Un desencadenante, varias acciones.** 6 desencadenantes y 18 acciones cubren el cambio de dispositivo, el volumen, el silencio, el inicio de programas, PowerShell y OSD. Añade una pausa o la detención en caso de error a cada paso, llama a otra regla o ejecuta una regla en una instancia de SonicRoute ya abierta con `sr "Nombre o ID de la regla"`.
 - **Personaliza SonicRoute.** Ajusta los temas claros y oscuros, los colores de énfasis, la opacidad y la posición de los paneles. Los nueve idiomas integrados permiten importar y exportar archivos JSON.
 
-→ [Comparar funciones de aplicaciones similares](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
-
 ## 🎮 Para el día a día
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatización"><img src="docs/images/mascot-automation-es.png" width="48" align="middle" alt="Haz clic en el pequeño robot para conocer las reglas de automatización"></a> Haz que un juego use los auriculares al iniciarse o guarda varias acciones en una sola regla. [Configurar automatización](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).

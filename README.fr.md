@@ -38,8 +38,6 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 - **Un déclencheur, plusieurs actions.** 6 déclencheurs et 18 actions couvrent le changement de périphérique, le volume, la coupure du son, le lancement de programmes, PowerShell et l’OSD. Ajoutez un délai ou l’arrêt en cas d’échec à chaque étape, appelez une autre règle ou exécutez une règle dans une instance de SonicRoute déjà ouverte avec `sr "Nom ou ID de la règle"`.
 - **Personnalisez SonicRoute.** Réglez les thèmes clairs ou sombres, les couleurs d’accentuation, l’opacité et la position des panneaux. Les neuf langues intégrées prennent en charge l’import et l’export de fichiers JSON.
 
-→ [Comparer les fonctionnalités d’apps similaires](https://github.com/kunkunkunQoQ/SonicRoute/wiki/10-%E5%90%8C%E7%B1%BB%E5%BA%94%E7%94%A8%E5%AF%B9%E6%AF%94)
-
 ## 🎮 Pour le quotidien
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Configurez un jeu pour qu’il utilise votre casque à son lancement, ou regroupez plusieurs actions dans une règle. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).

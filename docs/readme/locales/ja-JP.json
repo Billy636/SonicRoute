@@ -13,7 +13,6 @@
   "themeAlt": "SonicRoute のテーマ設定：外観、アクセントカラー、背景の不透明度",
   "mascotAlt": "マスコットをクリックしてユーザーガイドを開く",
   "featuresTitle": "SonicRoute の主な機能",
-  "comparison": "類似アプリとの機能比較",
   "downloadTitle": "ダウンロードと使い始め方",
   "releaseNotes": "リリースノート（簡体字中国語）",
   "downloadIntro": "Windows x64 をお使いの方には、インストールが簡単で自動更新にも対応する Microsoft Store 版がおすすめです。単体の実行ファイルなら Lite x64、.NET 8 のインストールが難しい場合は Legacy x64 を選んでください。上のダウンロードリンクは常に最新リリースを示し、下の直接リンクは {release} 用です。",

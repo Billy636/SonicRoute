@@ -6,7 +6,6 @@
 |---|---|
 | 版本、发布日期、下载及作者链接、语言导航 | [shared.json](shared.json) |
 | 各语言简介、核心/次要功能、入门与替代文本 | [locales](locales/) 下对应语言 JSON；核心和次要功能分别使用 `featuresCore` 与 `featuresMore` |
-| README 的同类应用对比入口 | `locales/<language>.json` 的 `comparison` 文案和 [shared.json](shared.json) 的 `wikiPages.comparison` 目标，由 [generate.cjs](generate.cjs) 统一生成 |
 | 排版、徽章、图片尺寸与共同结构 | [generate.cjs](generate.cjs) |
 | 详细操作与排障 | [Wiki](https://github.com/kunkunkunQoQ/SonicRoute/wiki) 或现有 docs 正文 |
 | 某版本的变化及升级说明 | docs/release-vX.Y.md，shared.json 链接该文件 |
