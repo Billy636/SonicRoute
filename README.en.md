@@ -26,29 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nine languages ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Features"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Click the mascot to explore SonicRoute features"></a>
 
-### Core features
-
-- **Choose devices per app.** Send music to speakers, games to headphones, and choose a microphone for each app.
-- **Control the current app.** Follow the most recently used audio app or pin one to adjust volume, mute, or switch devices.
-- **Quick controls.** Use keyboard or mouse shortcuts and the tray wheel; right-click the tray icon to choose a device, adjust volume, or mute all microphones.
-- **Two panels.** Manage multiple apps in the Quick panel or focus on one in the App panel, with on-screen prompts to confirm actions.
-
-### Additional features
-
-- **Automation rules.** Combine actions such as switching devices, changing volume, and launching programs; run them with a shortcut or when conditions are met.
-- **Personalize it.** Adjust the theme, accent color, opacity, and panel position. Supports nine languages and language-file import and export.
+- **Control the app you're using.** Adjust the current audio app's volume, mute it, or change devices without finding it in a list.
+- **Assign devices per app.** Use speakers for music, headphones for games, and choose microphones separately.
+- **Open Settings less often.** Handle common tasks with hotkeys, the tray wheel, and the Quick panel without repeatedly opening Windows Settings.
+- **Repeat fewer steps.** Combine device switching, volume changes, and program launches in automation rules.
 
 ## 🎮 Everyday uses
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automation"><img src="docs/images/mascot-automation-gb.png" width="48" align="middle" alt="Click the little robot to learn about automation rules"></a> Set a game to use your headset when it starts, or save several actions as one rule. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+Is the music too loud while you game? Turn down the music app without changing the game's volume.
 
-| Your situation | What you can do |
-|---|---|
-| Music, games and voice chat running together | Choose separate output or input devices and adjust each app's volume |
-| Switching between speakers and a headset | Select your preferred devices and cycle the current app's device with a hotkey |
-| Adjusting the app you're working in | In Recent mode, follow the foreground app only while it has an audio session, then use hotkeys or the tray wheel |
-| Repeating the same setup whenever an app starts | Trigger a rule on app startup to set devices, volume and other actions |
-| Calling an audio setup from a script or another tool | Create a rule and invoke it with `sr "Rule name or ID"` |
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automation"><img src="docs/images/mascot-automation-gb.png" width="48" align="middle" alt="Click the little robot to learn about automation rules"></a> When a game starts, automatically switch to your headset and open your voice chat app. [Set up automation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Download and get started
 

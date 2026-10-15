@@ -26,29 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimental) · Nueve idiomas de 
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funciones"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Haz clic en la mascota para descubrir las funciones de SonicRoute"></a>
 
-### Funciones principales
-
-- **Elige dispositivos por aplicación.** Envía la música a los altavoces y los juegos a los auriculares; también puedes elegir un micrófono para cada aplicación.
-- **Controla la aplicación actual.** Sigue la aplicación de audio usada más recientemente o fija una para ajustar el volumen, silenciarla o cambiar de dispositivo.
-- **Controles rápidos.** Usa atajos de teclado y ratón o la rueda del área de notificación. Haz clic derecho en el icono para elegir dispositivo, ajustar volumen o silenciar todos los micrófonos.
-- **Dos paneles.** Gestiona varias aplicaciones en el panel rápido o céntrate en una en el panel de aplicación, con avisos en pantalla para confirmar acciones.
-
-### Funciones secundarias
-
-- **Reglas de automatización.** Combina cambiar de dispositivo, ajustar volumen e iniciar programas; ejecútalas con un atajo o al cumplirse condiciones.
-- **Personaliza la interfaz.** Ajusta tema, color de énfasis, opacidad y posición de los paneles. Admite nueve idiomas y la importación y exportación de archivos de idioma.
+- **Controla la aplicación que usas.** Ajusta el volumen de la aplicación de audio actual, silénciala o cambia de dispositivo sin buscarla en la lista.
+- **Asigna dispositivos por aplicación.** Usa los altavoces para la música y los auriculares para los juegos; elige los micrófonos por separado.
+- **Abre menos veces Configuración.** Realiza tareas habituales con atajos, la rueda del área de notificación y el panel rápido, sin entrar repetidamente en Configuración de Windows.
+- **Repite menos pasos.** Combina cambios de dispositivo, ajustes de volumen e inicio de programas en reglas de automatización.
 
 ## 🎮 Para el día a día
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatización"><img src="docs/images/mascot-automation-es.png" width="48" align="middle" alt="Haz clic en el pequeño robot para conocer las reglas de automatización"></a> Haz que un juego use los auriculares al iniciarse o guarda varias acciones en una sola regla. [Configurar automatización](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+¿La música suena demasiado alta mientras juegas? Baja el volumen de la aplicación de música sin cambiar el del juego.
 
-| Tu situación | Lo que puedes hacer |
-|---|---|
-| Usar música, juegos y chat de voz a la vez | Elegir dispositivos de salida o entrada distintos y ajustar el volumen de cada aplicación |
-| Cambiar entre altavoces y auriculares | Seleccionar tus dispositivos preferidos y alternar el de la aplicación actual con un atajo |
-| Ajustar la aplicación que estás usando | En el modo «Reciente», seguir a la aplicación en primer plano que tenga una sesión de audio y controlarla con atajos o la rueda del área de notificación |
-| Repetir la misma configuración cada vez que se inicia una aplicación | Activar una regla al iniciar una aplicación para configurar dispositivos, volumen y otras acciones |
-| Llamar a una configuración de audio desde un script u otra herramienta | Crear una regla y ejecutarla con `sr "Nombre o ID de la regla"` en una instancia de SonicRoute que ya esté abierta |
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatización"><img src="docs/images/mascot-automation-es.png" width="48" align="middle" alt="Haz clic en el pequeño robot para conocer las reglas de automatización"></a> Al iniciar un juego, cambia automáticamente a los auriculares y abre la aplicación de chat de voz. [Configurar automatización](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Descarga y primeros pasos
 

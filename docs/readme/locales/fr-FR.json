@@ -50,23 +50,8 @@
   "easterEgg": "Découvrez un œuf de Pâques",
   "useCasesTitle": "Pour le quotidien",
   "configureAutomation": "Configurer l’automatisation",
-  "automationExample": "Configurez un jeu pour qu’il utilise votre casque à son lancement, ou regroupez plusieurs actions dans une règle.",
-  "scenario": "Votre situation",
-  "whatYouCanDo": "Ce que vous pouvez faire",
-  "useCaseNames": [
-    "Écouter de la musique, jouer et discuter en même temps",
-    "Passer des haut-parleurs au casque",
-    "Régler l’application que vous utilisez",
-    "Répéter la même configuration à chaque lancement d’une application",
-    "Appeler une configuration audio depuis un script ou un autre outil"
-  ],
-  "useCaseActions": [
-    "Choisir des périphériques de sortie ou d’entrée distincts et régler le volume de chaque application",
-    "Sélectionner vos périphériques préférés et parcourir ceux de l’application active avec un raccourci",
-    "En mode « Application récente », suivre l’application au premier plan qui possède une session audio, puis la contrôler avec les raccourcis ou la molette dans la zone de notification",
-    "Déclencher une règle au démarrage d’une application pour régler les périphériques, le volume et d’autres paramètres",
-    "Créer une règle et l’appeler avec `{ruleCommand}` dans une instance SonicRoute en cours d’exécution"
-  ],
+  "automationExample": "Au lancement d’un jeu, passez automatiquement au casque et ouvrez l’application de chat vocal.",
+  "useCaseExample": "La musique est trop forte pendant une partie ? Baissez le volume de l’application musicale sans changer celui du jeu.",
   "currentRelease": "Version actuelle",
   "releaseSummary": "La version {version} permet de choisir directement la sortie par défaut depuis la zone de notification, de régler le volume, la coupure et le routage de l’application active épinglée, de couper tous les microphones et de mettre en pause la molette avec un réglage conservé après redémarrage. Le raccourci par défaut du volume système est Ctrl+Alt+Maj+molette, distinct du raccourci par défaut Ctrl+Alt+molette pour l’application active. La disposition des options a été revue et les pages se chargent à la demande. Consultez l’{history} pour les changements précédents.",
   "docTopic": "Sujet",
@@ -95,16 +80,10 @@
   "guideTitle": "Guide d’utilisation (en chinois)",
   "downloadColumn": "Télécharger",
   "license": "Licence MIT",
-  "featuresCoreTitle": "Fonctions principales",
-  "featuresMoreTitle": "Fonctions secondaires",
-  "featuresCore": [
-    "**Choisissez les appareils par application.** Utilisez les haut-parleurs pour la musique et le casque pour les jeux ; choisissez aussi un micro pour chaque application.",
-    "**Contrôlez l’application actuelle.** Suivez la dernière application audio utilisée ou épinglez-en une pour régler le volume, couper le son ou changer d’appareil.",
-    "**Commandes rapides.** Utilisez des raccourcis clavier ou souris et la molette de la zone de notification. Faites un clic droit sur l’icône pour choisir un appareil, régler le volume ou couper tous les micros.",
-    "**Deux panneaux.** Gérez plusieurs applications dans le panneau rapide ou concentrez-vous sur l’application actuelle dans l’autre panneau. Des indications à l’écran confirment les actions."
-  ],
-  "featuresMore": [
-    "**Règles d’automatisation.** Combinez changement d’appareil, réglage du volume et lancement de programmes ; exécutez-les par raccourci ou selon des conditions.",
-    "**Personnalisez l’interface.** Réglez le thème, la couleur d’accentuation, l’opacité et la position des panneaux. Neuf langues et l’import-export des fichiers de langue sont pris en charge."
+  "features": [
+    "**Contrôlez l’application en cours.** Réglez son volume, coupez le son ou changez d’appareil sans la chercher dans une liste.",
+    "**Attribuez un appareil à chaque application.** Écoutez la musique sur les haut-parleurs et les jeux au casque ; choisissez aussi les micros séparément.",
+    "**Ouvrez moins souvent les paramètres.** Effectuez les actions courantes avec des raccourcis, la molette de la zone de notification et le panneau rapide, sans retourner sans cesse dans les paramètres Windows.",
+    "**Répétez moins d’étapes.** Regroupez les changements d’appareil, les réglages du volume et le lancement de programmes dans des règles d’automatisation."
   ]
 }

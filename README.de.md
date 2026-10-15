@@ -26,29 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (experimentell) · Neun Sprachen ·
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Funktionen"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Klicke auf das Maskottchen, um die SonicRoute-Funktionen zu entdecken"></a>
 
-### Kernfunktionen
-
-- **Geräte pro App wählen.** Leite Musik an Lautsprecher und Spiele an Kopfhörer weiter; auch ein Mikrofon lässt sich je App wählen.
-- **Aktuelle App steuern.** Folge der zuletzt verwendeten Audio-App oder fixiere eine bestimmte App, um Lautstärke, Stummschaltung und Geräte zu steuern.
-- **Schnell bedienen.** Nutze Tastatur- und Mauskürzel oder das Mausrad im Infobereich. Per Rechtsklick auf das Symbol wählst du Geräte, regelst die Lautstärke oder schaltest alle Mikrofone stumm.
-- **Zwei Panels.** Verwalte mehrere Apps im Schnellpanel oder konzentriere dich im App-Panel auf eine App. Bildschirmanzeigen bestätigen Aktionen.
-
-### Weitere Funktionen
-
-- **Automatisierungsregeln.** Kombiniere Gerätewechsel, Lautstärkeregelung und Programmstarts; starte sie per Tastenkürzel oder bei erfüllten Bedingungen.
-- **Persönlich anpassen.** Ändere Design, Akzentfarbe, Deckkraft und Panelposition. Neun Sprachen sowie Import und Export von Sprachdateien werden unterstützt.
+- **Weniger suchen.** Lautstärke und Stummschaltung der aktuellen Audio-App steuern und ihre Geräte anpassen.
+- **Geräte pro App zuweisen.** Musik über Lautsprecher, Spiele über Kopfhörer wiedergeben und Mikrofone separat auswählen.
+- **Einstellungen seltener öffnen.** Häufige Aktionen per Tastenkürzel, Mausrad im Infobereich und Schnellpanel erledigen, ohne ständig die Windows-Einstellungen zu öffnen.
+- **Weniger wiederholen.** Gerätewechsel, Lautstärkeanpassung und Programmstart in Automatisierungsregeln kombinieren.
 
 ## 🎮 Für den Alltag
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation-de.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Stelle ein Spiel beim Start auf dein Headset um oder speichere mehrere Aktionen als eine Regel. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+Ist die Musik beim Spielen zu laut? Verringere die Lautstärke der Musik-App, ohne die Spiellautstärke zu ändern.
 
-| Deine Situation | Das kannst du tun |
-|---|---|
-| Musik, Spiele und Sprachchat gleichzeitig nutzen | Für jede App eigene Ausgabe- oder Eingabegeräte wählen und die Lautstärke einzeln anpassen |
-| Zwischen Lautsprechern und Headset wechseln | Bevorzugte Geräte auswählen und das Gerät der aktuellen App per Tastenkürzel wechseln |
-| Die gerade verwendete App anpassen | Im Modus „Zuletzt aktiv“ der Vordergrund-App mit Audiositzung folgen und sie per Tastenkürzel oder Mausrad im Infobereich steuern |
-| Beim Start einer App immer dieselben Einstellungen vornehmen | Beim App-Start eine Regel auslösen, die Geräte, Lautstärke und weitere Aktionen festlegt |
-| Eine Audiokonfiguration per Skript oder anderem Werkzeug aufrufen | Eine Regel erstellen und mit `sr "Regelname oder ID"` in einer laufenden SonicRoute-Instanz aufrufen |
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisierung"><img src="docs/images/mascot-automation-de.png" width="48" align="middle" alt="Klicke auf den kleinen Roboter, um mehr über Automatisierungsregeln zu erfahren"></a> Beim Start eines Spiels automatisch zum Headset wechseln und die Sprachchat-App öffnen. [Automatisierung einrichten](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Herunterladen und loslegen
 

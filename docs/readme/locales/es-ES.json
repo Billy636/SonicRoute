@@ -50,23 +50,8 @@
   "easterEgg": "Descubre un huevo de Pascua",
   "useCasesTitle": "Para el día a día",
   "configureAutomation": "Configurar automatización",
-  "automationExample": "Haz que un juego use los auriculares al iniciarse o guarda varias acciones en una sola regla.",
-  "scenario": "Tu situación",
-  "whatYouCanDo": "Lo que puedes hacer",
-  "useCaseNames": [
-    "Usar música, juegos y chat de voz a la vez",
-    "Cambiar entre altavoces y auriculares",
-    "Ajustar la aplicación que estás usando",
-    "Repetir la misma configuración cada vez que se inicia una aplicación",
-    "Llamar a una configuración de audio desde un script u otra herramienta"
-  ],
-  "useCaseActions": [
-    "Elegir dispositivos de salida o entrada distintos y ajustar el volumen de cada aplicación",
-    "Seleccionar tus dispositivos preferidos y alternar el de la aplicación actual con un atajo",
-    "En el modo «Reciente», seguir a la aplicación en primer plano que tenga una sesión de audio y controlarla con atajos o la rueda del área de notificación",
-    "Activar una regla al iniciar una aplicación para configurar dispositivos, volumen y otras acciones",
-    "Crear una regla y ejecutarla con `{ruleCommand}` en una instancia de SonicRoute que ya esté abierta"
-  ],
+  "automationExample": "Al iniciar un juego, cambia automáticamente a los auriculares y abre la aplicación de chat de voz.",
+  "useCaseExample": "¿La música suena demasiado alta mientras juegas? Baja el volumen de la aplicación de música sin cambiar el del juego.",
   "currentRelease": "Versión actual",
   "releaseSummary": "La versión {version} permite elegir la salida predeterminada desde el área de notificación, controlar el volumen, el silencio y el enrutamiento de la aplicación actual fijada, silenciar todos los micrófonos y pausar la rueda con una opción que se conserva tras reiniciar. El atajo predeterminado para el volumen predeterminado del sistema es Ctrl+Alt+Mayús+rueda, distinto del atajo predeterminado Ctrl+Alt+rueda para la aplicación actual. Se ha reorganizado la disposición de los ajustes y las páginas se cargan bajo demanda. Consulta el {history} para ver cambios anteriores.",
   "docTopic": "Tema",
@@ -95,16 +80,10 @@
   "guideTitle": "Guía de usuario (en chino)",
   "downloadColumn": "Descargar",
   "license": "Licencia MIT",
-  "featuresCoreTitle": "Funciones principales",
-  "featuresMoreTitle": "Funciones secundarias",
-  "featuresCore": [
-    "**Elige dispositivos por aplicación.** Envía la música a los altavoces y los juegos a los auriculares; también puedes elegir un micrófono para cada aplicación.",
-    "**Controla la aplicación actual.** Sigue la aplicación de audio usada más recientemente o fija una para ajustar el volumen, silenciarla o cambiar de dispositivo.",
-    "**Controles rápidos.** Usa atajos de teclado y ratón o la rueda del área de notificación. Haz clic derecho en el icono para elegir dispositivo, ajustar volumen o silenciar todos los micrófonos.",
-    "**Dos paneles.** Gestiona varias aplicaciones en el panel rápido o céntrate en una en el panel de aplicación, con avisos en pantalla para confirmar acciones."
-  ],
-  "featuresMore": [
-    "**Reglas de automatización.** Combina cambiar de dispositivo, ajustar volumen e iniciar programas; ejecútalas con un atajo o al cumplirse condiciones.",
-    "**Personaliza la interfaz.** Ajusta tema, color de énfasis, opacidad y posición de los paneles. Admite nueve idiomas y la importación y exportación de archivos de idioma."
+  "features": [
+    "**Controla la aplicación que usas.** Ajusta el volumen de la aplicación de audio actual, silénciala o cambia de dispositivo sin buscarla en la lista.",
+    "**Asigna dispositivos por aplicación.** Usa los altavoces para la música y los auriculares para los juegos; elige los micrófonos por separado.",
+    "**Abre menos veces Configuración.** Realiza tareas habituales con atajos, la rueda del área de notificación y el panel rápido, sin entrar repetidamente en Configuración de Windows.",
+    "**Repite menos pasos.** Combina cambios de dispositivo, ajustes de volumen e inicio de programas en reglas de automatización."
   ]
 }

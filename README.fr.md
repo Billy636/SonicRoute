@@ -26,29 +26,16 @@ Windows 10 2004+ / Windows 11 · x64 / ARM64 (expérimental) · Neuf langues d�
 
 <a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/02-%E5%8A%9F%E8%83%BD%E7%89%B9%E6%80%A7" title="Fonctionnalités"><img src="docs/images/mascot-music-hoodie.png" width="68" align="right" alt="Cliquez sur la mascotte pour découvrir les fonctionnalités de SonicRoute"></a>
 
-### Fonctions principales
-
-- **Choisissez les appareils par application.** Utilisez les haut-parleurs pour la musique et le casque pour les jeux ; choisissez aussi un micro pour chaque application.
-- **Contrôlez l’application actuelle.** Suivez la dernière application audio utilisée ou épinglez-en une pour régler le volume, couper le son ou changer d’appareil.
-- **Commandes rapides.** Utilisez des raccourcis clavier ou souris et la molette de la zone de notification. Faites un clic droit sur l’icône pour choisir un appareil, régler le volume ou couper tous les micros.
-- **Deux panneaux.** Gérez plusieurs applications dans le panneau rapide ou concentrez-vous sur l’application actuelle dans l’autre panneau. Des indications à l’écran confirment les actions.
-
-### Fonctions secondaires
-
-- **Règles d’automatisation.** Combinez changement d’appareil, réglage du volume et lancement de programmes ; exécutez-les par raccourci ou selon des conditions.
-- **Personnalisez l’interface.** Réglez le thème, la couleur d’accentuation, l’opacité et la position des panneaux. Neuf langues et l’import-export des fichiers de langue sont pris en charge.
+- **Contrôlez l’application en cours.** Réglez son volume, coupez le son ou changez d’appareil sans la chercher dans une liste.
+- **Attribuez un appareil à chaque application.** Écoutez la musique sur les haut-parleurs et les jeux au casque ; choisissez aussi les micros séparément.
+- **Ouvrez moins souvent les paramètres.** Effectuez les actions courantes avec des raccourcis, la molette de la zone de notification et le panneau rapide, sans retourner sans cesse dans les paramètres Windows.
+- **Répétez moins d’étapes.** Regroupez les changements d’appareil, les réglages du volume et le lancement de programmes dans des règles d’automatisation.
 
 ## 🎮 Pour le quotidien
 
-<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Configurez un jeu pour qu’il utilise votre casque à son lancement, ou regroupez plusieurs actions dans une règle. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99).
+La musique est trop forte pendant une partie ? Baissez le volume de l’application musicale sans changer celui du jeu.
 
-| Votre situation | Ce que vous pouvez faire |
-|---|---|
-| Écouter de la musique, jouer et discuter en même temps | Choisir des périphériques de sortie ou d’entrée distincts et régler le volume de chaque application |
-| Passer des haut-parleurs au casque | Sélectionner vos périphériques préférés et parcourir ceux de l’application active avec un raccourci |
-| Régler l’application que vous utilisez | En mode « Application récente », suivre l’application au premier plan qui possède une session audio, puis la contrôler avec les raccourcis ou la molette dans la zone de notification |
-| Répéter la même configuration à chaque lancement d’une application | Déclencher une règle au démarrage d’une application pour régler les périphériques, le volume et d’autres paramètres |
-| Appeler une configuration audio depuis un script ou un autre outil | Créer une règle et l’appeler avec `sr "Nom ou ID de la règle"` dans une instance SonicRoute en cours d’exécution |
+<a href="https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99" title="Automatisation"><img src="docs/images/mascot-automation-fr.png" width="48" align="middle" alt="Cliquez sur le petit robot pour découvrir les règles d’automatisation"></a> Au lancement d’un jeu, passez automatiquement au casque et ouvrez l’application de chat vocal. [Configurer l’automatisation](https://github.com/kunkunkunQoQ/SonicRoute/wiki/04-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A7%84%E5%88%99)
 
 ## 🚀 Télécharger et commencer
 
