@@ -93,9 +93,9 @@ function render(language, text) {
     '## 🧩 ' + text.otherTitle, '',
     '- **' + link('SilentPlayer', shared.projects.silentPlayer) + '**' + colon + text.silentPlayer + ' ' + link(text.combinationGuide, wiki(pages.guide) + '#' + encodeURIComponent(shared.combinationAnchor)),
     '- **' + link('WinAudioRoute', shared.projects.winAudioRoute) + '**' + colon + text.winAudioRoute, '',
-    `<a href="${shared.projects.xiaoYueComics}" title="${attr(text.comicTitle)}"><img src="docs/images/mascot-comics.png" width="84" align="right" alt="${attr(text.comicAlt)}"></a>`, '',
+    `<a href="${shared.projects.xiaoYueComics}" title="${attr(text.comicTitle)}"><img src="docs/images/mascot-comics.png" width="84" align="left" alt="${attr(text.comicAlt)}"></a>`, '',
     '**' + link(text.comicTitle, shared.projects.xiaoYueComics) + '**', '',
-    text.comicDescription + ' ' + link(text.comicRead, shared.projects.xiaoYueComics), '', '---', '',
+    text.comicDescription, '', '<br clear="all">', '', '---', '',
     `<a href="EASTER_EGGS.md" title="${attr(text.footerTitle)}"><img src="docs/images/mascot-cozy-knit.png" width="56" align="right" alt="${attr(text.easterEgg)}"></a>`, '',
     text.thanks + ' ' + link(text.footerDocs, shared.repository + '/wiki') + ' · ' + link(text.footerIssues, shared.repository + '/issues') + period, '',
     '**' + text.author + colon + [link(text.bilibili, shared.author.bilibili), link(text.afdian, shared.author.afdian), link('GitHub', shared.author.github)].join(' | ') + '**', ''
