@@ -13,6 +13,8 @@ namespace SonicRoute
         internal ScrollViewer AutomationScroll = null!;
         internal StackPanel AutoListPanel = null!;
         internal Button AutoNewButton = null!;
+        internal Button AutoTemplatesButton = null!;
+        internal TextBlock AutoTemplateHintText = null!;
         internal TextBox AutoSearchBox = null!;
         internal ComboBox AutoStateFilter = null!;
         internal ComboBox AutoTriggerFilter = null!;
@@ -61,6 +63,10 @@ namespace SonicRoute
                 if (FindName(nameof(AutoListPanel)) == null) RegisterName(nameof(AutoListPanel), AutoListPanel);
                 AutoNewButton = FindAutomationControl<Button>(content, nameof(AutoNewButton));
                 if (FindName(nameof(AutoNewButton)) == null) RegisterName(nameof(AutoNewButton), AutoNewButton);
+                AutoTemplatesButton = FindAutomationControl<Button>(content, nameof(AutoTemplatesButton));
+                if (FindName(nameof(AutoTemplatesButton)) == null) RegisterName(nameof(AutoTemplatesButton), AutoTemplatesButton);
+                AutoTemplateHintText = FindAutomationControl<TextBlock>(content, nameof(AutoTemplateHintText));
+                if (FindName(nameof(AutoTemplateHintText)) == null) RegisterName(nameof(AutoTemplateHintText), AutoTemplateHintText);
                 AutoSearchBox = FindAutomationControl<TextBox>(content, nameof(AutoSearchBox));
                 if (FindName(nameof(AutoSearchBox)) == null) RegisterName(nameof(AutoSearchBox), AutoSearchBox);
                 AutoStateFilter = FindAutomationControl<ComboBox>(content, nameof(AutoStateFilter));

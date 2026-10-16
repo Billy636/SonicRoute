@@ -19,6 +19,7 @@ namespace SonicRoute
         public static Geometry Waiting { get; } = Frozen("M5,3 L19,3 M5,21 L19,21 M7,3 L7,7 L17,17 L17,21 M17,3 L17,7 L7,17 L7,21");
         public static Geometry Edit { get; } = Frozen("M4,16 L16,4 Q18,2 20,4 Q22,6 20,8 L8,20 L3,21 Z M14,6 L18,10");
         public static Geometry Copy { get; } = Frozen("M9,8 L19,8 Q21,8 21,10 L21,20 Q21,22 19,22 L9,22 Q7,22 7,20 L7,10 Q7,8 9,8 Z M16,4 L16,2 L3,2 L3,16 L4,16");
+        public static Geometry Templates { get; } = Frozen("M13,4 L5,4 Q3,4 3,6 L3,20 Q3,22 5,22 L16,22 Q18,22 18,20 L18,12 M7,10 L12,10 M7,14 L14,14 M7,18 L12,18 M18,1 L19,4 L22,5 L19,6 L18,9 L17,6 L14,5 L17,4 Z");
         public static Geometry Delete { get; } = Frozen("M4,6 L20,6 M9,6 L9,3 L15,3 L15,6 M6,6 L7,21 L17,21 L18,6 M10,10 L10,17 M14,10 L14,17");
         public static Geometry More { get; } = Frozen("M4,12 L4.1,12 M12,12 L12.1,12 M20,12 L20.1,12");
         public static Geometry Grip { get; } = Frozen("M7,4 L7.1,4 M16,4 L16.1,4 M7,10 L7.1,10 M16,10 L16.1,10 M7,16 L7.1,16 M16,16 L16.1,16 M7,22 L7.1,22 M16,22 L16.1,22");

@@ -32,6 +32,7 @@ namespace SonicRoute
 
         private void SetAutomationEditorVisible(bool visible)
         {
+            if (visible) CloseAutomationTemplates();
             EndAutomationRuleDrag(false);
             EndAutoDrag(false);
             if (visible && AutoEditCard.Visibility != Visibility.Visible)

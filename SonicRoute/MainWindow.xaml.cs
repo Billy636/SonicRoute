@@ -383,7 +383,11 @@ namespace SonicRoute
             else if (tag == "Hotkeys") EnsureHotkeysPage();
             else if (tag == "Experimental") EnsureExperimentalPage();
             FinishPanelAnimations();
-            if (tag != "Automation") StopAutoRefresh();
+            if (tag != "Automation")
+            {
+                StopAutoRefresh();
+                CloseAutomationTemplates();
+            }
             OverviewPage.Visibility = tag == "Overview" ? Visibility.Visible : Visibility.Collapsed;
             AppsPage.Visibility = tag == "Apps" ? Visibility.Visible : Visibility.Collapsed;
             HotkeysPageHost.Visibility = tag == "Hotkeys" ? Visibility.Visible : Visibility.Collapsed;
@@ -1503,6 +1507,7 @@ namespace SonicRoute
             RefreshCustomLangList();
             RefreshDynamicTexts();
             SyncExecutionHistoryOptions();
+            RefreshAutomationTemplateHint();
         }
 
         /// <summary>语言切换后刷新代码动态文本（XAML 绑定已由 PropertyChanged 自动刷新；
@@ -3065,7 +3070,7 @@ namespace SonicRoute
                     try
                     {
                         combo.Items.Clear();
-                        foreach (var device in DisplayDevices(pair.Value == EDataFlow.eRender ? _autoOutputs : _autoInputs)) combo.Items.Add(device);
+                        foreach (var device in AutomationDeviceChoices(step, pair.Value, pair.Value == EDataFlow.eRender ? _autoOutputs : _autoInputs)) combo.Items.Add(device);
                         SelectAutoDevice(combo, step.TargetDeviceId);
                     }
                     finally { _suppressAutoUi = false; }
@@ -3293,6 +3298,7 @@ namespace SonicRoute
 
         private void AutoNew_Click(object sender, RoutedEventArgs e)
         {
+            ReleaseAutomationEditor();
             FillAutoCombos();
             _autoEditingId = null;
             _autoHotkeyCombo = "";
@@ -3317,8 +3323,14 @@ namespace SonicRoute
             var id = (string)((FrameworkElement)sender).Tag;
             var rule = AutoRuleStore.Find(id);
             if (rule == null) return;
+            ReleaseAutomationEditor();
+            OpenAutomationRuleEditor(rule, isTemplate: false);
+        }
+
+        private void OpenAutomationRuleEditor(AutoRule rule, bool isTemplate)
+        {
             FillAutoCombos();
-            _autoEditingId = rule.Id;
+            _autoEditingId = isTemplate ? null : rule.Id;
             _suppressAutoUi = true;
             AutoNameBox.Text = rule.Name;
             AutoTriggerCombo.SelectedItem = AutoTriggerCombo.Items.OfType<ComboBoxItem>()
@@ -3334,7 +3346,8 @@ namespace SonicRoute
             UpdateAutoTriggerPanels();
             SelectAutoApp(AutoTriggerAppCombo, rule.TriggerApp);
             RenderAutoSteps();
-            AutoEditTitle.Text = L10n.T("Auto.EditorEdit");
+            AutoEditTitle.Text = L10n.T(isTemplate ? "Auto.EditorNew" : "Auto.EditorEdit");
+            RefreshAutomationTemplateHint();
             SetAutomationEditorVisible(true);
             UpdateAutoHotkeyHint();
             RevealAutomationEditor();
@@ -4077,7 +4090,7 @@ namespace SonicRoute
                 var flow = step.Action is AutoRuleAction.SetAppInput or AutoRuleAction.SetSystemInput
                     ? EDataFlow.eCapture : EDataFlow.eRender;
                 var devices = flow == EDataFlow.eRender ? (_autoOutputs ?? _outputs) : (_autoInputs ?? _inputs);
-                foreach (var d in DisplayDevices(devices)) cb.Items.Add(d);
+                foreach (var d in AutomationDeviceChoices(step, flow, devices)) cb.Items.Add(d);
                 _autoStepDeviceCombos[cb] = flow;
                 SelectAutoDevice(cb, step.TargetDeviceId);
                 cb.SelectionChanged += (_, _) =>
@@ -4756,62 +4769,19 @@ namespace SonicRoute
 
         private void AutoSave_Click(object sender, RoutedEventArgs e)
         {
-            var name = AutoNameBox.Text.Trim();
-            var trigger = SelectedAutoTrigger();
-            var hotkey = _autoHotkeyCombo.Trim();
-            if (trigger == AutoRuleTrigger.Hotkey && string.IsNullOrEmpty(hotkey))
-            { _ = System.Windows.MessageBox.Show(L10n.T("Auto.HotkeyRequired")); return; }
-            string? triggerApp = (AutoTriggerAppCombo.SelectedItem as AppItem)?.Info.ProcessName;
-            if (trigger is AutoRuleTrigger.AppStart or AutoRuleTrigger.AppSwitch or AutoRuleTrigger.AppExit
-                && string.IsNullOrEmpty(triggerApp))
-            { _ = System.Windows.MessageBox.Show(L10n.T("Auto.TriggerAppRequired")); return; }
-            int scheduleMode = AutoScheduleModeCombo.SelectedIndex < 0 ? 0 : AutoScheduleModeCombo.SelectedIndex;
-            var scheduleTime = CollectAutoScheduleTime();
-            var scheduleWeekdays = CollectAutoWeekday();
-            if (trigger == AutoRuleTrigger.Schedule && scheduleMode == 2 && scheduleWeekdays.Count == 0)
+            var errorKey = ValidateAutomationEditor(out int stepIndex);
+            if (errorKey != null)
             {
-                _ = System.Windows.MessageBox.Show(L10n.T("Auto.ScheduleWeekdayRequired"));
+                string message = L10n.T(errorKey);
+                if (stepIndex >= 0)
+                {
+                    if (_autoStepViews.TryGetValue(_autoSteps[stepIndex], out var view)) view.Card.BringIntoView();
+                    message = string.Format(L10n.T("Template.StepRequired"), stepIndex + 1, message);
+                }
+                _ = System.Windows.MessageBox.Show(message);
                 return;
             }
-            foreach (var s in _autoSteps)
-            {
-                if (s.Action == AutoRuleAction.ExecuteRule && (string.IsNullOrWhiteSpace(s.TargetRuleId)
-                    || s.TargetRuleId == _autoEditingId || AutoRuleStore.Find(s.TargetRuleId) == null))
-                { _ = System.Windows.MessageBox.Show(L10n.T("Auto.RuleRequired")); return; }
-                if (s.Action is AutoRuleAction.SetAppVolume or AutoRuleAction.ToggleAppMute
-                    or AutoRuleAction.SetAppOutput or AutoRuleAction.SetAppInput
-                    or AutoRuleAction.SetAppMute or AutoRuleAction.AdjustAppVolume
-                    && string.IsNullOrWhiteSpace(s.TargetApp))
-                { _ = System.Windows.MessageBox.Show(L10n.T("Auto.ActionAppRequired")); return; }
-                if (s.Action is AutoRuleAction.SetAppOutput or AutoRuleAction.SetAppInput
-                    or AutoRuleAction.SetSystemOutput or AutoRuleAction.SetSystemInput
-                    && string.IsNullOrWhiteSpace(s.TargetDeviceId))
-                { _ = System.Windows.MessageBox.Show(L10n.T("Auto.TargetDevice")); return; }
-                if ((s.Action == AutoRuleAction.LaunchProgram && s.CurrentLaunchItems().Count == 0)
-                    || (s.Action == AutoRuleAction.RunPowerShell && s.ProgramPaths.All(string.IsNullOrWhiteSpace)))
-                { _ = System.Windows.MessageBox.Show(L10n.T("Auto.ProgramRequired")); return; }
-            }
-            var rule = _autoEditingId == null ? null : AutoRuleStore.Find(_autoEditingId);
-            if (rule == null)
-            {
-                rule = new AutoRule { Id = Guid.NewGuid().ToString("N"), Name = name };
-            }
-            else
-            {
-                rule.Name = name;
-            }
-            rule.Trigger = trigger;
-            rule.Hotkey = hotkey;
-            rule.TriggerApp = trigger is AutoRuleTrigger.AppStart or AutoRuleTrigger.AppSwitch or AutoRuleTrigger.AppExit
-                ? triggerApp ?? "" : "";
-            rule.ScheduleMode = trigger == AutoRuleTrigger.Schedule ? scheduleMode : 0;
-            rule.ScheduleTime = trigger == AutoRuleTrigger.Schedule ? scheduleTime : "";
-            rule.ScheduleWeekdays = trigger == AutoRuleTrigger.Schedule ? scheduleWeekdays : new List<int>();
-            // 落盘映射统一走 AutoRuleStep.ToPersisted()（含 LaunchItems / LaunchMode 与 ProgramPaths 兼容镜像），
-            // 避免编辑器模型 → 存储模型的转换漏字段
-            rule.SetSteps(_autoSteps);
-            rule.Enabled = true;
-            try { AutoRuleStore.Save(rule, L10n.T("Auto.DefaultNamePrefix")); }
+            try { SaveAutomationEditorRule(); }
             catch { ShowToast(L10n.T("Auto.SaveFailed")); return; }
             ((App)Application.Current).ReloadHotkeys();
             SetAutomationEditorVisible(false);
