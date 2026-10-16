@@ -99,6 +99,8 @@ namespace SonicRoute
         internal ItemsControl HotkeyList = null!;
         internal Grid ExperimentalPage = null!;
         internal CheckBox ExpBackgroundPollingCheck = null!;
+        internal CheckBox ExpHistoryCheck = null!;
+        internal ContentControl ExpHistoryOptionsHost = null!;
         internal Button ExpResetAllButton = null!;
         internal Button ExpClearConfigButton = null!;
         internal Button ExpExportConfigButton = null!;
@@ -254,6 +256,8 @@ namespace SonicRoute
                 var content = (Grid)Resources["ExperimentalPageContent"];
                 ExperimentalPage = FindDeferredControl<Grid>(content, nameof(ExperimentalPage));
                 ExpBackgroundPollingCheck = FindDeferredControl<CheckBox>(content, nameof(ExpBackgroundPollingCheck));
+                ExpHistoryCheck = FindDeferredControl<CheckBox>(content, nameof(ExpHistoryCheck));
+                ExpHistoryOptionsHost = FindDeferredControl<ContentControl>(content, nameof(ExpHistoryOptionsHost));
                 ExpResetAllButton = FindDeferredControl<Button>(content, nameof(ExpResetAllButton));
                 ExpClearConfigButton = FindDeferredControl<Button>(content, nameof(ExpClearConfigButton));
                 ExpExportConfigButton = FindDeferredControl<Button>(content, nameof(ExpExportConfigButton));
@@ -306,6 +310,8 @@ namespace SonicRoute
             HotkeyList = null!;
             ExperimentalPage = null!;
             ExpBackgroundPollingCheck = null!;
+            ExpHistoryCheck = null!;
+            ExpHistoryOptionsHost = null!;
             ExpResetAllButton = null!;
             ExpClearConfigButton = null!;
             ExpExportConfigButton = null!;

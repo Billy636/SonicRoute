@@ -1,12 +1,23 @@
 param(
     [string]$PublishDirectory=(Join-Path $PSScriptRoot '../../dist/publish/win-x64'),
-    [string]$OutputDirectory=(Join-Path $PSScriptRoot '../../dist/msix/v1.23'),
-    [string]$PackageVersion='1.23.0.0',
+    [string]$OutputDirectory,
+    [string]$PackageVersion,
     [string]$SdkDirectory
 )
 $ErrorActionPreference='Stop'
+if(-not $PackageVersion){
+    [xml]$versionProperties=[IO.File]::ReadAllText((Join-Path $PSScriptRoot '../../build/Version.props'))
+    $sourceVersion=[string]$versionProperties.Project.PropertyGroup.SonicRouteVersion
+    if($sourceVersion -notmatch '^\d+\.\d+(\.\d+)?$'){throw 'Invalid version in build/Version.props.'}
+    $sourceNumber=[Version]::Parse($sourceVersion)
+    $PackageVersion='{0}.{1}.{2}.0' -f $sourceNumber.Major,$sourceNumber.Minor,[Math]::Max(0,$sourceNumber.Build)
+}
 if($PackageVersion -notmatch '^\d+\.\d+\.\d+\.0$'){throw 'Use a four-part Store version ending in .0.'}
 $version=[Version]::Parse($PackageVersion)
+if(-not $OutputDirectory){
+    $directoryVersion=$version.ToString($(if($version.Build -gt 0){3}else{2}))
+    $OutputDirectory=Join-Path $PSScriptRoot ('../../dist/msix/v'+$directoryVersion)
+}
 if($version.Major -gt 65535 -or $version.Minor -gt 65535 -or $version.Build -gt 65535){throw 'Package version component exceeds 65535.'}
 $publish=[IO.Path]::GetFullPath($PublishDirectory)
 $output=[IO.Path]::GetFullPath($OutputDirectory)

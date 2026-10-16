@@ -1502,6 +1502,7 @@ namespace SonicRoute
             RefreshLangCombo(L10n.CurrentLanguage);
             RefreshCustomLangList();
             RefreshDynamicTexts();
+            SyncExecutionHistoryOptions();
         }
 
         /// <summary>语言切换后刷新代码动态文本（XAML 绑定已由 PropertyChanged 自动刷新；
@@ -1944,6 +1945,8 @@ namespace SonicRoute
             if (!IsSettingsChange(sender, e)) return;
             _config.ExperimentalMode = SettingsExperimentalMode.IsChecked == true;
             ConfigService.Save(_config);
+            if (!_config.ExperimentalMode) AutoRuleService.StopExecutionHistory();
+            SyncExecutionHistoryOptions();
             // 导航"实验设置"入口立即显示/隐藏（功能本身重启生效）
             NavExperimental.Visibility = _config.ExperimentalMode ? Visibility.Visible : Visibility.Collapsed;
             ShowToast(L10n.T("St.ExpModeNeedRestart"));
@@ -1978,6 +1981,8 @@ namespace SonicRoute
                 bool expOn = _config.ExperimentalMode;
                 ApplyExpMicUi(_config.ExperimentalMic);
                 ExpBackgroundPollingCheck.IsChecked = _config.BackgroundPollingFallbackEnabled;
+                ExpHistoryCheck.IsChecked = _config.ExecutionHistoryEnabled;
+                SyncExecutionHistoryOptions();
 
             }
             finally

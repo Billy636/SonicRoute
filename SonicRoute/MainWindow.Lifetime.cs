@@ -27,6 +27,7 @@ namespace SonicRoute
         {
             if (_isClosed) return;
             _isClosed = true;
+            ReleaseExecutionHistoryUi();
             ++_navigationVersion;
             ++_overviewRefreshRequest; ++_overviewStateRequest;
             ++_appsRefreshRequest; ++_appsStateRequest;

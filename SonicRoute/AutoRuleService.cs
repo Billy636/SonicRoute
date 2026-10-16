@@ -34,6 +34,41 @@ namespace SonicRoute
         private static volatile bool _shuttingDown;
         private static int _startupExecuted;
         internal static event Action? ExecutionStateChanged;
+        private static ExecutionHistoryStore? _historyStore;
+        private static SemaphoreSlim? _historyIo;
+
+        internal static ExecutionHistoryStore? GetHistoryStore()
+        {
+            var config = ConfigService.Load();
+            if (!config.ExperimentalMode || !config.ExecutionHistoryEnabled) return null;
+            lock (_executingRules)
+            {
+                if (!config.ExperimentalMode || !config.ExecutionHistoryEnabled) return null;
+                return _historyStore ??= new ExecutionHistoryStore(Path.Combine(AppDataRoot.DirectoryPath,
+                    "ExecutionHistory", AppRuntimeIdentity.Current.CommandEdition), config.ExecutionHistoryLimitMb,
+                    _historyIo ??= new SemaphoreSlim(1, 1));
+            }
+        }
+
+        internal static void StopExecutionHistory()
+        {
+            lock (_executingRules) { _historyStore?.Dispose(); _historyStore = null; }
+        }
+
+        internal static Task FlushExecutionHistoryAsync()
+        {
+            lock (_executingRules) return _historyStore?.WhenIdleAsync() ?? Task.CompletedTask;
+        }
+
+        private static ExecutionHistoryRun? BeginHistory(AutoRule rule, string source, string? parent)
+        {
+            try
+            {
+                var store = GetHistoryStore();
+                return store == null ? null : new ExecutionHistoryRun(store, rule, source, parent);
+            }
+            catch { return null; } // Optional diagnostics must not prevent a rule from running.
+        }
 
         internal static string[] RunningRuleIds()
         {
@@ -325,66 +360,102 @@ namespace SonicRoute
 
         /// <summary>执行一条规则（多步骤按顺序执行）。返回是否至少有一个步骤成功。</summary>
         public static async Task<bool> ExecuteAsync(AutoRule rule)
-            => (await ExecuteWithResultAsync(rule)).Succeeded > 0;
+            => (await ExecuteWithResultAsync(rule, rule?.Trigger.ToString() ?? "manual")).Succeeded > 0;
 
         /// <summary>各入口共享单飞、步骤快照、失败策略及结果计数。</summary>
-        internal static Task<ExecutionResult> ExecuteWithResultAsync(AutoRule rule)
-            => ExecuteCoreAsync(rule, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
+        internal static Task<ExecutionResult> ExecuteWithResultAsync(AutoRule rule, string source = "manual")
+            => ExecuteCoreAsync(rule, new HashSet<string>(StringComparer.OrdinalIgnoreCase), source, null);
 
-        private static async Task<ExecutionResult> ExecuteCoreAsync(AutoRule rule, HashSet<string> ancestors)
+        private static async Task<ExecutionResult> ExecuteCoreAsync(AutoRule rule, HashSet<string> ancestors,
+            string source, string? parentRunId)
         {
             if (rule == null || string.IsNullOrWhiteSpace(rule.Id)) return new ExecutionResult(0, 1);
             if (_shuttingDown) return new ExecutionResult(0, 0, canceled: true);
+            var history = BeginHistory(rule, source, parentRunId);
+            ExecutionResult outcome = new(0, 1);
+            ExecutionResult Finish(ExecutionResult value) { outcome = value; return value; }
+            bool entered = false;
             string id = rule.Id, name = rule.Name;
-            if (ancestors.Contains(id) || ancestors.Count >= 16)
-            {
-                AutoRuleScheduler.Log($"Execute 拒绝循环或过深调用: [{name}] Id={id}");
-                return new ExecutionResult(0, 1);
-            }
-            lock (_executingRules)
-            {
-                if (!_executingRules.Add(id)) return new ExecutionResult(0, 0, busy: true);
-            }
             int succeeded = 0, failed = 0;
-            var path = new HashSet<string>(ancestors, StringComparer.OrdinalIgnoreCase) { id };
             var token = _executionLifetime.Token;
             try
             {
+                if (ancestors.Contains(id) || ancestors.Count >= 16)
+                {
+                    AutoRuleScheduler.Log($"Execute 拒绝循环或过深调用: [{name}] Id={id}");
+                    return Finish(new ExecutionResult(0, 1));
+                }
+                lock (_executingRules)
+                {
+                    entered = _executingRules.Add(id);
+                    if (!entered) return Finish(new ExecutionResult(0, 0, busy: true));
+                }
+                var path = new HashSet<string>(ancestors, StringComparer.OrdinalIgnoreCase) { id };
                 var steps = rule.CloneSteps();
+                if (history != null) history.Entry.TotalSteps = steps.Count;
                 NotifyExecutionStateChanged();
                 AutoRuleScheduler.Log($"Execute 开始: [{name}] 触发={rule.Trigger} 步骤={steps.Count}");
                 for (int index = 0; index < steps.Count; index++)
                 {
                     var step = steps[index];
-                    if (token.IsCancellationRequested) return new ExecutionResult(succeeded, failed, canceled: true);
-                    bool ok = await ExecuteStepAsync(step, token, path);
-                    if (token.IsCancellationRequested) return new ExecutionResult(succeeded, failed, canceled: true);
+                    if (token.IsCancellationRequested) return Finish(new ExecutionResult(succeeded, failed, canceled: true));
+                    var detail = history?.Step(index, step);
+                    long started = detail == null ? 0 : Stopwatch.GetTimestamp();
+                    bool ok;
+                    try { ok = await ExecuteStepAsync(step, token, path, detail, history?.Entry.RunId); }
+                    finally
+                    {
+                        if (detail != null)
+                        {
+                            detail.ElapsedMs = ExecutionHistoryRun.Elapsed(started);
+                            if (token.IsCancellationRequested) detail.Status = "canceled";
+                        }
+                    }
+                    if (detail != null)
+                    {
+                        detail.Status = token.IsCancellationRequested ? "canceled" : ok ? "success" : "failed";
+                        if (!ok && detail.Reason.Length == 0) detail.Reason = "action_failed";
+                    }
+                    if (token.IsCancellationRequested) return Finish(new ExecutionResult(succeeded, failed, canceled: true));
                     if (ok) succeeded++; else failed++;
                     AutoRuleScheduler.Log($"Execute 步骤: [{name}] Action={step.Action} 结果={ok}");
                     if (!ok && step.StopOnFailure)
                     {
                         int skipped = steps.Count - index - 1;
                         AutoRuleScheduler.Log($"Execute 失败后停止: [{name}] 跳过={skipped}");
-                        return new ExecutionResult(succeeded, failed, stopped: true, skipped: skipped);
+                        if (history != null)
+                            for (int next = index + 1; next < steps.Count && history.Entry.Steps.Count < 100; next++)
+                            {
+                                var skippedStep = history.Step(next, steps[next]);
+                                if (skippedStep != null) { skippedStep.Status = "skipped"; skippedStep.Reason = "stopped"; }
+                            }
+                        return Finish(new ExecutionResult(succeeded, failed, stopped: true, skipped: skipped));
                     }
                 }
                 AutoRuleScheduler.Log($"Execute 完成: [{name}] 成功={succeeded} 失败={failed}");
-                return new ExecutionResult(succeeded, failed);
+                return Finish(new ExecutionResult(succeeded, failed));
             }
-            catch (OperationCanceledException) { return new ExecutionResult(succeeded, failed, canceled: true); }
+            catch (OperationCanceledException) { return Finish(new ExecutionResult(succeeded, failed, canceled: true)); }
             catch (Exception ex)
             {
                 AutoRuleScheduler.Log($"Execute 失败: [{name}] {ex.Message}");
-                return new ExecutionResult(succeeded, failed + 1);
+                return Finish(new ExecutionResult(succeeded, failed + 1));
             }
             finally
             {
-                lock (_executingRules) _executingRules.Remove(id);
-                NotifyExecutionStateChanged();
+                // Never insert diagnostic disk latency between parent/child rule steps.
+                if (history != null)
+                    try { _ = history.CompleteAsync(outcome); } catch { }
+                if (entered)
+                {
+                    lock (_executingRules) _executingRules.Remove(id);
+                    NotifyExecutionStateChanged();
+                }
             }
         }
 
-        private static async Task<bool> ExecuteStepAsync(AutoRuleStep step, CancellationToken token, HashSet<string> path)
+        private static async Task<bool> ExecuteStepAsync(AutoRuleStep step, CancellationToken token, HashSet<string> path,
+            ExecutionHistoryStep? detail, string? parentRunId)
         {
             try
             {
@@ -399,16 +470,18 @@ namespace SonicRoute
                         {
                             var target = await Task.Run(() => AutoRuleStore.Find(step.TargetRuleId));
                             token.ThrowIfCancellationRequested();
-                            if (target == null) return false;
-                            var result = await ExecuteCoreAsync(target, path);
+                            if (target == null) { if (detail != null) detail.Reason = "rule_missing"; return false; }
+                            var result = await ExecuteCoreAsync(target, path, "rule", parentRunId);
+                            if (detail != null && (result.Busy || result.Canceled || result.Failed > 0 || result.Succeeded == 0))
+                                detail.Reason = path.Contains(target.Id) || path.Count >= 16 ? "cycle" : result.Busy ? "rule_busy" : "rule_failed";
                             return !result.Busy && !result.Canceled && result.Failed == 0 && result.Succeeded > 0;
                         }
 
                     case AutoRuleAction.SetSystemOutput:
-                        return await Task.Run(() => SetSystemDevice(EDataFlow.eRender, step.TargetDeviceId));
+                        return await Task.Run(() => SetSystemDevice(EDataFlow.eRender, step.TargetDeviceId, detail));
 
                     case AutoRuleAction.SetSystemInput:
-                        return await Task.Run(() => SetSystemDevice(EDataFlow.eCapture, step.TargetDeviceId));
+                        return await Task.Run(() => SetSystemDevice(EDataFlow.eCapture, step.TargetDeviceId, detail));
 
                     case AutoRuleAction.SetSystemVolume:
                         return await Task.Run(() =>
@@ -427,23 +500,23 @@ namespace SonicRoute
                     case AutoRuleAction.SetAppVolume:
                         {
                             return await Task.Run(() => WithApp(step.TargetApp, pid =>
-                                SessionVolumeService.SetVolumePercent(pid, MathEx.Clamp(step.Volume, 0, 100))));
+                                SessionVolumeService.SetVolumePercent(pid, MathEx.Clamp(step.Volume, 0, 100)), detail));
                         }
 
                     case AutoRuleAction.ToggleAppMute:
                         {
                             return await Task.Run(() => WithApp(step.TargetApp, pid =>
-                                SessionVolumeService.ToggleMuteChecked(pid).Applied));
+                                SessionVolumeService.ToggleMuteChecked(pid).Applied, detail));
                         }
 
                     case AutoRuleAction.SetAppMute:
                         return await Task.Run(() => WithApp(step.TargetApp, pid =>
-                            SessionVolumeService.SetMute(pid, step.Muted)));
+                            SessionVolumeService.SetMute(pid, step.Muted), detail));
 
                     case AutoRuleAction.AdjustAppVolume:
                         return await Task.Run(() => WithApp(step.TargetApp, pid =>
                             SessionVolumeService.AdjustVolumePercent(pid,
-                                MathEx.Clamp(step.VolumeDelta, -100, 100)).Applied));
+                                MathEx.Clamp(step.VolumeDelta, -100, 100)).Applied, detail));
 
                     case AutoRuleAction.SetGlobalMicMute:
                     case AutoRuleAction.ToggleGlobalMicMute:
@@ -468,10 +541,10 @@ namespace SonicRoute
                         }
 
                     case AutoRuleAction.SetAppOutput:
-                        return await Task.Run(() => ApplyEndpointForApp(step.TargetApp, EDataFlow.eRender, step.TargetDeviceId));
+                        return await Task.Run(() => ApplyEndpointForApp(step.TargetApp, EDataFlow.eRender, step.TargetDeviceId, detail));
 
                     case AutoRuleAction.SetAppInput:
-                        return await Task.Run(() => ApplyEndpointForApp(step.TargetApp, EDataFlow.eCapture, step.TargetDeviceId));
+                        return await Task.Run(() => ApplyEndpointForApp(step.TargetApp, EDataFlow.eCapture, step.TargetDeviceId, detail));
 
                     case AutoRuleAction.LaunchProgram:
                         return await Task.Run(() => LaunchPrograms(step.EffectiveLaunchItems(), step.LaunchMode));
@@ -483,23 +556,27 @@ namespace SonicRoute
                         return ShowCustomOsd(step.OsdTitle, step.OsdText);
                 }
             }
+            catch (OperationCanceledException) { throw; }
             catch
             {
+                if (detail != null) detail.Reason = "exception";
                 // 规则执行失败静默，不影响主程序
             }
             return false;
         }
 
-        private static bool WithApp(string processName, Func<int, bool> action)
+        private static bool WithApp(string processName, Func<int, bool> action, ExecutionHistoryStep? detail = null)
         {
             int pid = ResolveAppPid(processName);
+            if (pid <= 0 && detail != null) detail.Reason = "app_unavailable";
             return pid > 0 && action(pid);
         }
 
         /// <summary>切换系统默认播放 / 录音设备（空或系统默认虚拟 id = 无操作失败，避免把系统默认"还原"成无意义状态）。</summary>
-        private static bool SetSystemDevice(EDataFlow flow, string deviceId)
+        private static bool SetSystemDevice(EDataFlow flow, string deviceId, ExecutionHistoryStep? detail = null)
         {
-            if (string.IsNullOrWhiteSpace(deviceId) || AudioService.IsSystemDefault(deviceId)) return false;
+            if (string.IsNullOrWhiteSpace(deviceId) || AudioService.IsSystemDefault(deviceId))
+            { if (detail != null) detail.Reason = "device_not_selected"; return false; }
             var r = SystemDefaultDeviceService.SetDefault(flow, deviceId);
             return r.Success;
         }
@@ -518,10 +595,10 @@ namespace SonicRoute
             return app == null ? -1 : (int)app.ProcessId;
         }
 
-        private static bool ApplyEndpointForApp(string processName, EDataFlow flow, string deviceId)
+        private static bool ApplyEndpointForApp(string processName, EDataFlow flow, string deviceId, ExecutionHistoryStep? detail = null)
         {
             int pid = ResolveAppPid(processName);
-            if (pid <= 0) return false;
+            if (pid <= 0) { if (detail != null) detail.Reason = "app_unavailable"; return false; }
             string target = string.IsNullOrWhiteSpace(deviceId)
                 ? AudioService.SystemDefaultDeviceId  // 空 = 还原跟随系统默认
                 : deviceId;

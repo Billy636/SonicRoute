@@ -56,7 +56,7 @@ namespace SonicRoute
             {
                 var rule = await Task.Run(() => AutoRuleStore.Find(id));
                 if (rule == null) { ShowOsd(L10n.T("Auto.Favorites"), L10n.T("Auto.MissingRule")); return; }
-                var result = await AutoRuleService.ExecuteWithResultAsync(rule);
+                var result = await AutoRuleService.ExecuteWithResultAsync(rule, "favorite");
                 if (!Dispatcher.HasShutdownStarted) ShowOsd(rule.Name, AutoRuleService.DescribeResult(result));
             }
             catch { if (!Dispatcher.HasShutdownStarted) ShowOsd(L10n.T("Auto.Favorites"), L10n.T("Auto.RunFailed")); }

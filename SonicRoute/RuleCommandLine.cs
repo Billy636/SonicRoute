@@ -145,7 +145,9 @@ namespace SonicRoute
                 if (matches.Count == 0) return Error(3, "rule_not_found");
                 if (matches.Count != 1) return Error(4, "ambiguous_rule");
                 var rule = matches[0];
-                var execution = await AutoRuleService.ExecuteWithResultAsync(rule);
+                var execution = await AutoRuleService.ExecuteWithResultAsync(rule, "command");
+                // A temporary command host may exit immediately after returning its result.
+                await AutoRuleService.FlushExecutionHistoryAsync();
                 return new Result
                 {
                     ExitCode = execution.Busy ? 5 : execution.Canceled ? 7 : execution.Failed > 0 ? 1 : 0,

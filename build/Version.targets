@@ -1,0 +1,13 @@
+<Project>
+  <Target Name="GenerateVersionedLegacyManifest" BeforeTargets="SetWin32ManifestProperties"
+          DependsOnTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ApplicationManifest>$(IntermediateOutputPath)SonicRoute.app.manifest</ApplicationManifest>
+    </PropertyGroup>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/app.manifest" DestinationFiles="$(ApplicationManifest)" />
+    <XmlPoke XmlInputPath="$(ApplicationManifest)"
+             Query="/*[local-name()='assembly']/*[local-name()='assemblyIdentity']/@version"
+             Value="$(SonicRouteNumericVersion)" />
+    <ItemGroup><FileWrites Include="$(ApplicationManifest)" /></ItemGroup>
+  </Target>
+</Project>
