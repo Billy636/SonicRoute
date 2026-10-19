@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32.SafeHandles;
 
 namespace SonicRoute
 {
@@ -32,16 +34,23 @@ namespace SonicRoute
         /// <summary>取 PID 对应进程的图标；失败时返回 null（调用方显示默认图标）。</summary>
         public static ImageSource? GetIconForPid(int pid)
         {
-            string? exe = null;
-            try
-            {
-                using var p = Process.GetProcessById(pid);
-                exe = p.MainModule?.FileName;
-            }
-            catch { /* 系统/提升进程可能无权限 */ }
+            if (pid <= 0) return null;
+            // 只查询映像路径，不读取主模块；普通权限也可查询许多提升/受保护进程。
+            using var handle = OpenProcess(0x1000, false, pid); // PROCESS_QUERY_LIMITED_INFORMATION
+            if (handle.IsInvalid) return null;
 
-            if (string.IsNullOrWhiteSpace(exe) || !File.Exists(exe)) return null;
-            return GetOrExtract(exe);
+            var path = new StringBuilder(1024);
+            int length = path.Capacity;
+            if (QueryFullProcessImageName(handle, 0, path, ref length))
+                return GetIconForPath(path.ToString());
+            if (Marshal.GetLastWin32Error() == 122) // ERROR_INSUFFICIENT_BUFFER：仅长路径重试。
+            {
+                path.EnsureCapacity(32768);
+                length = path.Capacity;
+                if (QueryFullProcessImageName(handle, 0, path, ref length))
+                    return GetIconForPath(path.ToString());
+            }
+            return null; // 进程已退出或仍无权查询时，保留空图标的失败语义。
         }
 
         /// <summary>取指定 EXE 的图标（自动化「打开方式」候选应用使用，与进程图标共用缓存）；失败返回 null。</summary>
@@ -101,7 +110,14 @@ namespace SonicRoute
             TrimIfNeeded();
         }
 
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern SafeProcessHandle OpenProcess(uint access, [MarshalAs(UnmanagedType.Bool)] bool inheritHandle, int processId);
+
+        [DllImport("kernel32.dll", EntryPoint = "QueryFullProcessImageNameW", CharSet = CharSet.Unicode, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool QueryFullProcessImageName(SafeProcessHandle process, uint flags, StringBuilder path, ref int length);
+
+        [DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
 
     }
